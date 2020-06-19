@@ -1,0 +1,4 @@
+
+DROP INDEX IF EXISTS pushJobsIdx;
+DROP TABLE IF EXISTS pushJobs;
+

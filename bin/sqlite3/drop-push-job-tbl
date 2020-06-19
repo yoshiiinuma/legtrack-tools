@@ -1,0 +1,23 @@
+#!/bin/bash
+
+function usage {
+  echo
+  echo "### USAGE #########################################"
+  echo
+  echo " ./bin/sqlite3/drop-push-job-tbl [ENV]"
+  echo
+  echo "ENV: {production|development|test} default: test"
+  echo
+  echo "###################################################"
+  echo
+}
+
+env=${1:-test}
+
+if [[ ! "$env" =~ ^production|development|test$ ]];then
+  usage
+  exit 0
+fi
+db="results/${env}.db"
+
+sqlite3 $db < sql/sqlite3/drop-push-job-tbl.sql

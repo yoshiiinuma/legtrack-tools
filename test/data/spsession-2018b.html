@@ -1,0 +1,809 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="ctl00_Head1"><meta http-equiv="content-type" content="text/html;charset=iso-8859-2" /><meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+
+    <script type="text/javascript">
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-XXXXX-Y', 'auto');
+        ga('send', 'pageview');
+        function clearText(textbox, text) {
+            if (textbox.value == text)
+                textbox.value = "";
+        }
+        function resetText(textbox, text) {
+            if (textbox.value == "")
+                textbox.value = text;
+        }
+
+        function clickme() {
+            document.getElementById("LinkButtonLinks").click();
+        }
+        /* GOOGLE ANALYTICS */
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-32625883-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+    <style type="text/css">
+    input:-ms-input-placeholder,
+    textarea:-ms-input-placeholder
+    {
+        color: gray#808080;
+        font-size: 8pt;
+        font-style:italic;
+    }
+
+    input::-webkit-input-placeholder,
+    textarea::-webkit-input-placeholder
+    {
+        color: gray#808080;
+        font-size: 8pt;
+        font-style:italic;
+    }
+</style>
+    <link rel="stylesheet" href="images/screen.css" type="text/css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" /><link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" /><title>
+	Special Session
+</title></head>
+
+<body>
+
+<div style="border-style: none; width: 975px; margin-left: auto; margin-right: auto; margin-top: -10px;">
+    <form name="aspnetForm" method="post" action="./splsession.aspx?year=2018b" id="aspnetForm">
+<input type="hidden" name="ctl00_ToolkitScriptManager1_HiddenField" id="ctl00_ToolkitScriptManager1_HiddenField" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+
+
+<script src="/ScriptResource.axd?d=JE-laYD2Y6C1RGc1l6kBBol8CtSLO5yKbnaOCr4VCbeg1TZ5wf1GRiU3ctw2CBFW9zWyBF6dBd-K3u8s0qaT8ir4UULEqFDJwttz8YaFr-ilzYWaPnCi4WPmGm1X0wO30&amp;t=78f0a2d1" type="text/javascript"></script>
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="499693C3" />
+<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+<input type="hidden" name="__PREVIOUSPAGE" id="__PREVIOUSPAGE" value="YLLuFv1nsRuzHZ5XCIexlLv4-nX_RySed7stxsafmjGFU2zym576z4FaTfvDhDPj6JALJ9kBI_ppHkWG3mUR22YZVwmdhDC74AX1E_mRQH01" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="KxaO59YsgG7alWeoylV7YgK7sQ5IQWw2kvGqYaibtbfB71EXZiK+v+7RuITCtxZWrSQcAsL91nRklRiHUqcjO8nLRB8t7hQWpBKxQrA7fe4PuYev1HbpCdttZgHyEvzB/RH1V8rCWs1cNrxpxUTR4EmaMzSaM+AExrGByzSvkaXzDFIeIoIIrnrnSD9y1+V80jsj5xJwk8OiTrTk4XINtf87XYTHSwNjpH94ZXF74zD+s6gJxL0a8pqyNkgWfyb08q42yI9kbm+fnsI4oue6h3RAY4GrvFxq4ysDXkj7Qa8blvgoJmU/vHdzI4HYQr1+Rq9LVisAZKcG1Q/xVpEH6PzD7BKKrM46omI2Xn25Urc4zSJy8MzphlFvLBKOh5kO1XC6MvCkcSgz/0vYxaEGQJO+ti7lblKhcamPEVRpkXT/6Vrt/xYxVonCxcg0lmE1eguFNl7gJul9XEiZ6PKMEQ==" />
+    
+  
+    
+   
+    <div class="shadow">
+        <div class="header" style="border:none;">
+            <div id="header">
+            
+                <div class="account" style="float: right; clear: both; padding-right: 8px; padding-top: 8px; font-family: Arial;">
+                    
+                    
+                    
+                    <div id="ctl00_PanelNotLoggedIn">
+	
+                    
+                    <a id="ctl00_HyperLinkLogin" href="/login/login.aspx">Sign 
+                        In</a>
+                        &nbsp;|
+                    <a id="ctl00_HyperLinkRegister" href="/login/register.aspx">Register</a>&nbsp;|&nbsp;<a id="ctl00_HyperLink9" href="/help.aspx"><font size="1">help</font></a>
+                        &nbsp;<input type="image" name="ctl00$ImageButtonHome" id="ctl00_ImageButtonHome" src="Images/home_icon.gif" alt="Home Button" align="middle" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ImageButtonHome&quot;, &quot;&quot;, false, &quot;&quot;, &quot;/&quot;, false, false))" border="0" />
+          
+</div>
+                </div>
+                <h1>
+                    <a href="/" id="ctl00_lnk" title="Click the header on any page to return to the Home screen.">
+                    Hawaii State Legislature</a></h1>
+                
+            </div>
+        </div>
+        <!-- close header -->
+        <div id="ctl00_PanelHeader">
+	
+            <div class="subheader gradientgray">
+                <table width="100%">
+                    <tr>
+                        <td width="270px">
+                            <div style="font-size: 9pt; margin-left: 45px;">
+                                
+                                30th Legislature, 2020
+                                <br />
+                                <a id="ctl00_LinkButtonLegCal" href="javascript:__doPostBack(&#39;ctl00$LinkButtonLegCal&#39;,&#39;&#39;)"><font color="#1869A5" size="1">View Legislative 
+                                Calendar</font></a></div>
+                        </td>
+                        <td>
+                            <span id="ctl00_LabelSessionTime"><font size="1"><center>The Legislature will reconvene on Monday, May 11, 2020
+<br>
+
+</center></font></span>
+                        </td>
+                        <td align="right" valign="top" width="300px">
+                            <span id="ctl00_LabelFindLeg"><font size="1">Find Your Legislator</font></span>
+                            <input name="ctl00$TextBoxFindLeg" type="text" value="Enter Street Name" id="ctl00_TextBoxFindLeg" title="Enter Street Name" onfocus="clearText(this,&#39;Enter Street Name&#39;)" onblur="resetText(this,&#39;Enter Street Name&#39;)" />
+                            <input type="submit" name="ctl00$ButtonFindLegGo" value="Go" id="ctl00_ButtonFindLegGo" class="button blue small" />&nbsp;
+                                
+                            
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        
+</div>
+        </div><!-- close noprint -->
+        <!--close subheader-->
+        <div class="colmask threecol shadow" style="margin-bottom: 5px; padding-bottom: 25px;">
+            <div class="colmid">
+                <div class="colleft">
+                    <div class="col1">
+                        
+    <div id="ctl00_ContentPlaceHolderCol1_UpdatePanel2">
+	<br /><br />
+            <div class="year">
+                <span id="ctl00_ContentPlaceHolderCol1_LabelYear">2018</span>
+            </div>
+            <div class="rttop">
+                <span id="ctl00_ContentPlaceHolderCol1_LabelSession">Second Special Session</span></div>
+            
+                    <div class="roundedrect gradientgray" style="border-color: #C6E6F5">
+                        <center>
+                            <ul>
+                       <li><b><a href="#commreports" style="color:blue">Committee Reports</a></li></b>
+                       <li><b><a href="#hearings" style="color:blue">Hearing Notices</a></li></b>
+                       <li><b><a href="#testimony" style="color:blue">Testimony</a></li></b>
+                       <li><b><a href="#od" style="color:blue">Order of the Day</a></li></b>
+                       <li><b><a href="#journal" style="color:blue">Journal</a></li></b>
+                        </ul>
+                        </center>
+                        <br />
+                        <div id="ctl00_ContentPlaceHolderCol1_PanelSS">
+		                    
+                        <div>
+			<table cellspacing="0" cellpadding="6" rules="rows" border="1" id="ctl00_ContentPlaceHolderCol1_GridViewReports" width="100%">
+				<tr bgcolor="#F0F0F0">
+					<th scope="col"><font face="Tahoma" color="#3A5078" size="1">Measure Text pdf</font></th><th scope="col"><font face="Tahoma" color="#3A5078" size="1">Status</font></th><th align="left" scope="col"><font face="Tahoma" color="#3A5078" size="1"><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolderCol1$GridViewReports&#39;,&#39;Sort$type,number&#39;)"><font color="#3A5078">Measure</font></a></font></th><th align="left" scope="col"><font face="Tahoma" color="#3A5078" size="1"><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolderCol1$GridViewReports&#39;,&#39;Sort$current_referral&#39;)"><font color="#3A5078">Current Referral</font></a></font></th>
+				</tr><tr>
+					<td width="25"><font face="Tahoma" color="#3A5078">
+                                        <a id="ctl00_ContentPlaceHolderCol1_GridViewReports_ctl02_HyperLink2" href="http://www.capitol.hawaii.gov/splsession2018b/SR1_.pdf" target="_blank"><img src="Images/pdf_icon.gif" alt="" border="0" /></a>
+                                    </font></td><td><font face="Tahoma" color="Red">                                    
+                                        <a id="ctl00_ContentPlaceHolderCol1_GridViewReports_ctl02_reportsStatusLink" href="/measure_indivSS.aspx?billtype=SR&amp;billnumber=1&amp;year=2018b" target="_blank"><b><font color="Blue">SR1_</font></b></a>
+                                    </font></td><td><font face="Tahoma" color="#3A5078">                                        
+                                        <br />
+                                        <span id="ctl00_ContentPlaceHolderCol1_GridViewReports_ctl02_Label1"><u><font size="2">Second Special Session; Approval of Journal </font></u></span><br />
+                                        <span id="ctl00_ContentPlaceHolderCol1_GridViewReports_ctl02_Label7"><font size="1">AUTHORIZING THE PRESIDENT TO APPROVE THE JOURNAL OF THE SENATE ON THIS FINAL DAY OF THE SECOND SPECIAL SESSION OF 2018.</font></span><br />
+                                        
+                                    </font></td><td><font face="Tahoma" color="#3A5078">
+                                        <span id="ctl00_ContentPlaceHolderCol1_GridViewReports_ctl02_Label9"><font size="1"></font></span>
+                                    </font></td>
+				</tr><tr bgcolor="#EEF7FD">
+					<td width="25"><font face="Tahoma" color="#3A5078">
+                                        <a id="ctl00_ContentPlaceHolderCol1_GridViewReports_ctl03_HyperLink2" href="http://www.capitol.hawaii.gov/splsession2018b/JC1_.pdf" target="_blank"><img src="Images/pdf_icon.gif" alt="" border="0" /></a>
+                                    </font></td><td><font face="Tahoma" color="Red">                                    
+                                        <a id="ctl00_ContentPlaceHolderCol1_GridViewReports_ctl03_reportsStatusLink" href="/measure_indivSS.aspx?billtype=JC&amp;billnumber=1&amp;year=2018b" target="_blank"><b><font color="Blue">JC1</font></b></a>
+                                    </font></td><td><font face="Tahoma" color="#3A5078">                                        
+                                        <br />
+                                        <span id="ctl00_ContentPlaceHolderCol1_GridViewReports_ctl03_Label1"><u><font size="2">District Court of the First Circuit</font></u></span><br />
+                                        <span id="ctl00_ContentPlaceHolderCol1_GridViewReports_ctl03_Label7"><font size="1">Submitting for consideration and confirmation to the District Court of the First Circuit, Judicial Nominee, SUMMER M.M. KUPAU-ODO, for a term to expire in 6 years.</font></span><br />
+                                        
+                                    </font></td><td><font face="Tahoma" color="#3A5078">
+                                        <span id="ctl00_ContentPlaceHolderCol1_GridViewReports_ctl03_Label9"><font size="1">JDC</font></span>
+                                    </font></td>
+				</tr><tr>
+					<td width="25"><font face="Tahoma" color="#3A5078">
+                                        <a id="ctl00_ContentPlaceHolderCol1_GridViewReports_ctl04_HyperLink2" href="http://www.capitol.hawaii.gov/splsession2018b/GM1_.pdf" target="_blank"><img src="Images/pdf_icon.gif" alt="" border="0" /></a>
+                                    </font></td><td><font face="Tahoma" color="Red">                                    
+                                        <a id="ctl00_ContentPlaceHolderCol1_GridViewReports_ctl04_reportsStatusLink" href="/measure_indivSS.aspx?billtype=GM&amp;billnumber=1&amp;year=2018b" target="_blank"><b><font color="Blue">GM1</font></b></a>
+                                    </font></td><td><font face="Tahoma" color="#3A5078">                                        
+                                        <br />
+                                        <span id="ctl00_ContentPlaceHolderCol1_GridViewReports_ctl04_Label1"><u><font size="2">Associate Judge of the Intermediate Court of Appeals</font></u></span><br />
+                                        <span id="ctl00_ContentPlaceHolderCol1_GridViewReports_ctl04_Label7"><font size="1">Submitting for consideration and confirmation to the Intermediate Court of Appeals as Associate Judge, Gubernatorial Nominee, KEITH HIRAOKA, for a term of 10 years.</font></span><br />
+                                        
+                                    </font></td><td><font face="Tahoma" color="#3A5078">
+                                        <span id="ctl00_ContentPlaceHolderCol1_GridViewReports_ctl04_Label9"><font size="1">JDC</font></span>
+                                    </font></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+                    </div>
+                    <br />
+                    <!---------------------------------------------------------------->
+                    
+            
+                    
+                    <!---------------------------------------------------------------->
+                    <a name="commreports"></a>
+                    <div class="roundedrect gradientgray" style="border-color: #C6E6F5">
+                        <span id="ctl00_ContentPlaceHolderCol1_Label12"><b><font color="#124D78">Committee Reports</font></b></span><br />
+                        <div class="padding">
+                        <div>
+		<table cellspacing="0" border="0" id="ctl00_ContentPlaceHolderCol1_GridViewReport">
+			<tr>
+				<th scope="col">&nbsp;</th>
+			</tr><tr>
+				<td>
+                                        <a id="ctl00_ContentPlaceHolderCol1_GridViewReport_ctl02_HyperLink3" href="http://www.capitol.hawaii.gov/splsession2018b/GM1_SSCR2_.pdf" target="_blank">GM1_SSCR2_</a>
+                                    </td>
+			</tr><tr>
+				<td>
+                                        <a id="ctl00_ContentPlaceHolderCol1_GridViewReport_ctl03_HyperLink3" href="http://www.capitol.hawaii.gov/splsession2018b/JC1_SSCR1_.pdf" target="_blank">JC1_SSCR1_</a>
+                                    </td>
+			</tr>
+		</table>
+	</div>
+                        </div>
+                    </div><br />
+                    <a name="hearings"></a>
+                    <div class="roundedrect gradientgray" style="border-color: #C6E6F5">
+                        <span id="ctl00_ContentPlaceHolderCol1_Label14"><b><font color="#124D78">Hearing Notices</font></b></span><br />
+                        <div class="padding">
+                        <div>
+		<table cellspacing="0" cellpadding="2" border="0" id="ctl00_ContentPlaceHolderCol1_GridViewHearing" width="100%">
+			<tr>
+				<th scope="col">&nbsp;</th><th scope="col">Date/Time</th><th align="left" scope="col">Comm</th><th scope="col">Notice</th>
+			</tr><tr>
+				<td>
+                                    <a id="ctl00_ContentPlaceHolderCol1_GridViewHearing_ctl02_reportsStatusLink" href="/measure_indivSS.aspx?billtype=GM&amp;billnumber=1&amp;year=2018b" target="_blank" style="display:inline-block;"><b><font color="Blue">GM1</font></b></a>
+                                </td><td align="center">
+                                <span id="ctl00_ContentPlaceHolderCol1_GridViewHearing_ctl02_Label27">10/24/2018 10:30 AM</span><br />
+                                &nbsp;Room&nbsp;<span id="ctl00_ContentPlaceHolderCol1_GridViewHearing_ctl02_Label17">224</span>
+                            </td><td align="left">
+                                <span id="ctl00_ContentPlaceHolderCol1_GridViewHearing_ctl02_Label17">JDC</span>
+                            </td><td align="center">
+                                <a id="ctl00_ContentPlaceHolderCol1_GridViewHearing_ctl02_HyperLink1" href="http://www.capitol.hawaii.gov/splsession2018b/Hearing%20JDC%2010-24-18.pdf" target="_blank">See It</a> 
+                            </td>
+			</tr><tr>
+				<td>
+                                    <a id="ctl00_ContentPlaceHolderCol1_GridViewHearing_ctl03_reportsStatusLink" href="/measure_indivSS.aspx?billtype=JC&amp;billnumber=1&amp;year=2018b" target="_blank" style="display:inline-block;"><b><font color="Blue">JC1</font></b></a>
+                                </td><td align="center">
+                                <span id="ctl00_ContentPlaceHolderCol1_GridViewHearing_ctl03_Label27">10/24/2018 10:30 AM</span><br />
+                                &nbsp;Room&nbsp;<span id="ctl00_ContentPlaceHolderCol1_GridViewHearing_ctl03_Label17">224</span>
+                            </td><td align="left">
+                                <span id="ctl00_ContentPlaceHolderCol1_GridViewHearing_ctl03_Label17">JDC</span>
+                            </td><td align="center">
+                                <a id="ctl00_ContentPlaceHolderCol1_GridViewHearing_ctl03_HyperLink1" href="http://www.capitol.hawaii.gov/splsession2018b/Hearing%20JDC%2010-24-18.pdf" target="_blank">See It</a> 
+                            </td>
+			</tr>
+		</table>
+	</div>
+                        </div>
+                    </div><br />
+            <a name="testimony"></a>
+                    <div class="roundedrect gradientgray" style="border-color: #C6E6F5">
+                        <span id="ctl00_ContentPlaceHolderCol1_Label15"><b><font color="#124D78">Testimony</font></b></span><br />
+                        <div class="padding">
+                            <div>
+		<table cellspacing="0" border="0" id="ctl00_ContentPlaceHolderCol1_GridViewTestimony">
+			<tr>
+				<th scope="col">&nbsp;</th>
+			</tr><tr>
+				<td>
+                                        <a id="ctl00_ContentPlaceHolderCol1_GridViewTestimony_ctl02_HyperLink3" href="http://www.capitol.hawaii.gov/splsession2018b/GM1_TESTIMONY_JDC_10-24-18.pdf" target="_blank">GM1_TESTIMONY_JDC_10-24-18</a>
+                                    </td>
+			</tr><tr>
+				<td>
+                                        <a id="ctl00_ContentPlaceHolderCol1_GridViewTestimony_ctl03_HyperLink3" href="http://www.capitol.hawaii.gov/splsession2018b/JC1_TESTIMONY_JDC_10-24-18.pdf" target="_blank">JC1_TESTIMONY_JDC_10-24-18</a>
+                                    </td>
+			</tr>
+		</table>
+	</div>
+                        </div>
+                    </div><br />
+            <a name="od"></a>
+                    <div class="roundedrect gradientgray" style="border-color: #C6E6F5">
+                        <span id="ctl00_ContentPlaceHolderCol1_Label13"><b><font color="#124D78">Order of the Day</font></b></span><br />
+                        <div class="padding">
+                        <div>
+		<table cellspacing="0" cellpadding="6" border="0" id="ctl00_ContentPlaceHolderCol1_GridViewOD" width="100%">
+			<tr>
+				<td><font face="Tahoma" color="#3A5078">
+                                    <a id="ctl00_ContentPlaceHolderCol1_GridViewOD_ctl02_HyperLinkOD" href="http://www.capitol.hawaii.gov/splsession2018b/SOD%2010-24-18.pdf" target="_blank">SOD 10-24-18</a>
+                                </font></td>
+			</tr><tr>
+				<td><font face="Tahoma" color="#3A5078">
+                                    <a id="ctl00_ContentPlaceHolderCol1_GridViewOD_ctl03_HyperLinkOD" href="http://www.capitol.hawaii.gov/splsession2018b/SOD%2010-24-18%20SUP1.pdf" target="_blank">SOD 10-24-18 SUP1</a>
+                                </font></td>
+			</tr><tr>
+				<td><font face="Tahoma" color="#3A5078">
+                                    <a id="ctl00_ContentPlaceHolderCol1_GridViewOD_ctl04_HyperLinkOD" href="http://www.capitol.hawaii.gov/splsession2018b/SOD%2010-25-18.pdf" target="_blank">SOD 10-25-18</a>
+                                </font></td>
+			</tr>
+		</table>
+	</div>
+                        </div>
+                    </div>   
+            <br />
+            <a name="journal"></a>
+                    <div class="roundedrect gradientgray" style="border-color: #C6E6F5">
+                        <span id="ctl00_ContentPlaceHolderCol1_Label3"><b><font color="#124D78">Journal</font></b></span><br />
+                        <div class="padding">
+                        <div>
+		<table cellspacing="0" cellpadding="6" border="0" id="ctl00_ContentPlaceHolderCol1_GridView1" width="100%">
+			<tr>
+				<td><font face="Tahoma" color="#3A5078">
+                                    <a id="ctl00_ContentPlaceHolderCol1_GridView1_ctl02_HyperLinkOD" href="https://www.capitol.hawaii.gov/journal/senate/2018/Senate_Journal_2018_2nd_Special_Session.pdf" target="_blank">Senate Journal 2nd Special Session</a>
+                                </font></td>
+			</tr>
+		</table>
+	</div>
+                        </div>
+                    </div>              
+        
+</div>
+    
+    
+    
+    
+        
+       
+
+                    </div>
+                    <!-- close col1 -->
+                    
+                    <div class="col2 roundedrect" style="border: 3px none #CB593C; padding: 1em 1em 1em 1em; margin-left: 1em;">
+                       
+                           <div style="font-size: 16pt; color: #CB593C; margin-bottom:-10px;">
+                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img id="ctl00_Image2" src="Images/magnifying-glass_icon.gif" alt="magnifying glass" align="absbottom" height="25" width="29" border="0" />&nbsp;<span id="ctl00_Label7"><font face="Century Gothic">Search</font></span>
+                           
+                        </div>
+                        
+                        <div class="roundedrect" style="border: 3px none #104B78; padding: 6px;">
+                       <div class="roundedrect memberboxes gradientyellow" style="padding: 4px; margin-bottom:10px; color: #585858"><center> <a id="ctl00_HyperLinkTips" href="searchtips.aspx"><b><font size="1">How to use the Searchboxes</font></b></a></center></div>
+                        
+                                <div id="ctl00_Panel1">
+	
+                                    <div class="roundedrect gradientlightblue searchbox shadow">
+                                        <div class="boxlabel">
+                                            Bill Status/Measure Status
+                                        </div>
+                                        
+                                        <input name="ctl00$TextBoxDiffMeasure" type="text" id="ctl00_TextBoxDiffMeasure" title="This search box will bring up the individual measure (bill) status page for the measure you enter. Enter measure type and number together. You will also find testimony and hearings related to the measure on the measure status page." class="textbox" Placeholder="e.g. SB123 or HB456" />&nbsp;
+                                        <input type="submit" name="ctl00$ButtonGo" value="Go" id="ctl00_ButtonGo" class="button blue small" />
+                                    </div>
+                                
+</div>
+                            
+                        
+                                <div>
+	
+                                    <div class="roundedrect gradientlightblue searchbox shadow">
+                                        <div class="boxlabel">
+                                            Keyword Search
+                                            <div style="float: right; margin-top: -5px; margin-right: 15px;">
+                                            </div>
+                                        </div>
+                                        <input name="ctl00$TextBoxMeasureKeyword" type="text" id="ctl00_TextBoxMeasureKeyword" title="Search through the current session of bills and committee reports using keywords such as &#39;fishing&#39; or &#39;computers&#39;. You may also combine words to narrow down your search results." class="textbox" Placeholder="searches 2020 session" />&nbsp;
+                                        <input type="submit" name="ctl00$ButtonMeasureKeywordSearch" value="Go" id="ctl00_ButtonMeasureKeywordSearch" class="button blue small" />
+                                        
+                                        
+                                    </div>
+                                
+</div>
+                          
+                        
+                      
+                                
+                           
+                     
+                        <div id="ctl00_PanelHRS">
+	
+                        
+                        <div class="roundedrect gradientlightblue searchbox shadow">
+                            <div class="boxlabel">
+                                Hawaii Revised Statutes
+                                <div style="float: right; margin-top: -5px; margin-right: 15px;">
+                                               
+                                            </div>
+                            </div>
+                          
+                            <input name="ctl00$TextBoxHRS" type="text" id="ctl00_TextBoxHRS" title="This will search the current Hawaii Revised Statutes (Hawaii Laws) for the search terms that you enter. See the search examples below the Search area. To find a specific section of the HRS, use the Table of Contents link that lists the HRS sections by category. An HRS index is also available in searchable .pdf format." class="textbox" Placeholder="searches 2019 HRS" />&nbsp;
+                            <input type="submit" name="ctl00$ButtonHRS" value="Go" id="ctl00_ButtonHRS" class="button blue small" /><div style="padding: 0px 4px 4px 4px; margin-top: -3px;">
+                              
+                               <a href="http://www.capitol.hawaii.gov/hrscurrent/">Browse HRS Sections</a>
+                               <br /><a href="/docs/HRStoc.pdf">Table of Contents</a>
+                               <br />
+                               <a href="/docs/TablesofDisposition.pdf">Tables of Disposition</a>
+                               <br />
+                            <a href="/docs/HRS_Index.pdf">HRS Index</a>
+                            <br />
+                            <a href="/docs/SupplementIndex.pdf">HRS Index Supplement</a>
+                            
+                            
+                </div>
+                        </div>
+                            
+</div>
+                       
+                       
+                        <div id="ctl00_Panel2">
+	
+                        
+                        <div class="roundedrect gradientlightblue searchbox shadow">
+                            <div class="boxlabel">
+                                Session Laws (Acts)
+                                <div style="float: right; margin-top: -5px; margin-right: 15px;">
+                                                
+                                            </div>
+                            </div>
+                          
+                            <input name="ctl00$TextBoxSLH" type="text" id="ctl00_TextBoxSLH" class="textbox" Placeholder="searches 1959-2018 acts" />&nbsp;
+                            <input type="submit" name="ctl00$ButtonSLH" value="Go" id="ctl00_ButtonSLH" class="button blue small" /><div style="padding: 0px 4px 4px 4px; margin-top: -3px;">
+                              
+                               <a href="/slh.aspx">Browse SLH Sections by Year</a>
+                               
+                            
+                            
+                </div>
+                        </div>
+                            
+</div>
+                    
+                        <div class="roundedrect memberboxes gradientyellow" style="padding: 8px; color: #585858">
+                        <center><b><u>Browse Document Repositories</u></b></center><br />
+                        <table cellpadding="2px" align="center">
+                    <tr>
+                        <td>
+                            
+                            <a id="ctl00_HyperLinkBills" href="https://www.capitol.hawaii.gov/session2020/bills">Bills and Resolutions</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="ctl00_HyperLinkCommRpts" href="https://www.capitol.hawaii.gov/session2020/commreports">Committee Reports</a>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="ctl00_HyperLinkHearings" href="https://www.capitol.hawaii.gov/session2020/hearingnotices">Hearing Notices</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="ctl00_HyperLinkTestimony" href="https://www.capitol.hawaii.gov/session2020/testimony">Testimony</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="ctl00_HyperLinkOD" href="https://www.capitol.hawaii.gov/session2020/orderoftheday">Order of the Day</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="ctl00_HyperLinkRefSheets" href="https://www.capitol.hawaii.gov/session2020/referralsheets">Referral Sheets</a>
+                        </td>
+                    </tr>
+                                       
+                    <tr>
+                        <td>
+                            <a id="ctl00_HyperLinkHouseActionSheets" href="https://www.capitol.hawaii.gov/session2020/actionsheets">House Action Sheets</a>
+                        </td>
+                    </tr>
+                    
+                    
+                    <tr>
+                        <td>
+                            <a id="ctl00_HyperLinkHouseAttendance" href="https://www.capitol.hawaii.gov/houseattendance">House Attendance</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="ctl00_HyperLinkSenateFloorActions" href="https://www.capitol.hawaii.gov/session2020/senate/flooractions">Senate Daily Floor Actions</a>
+                          
+                        </td>
+                    </tr>
+                     </table>
+                     </div>
+                        <center></center>
+                        
+                        
+                        </div>
+                        
+                        
+                    </div>
+                    
+                    <!-- close col2 -->
+                    <div class="col3" style="padding-left: 8px; margin-left: -20px; padding-top: 28px;">
+                   
+                    <br /><br />
+                   
+                    <div class="menuborder" style="padding:5px 5px 5px 10px; margin-bottom:4px; background-image: url('/Images/menubutton.jpg'); background-repeat: no-repeat; cursor:pointer;" onmouseover="this.className='menuborderhover'" onmouseout="this.className='menuborder'" onclick="location.href='/senate.aspx';">
+                                    <span id="ctl00_Label3">Senate</span>     
+                                </div>
+                               
+                                <div class="menuborder" style="padding:5px 5px 5px 10px; margin-bottom:4px; background-image: url('/Images/menubutton.jpg'); background-repeat: no-repeat; cursor:pointer;" onmouseover="this.className='menuborderhover'" onmouseout="this.className='menuborder'" onclick="location.href='/house.aspx';">
+                                    <span id="ctl00_Label1">House</span>     
+                                </div>
+                               
+                                <div class="menuborder" style="padding:5px 5px 5px 10px; margin-bottom:4px; background-image: url('/Images/menubutton.jpg'); background-repeat: no-repeat; cursor:pointer;" onmouseover="this.className='menuborderhover'" onmouseout="this.className='menuborder'" onclick="location.href='/archives/main.aspx';">
+                                    <span id="ctl00_Label4">Archives</span>     
+                                </div>
+                                
+                              <div class="menuborder" style="padding:5px 5px 5px 10px; margin-bottom:4px; background-image: url('/Images/menubutton.jpg'); background-repeat: no-repeat; cursor:pointer;" onmouseover="this.className='menuborderhover'" onmouseout="this.className='menuborder'" onclick="location.href='/leginfo.aspx';">
+                                    <span id="ctl00_Label5">Legislative Information</span>     
+                                </div>
+                                
+                       <div class="menuborder" style="padding:5px 5px 5px 10px; margin-bottom:4px; background-image: url('/Images/menubutton.jpg'); background-repeat: no-repeat; cursor:pointer;" onmouseover="this.className='menuborderhover'" onmouseout="this.className='menuborder'" onclick="location.href='/specialstudies.aspx'">
+                                    <span id="ctl00_Label6">Special Studies</span>     
+                                </div>
+                                
+                               
+                        <div id="ctl00_UpdatePanel1">
+	
+                        
+                                <div class="menuborder" style="padding:5px 5px 5px 10px; margin-bottom:4px; background-image: url('/Images/menubutton.jpg'); background-repeat: no-repeat; cursor:pointer;" onmouseover="this.className='menuborderhover'" onmouseout="this.className='menuborder'" onclick="LinkButtonLinks_Click">
+                                   <a id="ctl00_LinkButtonLinks" class="noU" href="javascript:__doPostBack(&#39;ctl00$LinkButtonLinks&#39;,&#39;&#39;)"><font color="#CB593C">Links&nbsp;&nbsp; 
+                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </font></a>
+                                    &nbsp;    
+                                </div>
+                                
+                                
+                           
+</div>
+                       
+                        <br />
+                        
+                        <div id="ctl00_UP1">
+	 
+                        <div style="padding: 2px; margin-bottom: 10px; margin-left: -2px;">
+                        
+                        <img id="ctl00_Image3" src="Images/photo6.jpg" height="150" border="0" /> 
+                        <div style="padding-top:4px; font-family: 'Century Gothic', 'Lucida Grande', 'Lucida Sans', Verdana; font-size: 10pt; color: #124d79; text-align:center">     <div style="float:right"><input type="image" name="ctl00$ImageButton3" id="ctl00_ImageButton3" src="Images/refresh.gif" border="0" /> </div> 
+                            Hawaii State Capitol<br />
+                            415 South Beretania St.<br />
+                            Honolulu, HI 96813
+                            
+                            
+                            </div>
+                            
+                    </div>
+                    
+</div>
+                    
+                   
+                    <img id="ctl00_Image4" src="Images/information_icon.gif" alt="help icon" align="absbottom" height="30" width="34" border="0" />&nbsp;
+                        <span id="ctl00_Label2"><font face="Century Gothic" color="#CB593C" size="2">Help and Information</font></span>
+                        <div class="roundedrect gradientorange" style="border: 1px solid #CB593C; font-family: 'Century Gothic', 'Lucida Grande', 'Lucida Sans', Verdana; font-size: 9pt; color: #124D78; font-weight: normal; background-color: #FFFFFF; width:93%;">
+                            
+                            <table>
+                            <tr>
+                                    
+                                    <td>
+                                        <a id="ctl00_HyperLink6" class="noU" href="/help.aspx">&#8226;&nbsp;Testimony and Login Help</a>
+                                    </td>
+                                </tr>
+                                
+                                        <tr>
+                                   
+                                    <td>
+                                        <a id="ctl00_HyperLink4" class="noU" href="/faq.aspx">&#8226;&nbsp;Information and FAQs</a>
+                                    </td>
+                                </tr>                       
+                                <tr>
+                                    
+                                    <td>
+                                        <a id="ctl00_HyperLink7" class="noU" href="mapsdirectories.aspx">&#8226;&nbsp;Maps 
+                                        &amp; Directories</a>
+                                    </td>
+                                </tr>
+                               
+                                <tr>
+                                    
+                                    <td>
+                                        <a id="ctl00_HyperLink5" class="noU" href="/glossary.aspx?show=all">&#8226;&nbsp;Legislative 
+                                        Glossary</a>
+                                    </td>
+                                </tr>
+                                
+                                
+                                <tr>
+                                    
+                                    <td>
+                                        <a id="ctl00_HyperLink3" class="noU" href="/rss.aspx">&#8226;&nbsp;RSS 
+                                        Feeds</a>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    
+                                    <td>
+                                        <a id="ctl00_HyperLink10" class="noU" href="/contact.aspx">&#8226;&nbsp;Contact 
+                                        Us</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br /><br />
+                          
+                    </div>
+                    <!-- end col3-->
+                </div>
+            </div>
+        </div>
+    
+        
+        <div class="footer gradientgray shadow" style="border:none; font-size: 8pt; font-family: 'Tahoma';
+            font-weight: normal; float: right">
+            <div style="padding: 6px; float:left">
+                <img id="ctl00_Image1" src="Images/stateseal.gif" border="0" /></div><br />
+              <p> Please be advised that these pages may contain links to external Internet sites
+                established by other entities. The Hawaii State Legislature does not maintain, review,
+                or endorse these sites and is not responsible for their content.</p>
+                
+               <p> We make every effort to comply to ADA standards, and Section 508 of the Rehabilitation
+                Act. 
+                   <a id="ctl00_HyperLinkADA" accesskey="A" href="/ada.aspx">Visit our ADA page here.</a> If you have any problems with any of these pages, please <a href="mailto:webmaster@capitol.hawaii.gov">
+                    contact the webmaster</a> with the page address and problems encountered.</p>
+                    <p><a href="/privacy.aspx"> You may view our Privacy Policy here.</a></p>
+                <br />
+                <hr />
+        <table width="100%">
+            <tr>
+                <td valign="top" style="width: 75px; padding: 4px">
+                    <a href="/archives/main.aspx"><b>Archives</b></a>
+                    <ul>
+                        <li><a href="/archives/2019.aspx">2019</a></li>
+                        <li><a href="/archives/2018.aspx">2018</a></li>
+                        <li><a href="/archives/2017.aspx">2017</a></li>
+                        <li><a href="/archives/2016.aspx">2016</a></li>
+                        <li><a href="/archives/2015.aspx">2015</a></li>
+                        <li><a href="/archives/2014.aspx">2014</a></li>
+                        <li><a href="/archives/2013.aspx">2013</a></li>
+                        <li><a href="/archives/2012.aspx">2012</a></li>
+                        <li><a href="/archives/2011.aspx">2011</a></li>
+                        <li><a href="/archives/2010.aspx">2010</a></li>
+                        <li><a href="/archives/2009.aspx">2009</a></li>
+                        <li><a href="/archives/2008.aspx">2008</a></li>
+                        <li><a href="/archives/2007.aspx">2007</a></li>
+                        <li><a href="/archives/2006.aspx">2006</a></li>
+                        <li><a href="/archives/2005.aspx">2005</a></li>
+                        <li><a href="/archives/2004.aspx">2004</a></li>
+                        <li><a href="/archives/2003.aspx">2003</a></li>
+                        <li><a href="/archives/2002.aspx">2002</a></li>
+                        <li><a href="/archives/2001.aspx">2001</a></li>
+                        <li><a href="/archives/2000.aspx">2000</a></li>
+                        <li><a href="/archives/1999.aspx">1999</a></li>
+                    </ul>
+                </td>
+                <td valign="top" style="padding: 4px">
+                    <a href="/senate.aspx"><b>Senate</b></a>
+                    <ul>
+                        <li><a href="/committees/committees.aspx?chamber=S">Committees</a></li>
+                                        <li><a href="/members/leadership.aspx?chamber=S">Leadership</a></li>
+                                        <li><a href="/members/legislators.aspx?chamber=S">Members</a></li>
+                                        <li><a href="/docs/SenateRules.pdf" target="_blank">Rules</a></li>
+                                        <li><a href="/docs/AdminManual.pdf" target="_blank">
+                                            Administrative and Financial Manual</a></li>
+                                        <li><a href="/session2011/docs/2011SenateWebsitePolicy.pdf" target="_blank">Caucus 
+                                            Website Policy</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.hawaiisenatemajority.com" target="_blank">
+                                            Majority Caucus Website</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.hawaiisenatemajority.com/senateadhoccommittee/" target="_blank">
+                                            Ad Hoc Committee</a></li>
+                                        <li><a href="http://www.capitol.hawaii.gov/senate.aspx">Journal</a></li>
+                                        <li><a href="/flooractions.aspx">Daily Floor Actions</a></li>
+                                        <li><a href="/session2009/misc/paperless/">Paperless Initiative</a></li>
+                                        <li><a href="http://olelo.granicus.com/ViewPublisher.php?view_id=13">Webcasts - 
+                                            Pilot Project</a></li>
+                </td>
+                <td valign="top" style="padding: 4px">
+                    <a href="/house.aspx"><b>House</b></a>
+                    <ul>
+                       <li><a href="/committees/committees.aspx?chamber=H">Committees</a></li>
+                                        <li><a href="/members/leadership.aspx?chamber=H">Leadership</a></li>
+                                        <li><a href="/members/legislators.aspx?chamber=H">Members</a></li> 
+                                        <li><a href="/docs/HouseRules.pdf">Rules</a></li>
+                                        <li><a href="/docs/HouseAdminManual.pdf">Administrative and Financial Manual</a></li>
+                                        <li><a href="/session2011/docs/2011HouseWebsitePolicy.htm">Website Policy</a></li>
+                                        
+                                        <li><a href="/redirect.aspx?page=https://www.hawaiihousedemocrats.com/" target="_blank">
+                                            Majority Caucus Website</a></li>
+                                        
+                                       <li><a href="/redirect.aspx?page=https://www.hihousegop.com//" target="_blank">
+                                           Minority Caucus Blog and Webpage</a></li>
+                                        <li><a href="/houseattendance">Attendance Sheets</a></li>
+                                        <li><a href="http://www.capitol.hawaii.gov/house.aspx">Journal</a></li>
+                                        <li><a href="/session2009/misc/statehood.pdf">Members of the House 1959-2009</a></li>
+                                        <li><a href="http://olelo.granicus.com/ViewPublisher.php?view_id=31">Webcasts</a></li>
+               </ul>
+                </td>
+                
+                <td valign="top" style="padding: 4px">
+                    <a href="/specialstudies.aspx"><b>Special Studies</b></a>
+                    <ul>
+                        <li><a href="/specialstudies.aspx">Click</a></li>
+                    </ul>
+                </td>
+                <td valign="top" style="padding: 4px">
+                    <a href="/leginfo.aspx"><b>Legislative Information</b></a>
+                    <ul>
+                    <li><a href="/leginfo.aspx">Click</a></li>
+                        
+                                        
+                    </ul>
+                </td>
+                <td valign="top" style="padding: 4px">
+                    <a href=""><b>Links</b></a>
+                    <ul>
+                        <li><a href="/redirect.aspx?page=http://portal.ehawaii.gov" target="_blank">Hawaii 
+                            Government Services</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.courts.state.hi.us/" target="_blank">
+                                            Hawaii State Judiciary</a></li>
+                                        <li><a href="/redirect.aspx?page=https://lrb.hawaii.gov/" target="_blank">Legislative 
+                                            Reference Bureau</a></li>
+                                        <li><a href="/redirect.aspx?page=https://lrb.hawaii.gov/par/" target="_blank">Public 
+                                            Access Room</a></li>
+                                        <li><a href="/redirect.aspx?page=http://hawaii.gov/ethics" target="_blank">Hawaii 
+                                            State Ethics Commission</a></li>
+                                        <li><a href="/redirect.aspx?page=http://auditor.hawaii.gov/" target="_blank">
+                                            Office of the Auditor</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.ombudsman.hawaii.gov" target="_blank">
+                                            Office of the Ombudsman</a></li>
+                                        <li><a href="/redirect.aspx?page=http://hawaii.gov/oip/" target="_blank">Office of 
+                                            Information Practices</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.oha.org/" target="_blank">Office of 
+                                            Hawaiian Affairs</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.honolulu.gov/" target="_blank">
+                                            City and County of Honolulu</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.co.maui.hi.us/" target="_blank">County 
+                                            of Maui</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.kauai.gov/" target="_blank">County of 
+                                            Kauai</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.co.hawaii.hi.us/" target="_blank">County 
+                                            of Hawaii</a></li>  
+                                        <li><a href="/redirect.aspx?page=http://gabbard.house.gov/" target="_blank">U.S. 
+                                            Representative Tulsi Gabbard</a></li>
+                                        <li><a href="/redirect.aspx?page=http://case.house.gov/" target="_blank">U.S. 
+                                            Representative Ed Case</a></li>    
+                                        <li><a href="/redirect.aspx?page=http://www.hirono.senate.gov/" target="_blank">U.S. 
+                                            Senator Mazie Hirono</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.schatz.senate.gov/" target="_blank">U.S. 
+                                            Senator Brian Schatz</a></li>
+                                        <li><a href="/redirect.aspx?page=https://ltgov.hawaii.gov/" target="_blank">Lt. Governor 
+                                            Josh Green</a></li>
+                                        <li><a href="/redirect.aspx?page=http://hawaii.gov/gov/" target="_blank">Governor 
+                                            David Ige</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.olelo.org/" target="_blank">'Olelo 
+                                            Community Television</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.akaku.org/" target="_blank">Akaku: Maui 
+                                            Community Television</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.hoike.org" target="_blank">Ho'ike: 
+                                            Kaua'i Community Television</a></li>
+                                        <li><a href="/redirect.aspx?page=http://naleo.tv" target="_blank">Na Leo O Hawai&#8216;i: 
+                                            Big Island Community Television</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.ncsl.org/" target="_blank">National 
+                                            Conference of State Legislatures</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.csg.org/" target="_blank">Council of 
+                                            State Governments</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.csgwest.org/" target="_blank">Council of 
+                                            State Governments-West</a></li>
+                                        <li><a href="/redirect.aspx?page=http://lrbhawaii.org/capitoli/dirguide/" target="_blank">
+                                            Hawaii Directory State, County, and Federal Officials</a></li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <hr />
+  
+        </div> <!-- end footer -->
+    
+    
+        
+    
+    
+
+<script type="text/javascript">
+//<![CDATA[
+(function() {var fn = function() {$get("ctl00_ToolkitScriptManager1_HiddenField").value = '';Sys.Application.remove_init(fn);};Sys.Application.add_init(fn);})();//]]>
+</script>
+</form>
+    </div>
+    
+    
+</body>
+
+</html>

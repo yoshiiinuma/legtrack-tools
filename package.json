@@ -1,0 +1,56 @@
+{
+  "name": "legtrack-tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-dir dist -s",
+    "unit": "NODE_ENV=test mocha --require @babel/register './test/parse-sp-measures-test.js' --exit || true",
+    "unit2": "NODE_ENV=test mocha --require @babel/register './test/fetcher-test.js' --exit || true",
+    "unit3": "NODE_ENV=test mocha --require @babel/register './test/config-test.js' --exit || true",
+    "unit4": "NODE_ENV=test mocha --require @babel/register './test/sql-server-client-test.js' --exit || true",
+    "unit5": "NODE_ENV=test mocha --require @babel/register './test/push-manager-test.js' --exit || true",
+    "unit6": "NODE_ENV=test mocha --require @babel/register './test/sqlite-client-test.js' --exit || true",
+    "unit7": "NODE_ENV=test mocha --require @babel/register './test/local-sp-measure-test.js' --exit || true",
+    "unit8": "NODE_ENV=test mocha --require @babel/register './test/local-scrape-job-test.js' --exit || true",
+    "unit9": "NODE_ENV=test mocha --require @babel/register './test/local-file-test.js' --exit || true",
+    "unita": "NODE_ENV=test mocha --require @babel/register './test/fetch-sp-measures-test.js' --exit || true",
+    "unitb": "NODE_ENV=test mocha --require @babel/register './test/local-push-job-test.js' --exit || true",
+    "unitc": "NODE_ENV=test mocha --require @babel/register './test/push-sp-measures-test.js' --exit || true",
+    "unitd": "NODE_ENV=test mocha --require @babel/register './test/logger-test.js' --exit || true",
+    "unite": "NODE_ENV=test mocha --require @babel/register './test/fetch-measures-test.js' --exit || true",
+    "unitf": "NODE_ENV=test mocha --require @babel/register './test/parse-measures-test.js' --exit || true",
+    "xxxxx": "NODE_ENV=test mocha --require @babel/register './test/schema-manager-test.js' --exit || true",
+    "test": "NODE_ENV=test mocha --require @babel/register './test/**/*.{js,es6}' --exit || true"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "8"
+          }
+        }
+      ]
+    ]
+  },
+  "author": "Yoshiaki Iinuma",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/register": "^7.9.0",
+    "chai": "^4.2.0",
+    "mocha": "^7.1.2",
+    "sinon": "^9.0.2"
+  },
+  "dependencies": {
+    "better-sqlite3": "^7.0.1",
+    "cheerio": "^1.0.0-rc.3",
+    "mssql": "^6.2.0",
+    "node-fetch": "^2.6.0",
+    "simple-node-logger": "^18.12.24"
+  }
+}

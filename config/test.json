@@ -1,0 +1,14 @@
+{
+  "server": "localhost",
+  "database": "TestLegTrack",
+  "user": "sa",
+  "password": "Pass123!",
+  "options": {
+    "encrypt": true,
+    "enableArithAbort": true
+  },
+  "resultDir": "./results",
+  "localDB": "test.db",
+  "logFile": "./logs/test.log",
+  "logLevel": "debug"
+}

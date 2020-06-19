@@ -1,0 +1,7 @@
+
+DROP INDEX IF EXISTS scrapeLogsIdx;
+DROP TABLE IF EXISTS scrapeLogs;
+
+DROP INDEX IF EXISTS scrapeJobsIdx;
+DROP TABLE IF EXISTS scrapeJobs;
+

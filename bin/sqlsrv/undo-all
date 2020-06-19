@@ -1,0 +1,26 @@
+#!/bin/bash
+
+function usage {
+  echo
+  echo "### USAGE #########################################"
+  echo
+  echo " ./bin/sqlsrv/undo-all [ENV]"
+  echo
+  echo "ENV: {production|development|test} default: test"
+  echo
+  echo "###################################################"
+  echo
+}
+
+env=${1:-test}
+
+if [[ ! "$env" =~ ^production|development|test$ ]];then
+  usage
+  exit 0
+fi
+conf="config/${env}.json"
+
+./node_modules/.bin/mssql $conf < sql/sqlsrv/drop-spmeasure-upsert-proc.sql
+./node_modules/.bin/mssql $conf < sql/sqlsrv/drop-spmeasure-type.sql
+./node_modules/.bin/mssql $conf < sql/sqlsrv/drop-spmeasure-views.sql
+./node_modules/.bin/mssql $conf < sql/sqlsrv/drop-spmeasure-tbls.sql
