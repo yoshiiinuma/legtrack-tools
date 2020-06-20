@@ -4,7 +4,7 @@ function usage {
   echo
   echo "### USAGE #########################################"
   echo
-  echo " ./bin/sqlite3/undo-all [ENV]"
+  echo " ./bin/sqlite3/create-hearing-tbl [ENV]"
   echo
   echo "ENV: {production|development|test} default: test"
   echo
@@ -20,8 +20,5 @@ if [[ ! "$env" =~ ^production|development|test$ ]];then
 fi
 db="results/${env}.db"
 
-sqlite3 $db < sql/sqlite3/drop-push-job-tbl.sql
-sqlite3 $db < sql/sqlite3/drop-scrape-job-tbl.sql
-sqlite3 $db < sql/sqlite3/drop-spmeasure-tbl.sql
-sqlite3 $db < sql/sqlite3/drop-measure-tbl.sql
-sqlite3 $db < sql/sqlite3/drop-hearing-tbl.sql
+sqlite3 $db < sql/sqlite3/create-hearing-tbl.sql
+

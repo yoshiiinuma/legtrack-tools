@@ -20,6 +20,7 @@ if [[ ! "$env" =~ ^production|development|test$ ]];then
 fi
 db="results/${env}.db"
 
+sqlite3 $db < sql/sqlite3/create-hearing-tbl.sql
 sqlite3 $db < sql/sqlite3/create-measure-tbl.sql
 sqlite3 $db < sql/sqlite3/create-spmeasure-tbl.sql
 sqlite3 $db < sql/sqlite3/create-scrape-job-tbl.sql
