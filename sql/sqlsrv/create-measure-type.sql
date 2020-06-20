@@ -15,7 +15,7 @@ BEGIN
     description NVARCHAR(1024),
     status NVARCHAR(512),
     introducer NVARCHAR(512),
-    currentReferral NVARCHAR(256)
+    currentReferral NVARCHAR(256),
     companion NVARCHAR(256)
   )
 END

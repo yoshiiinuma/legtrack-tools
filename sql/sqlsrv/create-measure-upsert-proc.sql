@@ -1,5 +1,6 @@
 IF OBJECT_ID('measureUpsertProc') IS NULL
 BEGIN
+  EXEC('
   CREATE PROCEDURE measureUpsertProc
     @TVP dbo.measureTblType READONLY
     AS
@@ -34,4 +35,5 @@ BEGIN
            s.measureTitle, s.measurePdfUrl, s.measureArchiveUrl, s.bitAppropriation,
            s.description, s.status, s.introducer, s.currentReferral, s.companion);
     END
+  ')
  END
