@@ -23,3 +23,4 @@ db="results/${env}.db"
 sqlite3 $db < sql/sqlite3/drop-push-job-tbl.sql
 sqlite3 $db < sql/sqlite3/drop-scrape-job-tbl.sql
 sqlite3 $db < sql/sqlite3/drop-spmeasure-tbl.sql
+sqlite3 $db < sql/sqlite3/drop-measure-tbl.sql
