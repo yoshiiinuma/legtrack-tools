@@ -72,14 +72,14 @@ export const parseBill = (elm) => {
   const measurePdfUrl = a1.attr('href');
   const measureArchiveUrl = a2.attr('href');
   const reportTitle = trim(sp1.text());
-  const bitAppropriation = (sp2.text().includes('$')) ? '1' : '0';
+  const bitAppropriation = (sp2.text().includes('$')) ? 1 : 0;
   const measureTitle = trim(sp3.text());
   const description = trim(sp3.text());
   const status = trim(td3.text());
   const introducer = trim(td4.text());
   const currentReferral = trim(td5.text());
   const companion = trim(td6.text());
-  const companionUrl = a3.attr('href');
+  const companionUrl = (a3 && a3.attr('href')) ? a3.attr('href') : '';
 
   const r = parseBillUrl(measureArchiveUrl);
 

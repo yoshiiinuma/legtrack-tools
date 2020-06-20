@@ -64,24 +64,73 @@ const TR = `<tr>
     </td>
 </tr>`;
 
-/*
+const types = ['hb', 'sb', 'hr', 'sr', 'hcr', 'scr', 'gm'];
+
+const checkMeasure = (r) => {
+  let err = [];
+  let warn = [];
+
+  if (r.year !== 2020) {
+    err.push('Invalid Year: ' + r.year);
+  }
+  if (!types.includes(r.measureTypeOrig)) {
+    err.push('Invalid MeasureType: ' + r.measureTypeOrig);
+  }
+  if (typeof r.measureType != 'number' || !(r.measureType >= 1 && r.measureType <= 7)) {
+    err.push('Unexpected MeasureType: ' + r.measureType);
+  }
+  if (!r.code) {
+    err.push('Invalid Code: ' + r.code);
+  }
+  if (!r.measurePdfUrl) {
+    err.push('No MeasurePdfUrl');
+  }
+  if (!r.measureArchiveUrl) {
+    err.push('No MeasureArchiveUrl');
+  }
+  if (!r.reportTitle) {
+    warn.push('No ReportTitle');
+  }
+  if (r.bitAppropriation !== 0 && r.bitAppropriation !== 1) {
+    err.push('Invalid BitAppropriation: ' + r.bitAppropriation);
+  }
+  if (!r.measureTitle) {
+    err.push('No MeasureTitle');
+  }
+  if (!r.description) {
+    err.push('No Description');
+  }
+  if (!r.currentReferral) {
+    warn.push('No CurrentReferral');
+  }
+  if (r.companion && !r.companionUrl) {
+    err.push('No CompanionUrl: ' + r.companionUrl);
+  }
+  if (err.length > 0) {
+    console.log(r);
+    console.log(err);
+    return false;
+  } 
+  if (warn.length > 0) {
+    let msg = 'MEASURE TYPE: ' + r.measureTypeOrig.toUpperCase();
+    msg += ', NUMBER ' + r.measureNumber + ', CODE ' + r.code + ' => ';
+    msg += warn.join('; ');
+    //console.log(msg);
+  } 
+  return true;
+};
+
 describe('parseBills', () => {
   it('extracts contents', () => {
-    const r = parseBills(HTML);
-  });
+    for(let type of types) {
+      const testfile = './test/data/2020-' + type + '.html';
+      const bills = parseBills(fs.readFileSync(testfile, 'utf8'));
+      for (let r of bills) {
+        expect(checkMeasure(r)).to.be.true;
+      };
+    }
+  }).timeout(10000);
 });
-
-describe('parseSpBills', () => {
-  it('extracts contents', () => {
-    const r = parseSpBills(HTML);
-    expect(r.length).to.equal(3);
-    expect(r.map(e => e.measureTypeOrig)).to.eql(['sr', 'sr', 'sr']);
-    expect(r.map(e => e.measureType)).to.eql([4, 4, 4]);
-    expect(r.map(e => e.measureNumber)).to.eql([1, 2, 3]);
-    expect(r.map(e => e.code)).to.eql(['SR1', 'SR2', 'SR3']);
-  });
-});
-*/
 
 describe('parseSpBill', () => {
   it('extracts contents', () => {
@@ -99,7 +148,7 @@ describe('parseSpBill', () => {
       reportTitle: 'REPORT TITLE',
       measureTitle: 'MEASURE TITLE',
       description: 'MEASURE TITLE',
-      bitAppropriation: '1',
+      bitAppropriation: 1,
       status: '( S ) 3/13/2020 - STATUS.',
       introducer: 'INTRODUCERS',
       currentReferral: 'CURRENT REFERRAL',
