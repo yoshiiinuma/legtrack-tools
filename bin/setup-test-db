@@ -1,0 +1,20 @@
+#!/bin/bash
+
+function usage {
+  echo
+  echo "### USAGE #########################################"
+  echo
+  echo " ./bin/setup-test-db"
+  echo
+  echo "###################################################"
+  echo
+}
+
+env=test
+
+./bin/sqlsrv/create-other-tbls $env
+./bin/sqlsrv/create-measure-tbls $env
+./bin/sqlsrv/create-measure-type $env
+./bin/sqlsrv/create-measure-upsert-proc $env
+
+./bin/sqlsrv/setup $env
