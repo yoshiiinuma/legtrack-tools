@@ -29,7 +29,7 @@ describe('getUrl', () => {
   });
 });
 
-describe('fetchSpMeasure', () => {
+describe('fetcpMeasures', () => {
   it('returns failed as the message', async () => {
     //let r = await fetchMeasures(year, 'hb', dir);
   }).timeout(10000);
