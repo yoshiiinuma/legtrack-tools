@@ -1,5 +1,4 @@
 
-//import mocha from 'mocha';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import fs from 'fs';
@@ -11,7 +10,6 @@ import Measure from '../src/local-measure.js';
 import ScrapeJob from '../src/local-scrape-job.js';
 
 const dir = 'test/data';
-//const year = 2020;
 const year = 9999;
 const testFile = './test/data/9999-hb.html';
 const HTML = fs.readFileSync(testFile, "utf8");
@@ -43,15 +41,6 @@ describe('getUrl', () => {
     expect(r).to.equal('http://capitol.hawaii.gov/advreports/advreport.aspx?year=2020&report=deadline&rpt_type=&measuretype=gm');
   });
 });
-
-
-/*
-describe('fetcpMeasures', () => {
-  it('returns failed as the message', async () => {
-    //let r = await fetchMeasures(year, 'hb', dir);
-  }).timeout(10000);
-});
-*/
 
 describe('fetchMeasures', () => {
   const url = 'http://capitol.hawaii.gov/advreports/advreport.aspx?year=9999&report=deadline&active=true&rpt_type=&measuretype=hb';
