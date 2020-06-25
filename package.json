@@ -23,6 +23,7 @@
     "unitg": "NODE_ENV=test mocha --require @babel/register './test/local-measure-test.js' --exit || true",
     "unith": "NODE_ENV=test mocha --require @babel/register './test/parse-hearings-test.js' --exit || true",
     "uniti": "NODE_ENV=test mocha --require @babel/register './test/local-hearing-test.js' --exit || true",
+    "unitj": "NODE_ENV=test mocha --require @babel/register './test/fetch-hearings-test.js' --exit || true",
     "xxxxx": "NODE_ENV=test mocha --require @babel/register './test/schema-manager-test.js' --exit || true",
     "test": "NODE_ENV=test mocha --require @babel/register './test/**/*.{js,es6}' --exit || true"
   },

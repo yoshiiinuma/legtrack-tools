@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="ctl00_Head1"><meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" /><meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" /><meta http-equiv="content-type" content="text/html;charset=iso-8859-2" /><link rel="stylesheet" href="images/screen.css" type="text/css" /><link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" /><link rel="stylesheet" href="advreports/tc.css" type="text/css" /><link rel="stylesheet" href="images/w3.css" type="text/css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" /><title>
+	Current Hearings
+</title>
+</head>
+<body>
+
+<div style="width: 975px; margin-left: auto; margin-right: auto; margin-top: -10px;">
+    <iframe src="KeepAlive.aspx" id="ctl00_Defib" frameborder="0" width="0" height="0">
+</iframe>
+    <form name="aspnetForm" method="post" action="./upcominghearings.aspx" id="aspnetForm">
+    <div class="shadow">
+        <div class="header">
+            <div id="header">
+                <div style="float: right; clear: both; padding-right: 8px; padding-top: 8px; font-family: Arial;">
+                    
+                    <div id="ctl00_PanelNotLoggedIn">
+                    
+                    <a id="ctl00_HyperLinkLogin" href="/login/login.aspx">Sign 
+                        In</a>&nbsp;|
+                    <a id="ctl00_HyperLinkRegister" href="/login/register.aspx">Register</a>&nbsp;|&nbsp;<a id="ctl00_HyperLink9" href="/help.aspx"><font size="1">help</font></a>
+                        &nbsp;<input type="image" name="ctl00$ImageButtonHome" id="ctl00_ImageButtonHome" src="Images/home_icon.gif" align="middle" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ImageButtonHome&quot;, &quot;&quot;, false, &quot;&quot;, &quot;/&quot;, false, false))" border="0" />
+</div>
+                </div>
+                <h1>
+                    <a href="/" id="ctl00_lnk">Hawaii State 
+                    Legislature</a></h1>
+            </div>
+        </div>
+        </div>
+        <!-- close header -->
+        <div id="ctl00_PanelHeader">
+	
+            <div class="subheader gradientgray">
+                <table width="100%">
+                    <tr>
+                        <td width="270px">
+                            <div style="font-size: 9pt; margin-left: 45px;">
+                                
+                                30th Legislature, 2019
+                                <br />
+                                <a id="ctl00_LinkButtonLegCal" href="javascript:__doPostBack(&#39;ctl00$LinkButtonLegCal&#39;,&#39;&#39;)"><font color="#1869A5" size="1">View Legislative 
+                                Calendar</font></a></div>
+                        </td>
+                        <td>
+                            <span id="ctl00_LabelSessionTime"><font size="1"><center>Session times for Wednesday, June 24, 2020
+<br>
+Senate: 11:30 a.m. | House of Representatives: 12:00 p.m.
+</center></font></span>
+                        </td>
+                        <td align="right" valign="top" width="300px">
+                            <span id="ctl00_LabelFindLeg"><font size="1">Find Your Legislator</font></span>
+                            <input name="ctl00$TextBoxFindLeg" type="text" value="Enter Street Name" id="ctl00_TextBoxFindLeg" onfocus="clearText(this,&#39;Enter Street Name&#39;)" onblur="resetText(this,&#39;Enter Street Name&#39;)" />
+                            <input type="submit" name="ctl00$ButtonFindLegGo" value="Go" id="ctl00_ButtonFindLegGo" class="button blue small" />&nbsp;
+                                
+                            
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        
+</div>
+        <!--close subheader-->
+    <div class="colmask rightmenu shadow" style="padding-bottom:25px;"> 
+    
+    <br />
+<div id="header" class="gradientgray" style="margin: 0px 8px 8px 8px; border-width: 1px; border-color: #C0C0C0; padding: 6px 48px 2px 24px; font-family: Garamond; border-style: solid none solid none; font-size: 24pt;
+            color: #124D79; width: auto;">
+    <span id="ctl00_ContentPlaceHolderCol1_LabelWho">Current Hearings</span><br />
+    <span id="ctl00_ContentPlaceHolderCol1_Label1"><font face="Century Gothic" size="2">List of present and future hearings. Click on column headers to sort. To view the hearing notice, click the notice link.</font></span> 
+                
+        </div>
+        
+      &nbsp;&nbsp; &nbsp;  
+        <a id="ctl00_ContentPlaceHolderCol1_HyperLinkByNotice" class="button blue small" href="upcominghearingsfiltered.aspx">Filter by Notice</a> <input type="submit" name="ctl00$ContentPlaceHolderCol1$ButtonExcel" value="Export to Excel" id="ctl00_ContentPlaceHolderCol1_ButtonExcel" class="button blue small" />
+    <input type="submit" name="ctl00$ContentPlaceHolderCol1$ButtonExcelCSV" value="Export to CSV" id="ctl00_ContentPlaceHolderCol1_ButtonExcelCSV" class="button blue small" />
+   
+    <div id="ctl00_ContentPlaceHolderCol1_UpdatePanel1">
+	
+       <span id="ctl00_ContentPlaceHolderCol1_LabelRowCount"><font face="Century Gothic,Verdana" size="2"></font></span>
+         
+    <div class="right_articles roundedrect" style="border-style: none; margin: 10px; padding:10px;">
+        <div id="ctl00_ContentPlaceHolderCol1_PanelGridview">
+		
+            <div>
+    <table cellspacing="0" cellpadding="5" rules="rows" border="1" id="ctl00_ContentPlaceHolderCol1_GridView1" bgcolor="White" height="200" width="100%">
+      <tr bgcolor="#F4F4F4">
+        <th align="center" scope="col"><font color="#124D79" size="1"><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolderCol1$GridView1&#39;,&#39;Sort$comm&#39;)"><font color="#124D79">Committee</font></a></font></th><th scope="col"><font color="#124D79" size="1"><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolderCol1$GridView1&#39;,&#39;Sort$type, number&#39;)"><font color="#124D79">Measure</font></a></font></th><th align="left" scope="col"><font color="#124D79" size="1"><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolderCol1$GridView1&#39;,&#39;Sort$timedate&#39;)"><font color="#124D79">Date/Time</font></a></font></th><th align="center" scope="col"><font color="#124D79" size="1"><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolderCol1$GridView1&#39;,&#39;Sort$room&#39;)"><font color="#124D79">Room</font></a></font></th><th align="left" scope="col"><font color="#124D79" size="1"><b><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolderCol1$GridView1&#39;,&#39;Sort$filename&#39;)"><font color="#124D79">Notice</font></a></b></font></th>
+      </tr><tr>
+        <td align="center"><font color="#124D79" size="1">
+                          <span id="ctl00_ContentPlaceHolderCol1_GridView1_ctl02_Label17"><b><font size="2">CPH</font></b></span>
+                      </font></td><td><font color="#124D79" size="1">
+                      <a id="ctl00_ContentPlaceHolderCol1_GridView1_ctl02_HyperLink" class="visited" href="https://www.capitol.hawaii.gov/measure_indiv.aspx?billtype=HB&amp;billnumber=2202"><b><font size="2">HB2202 HD1</font></b></a> 
+                      - 
+                  <span id="ctl00_ContentPlaceHolderCol1_GridView1_ctl02_Label17"><font size="1">RELATING TO CEMETERIES.</font></span>
+                  </font></td><td align="left" width="125"><font color="#124D79" size="2">
+                          <span id="ctl00_ContentPlaceHolderCol1_GridView1_ctl02_Label27">6/24/2020 10:00 AM</span>
+                      </font></td><td align="center"><font color="#124D79" size="2">
+                          <span id="ctl00_ContentPlaceHolderCol1_GridView1_ctl02_Label27">229</span>
+                      </font></td><td align="left" width="175"><font color="#124D79" size="3">
+                          <a id="ctl00_ContentPlaceHolderCol1_GridView1_ctl02_HyperLink2" class="visited" href="https://www.capitol.hawaii.gov/session2020/hearingnotices/HEARING_CPH_06-24-20_DEFER_.HTM" target="_blank">HEARING_CPH_06-24-20_DEFER</a>
+                          <a id="ctl00_ContentPlaceHolderCol1_GridView1_ctl02_HyperLink3" href="https://www.capitol.hawaii.gov/session2020/hearingnotices/HEARING_CPH_06-24-20_DEFER_.pdf" target="_blank"><img src="Images/pdf_icon_small.gif" alt="" border="0" /></a>
+                      </font></td>
+      </tr><tr bgcolor="#EDF5FC">
+        <td align="center"><font color="#124D79" size="1">
+                          <span id="ctl00_ContentPlaceHolderCol1_GridView1_ctl03_Label17"><b><font size="2">CPH</font></b></span>
+                      </font></td><td><font color="#124D79" size="1">
+                      <a id="ctl00_ContentPlaceHolderCol1_GridView1_ctl03_HyperLink" class="visited" href="https://www.capitol.hawaii.gov/measure_indiv.aspx?billtype=HB&amp;billnumber=2317"><b><font size="2">HB2317 HD2</font></b></a> 
+                      - 
+                  <span id="ctl00_ContentPlaceHolderCol1_GridView1_ctl03_Label17"><font size="1">RELATING TO SECURITIES.</font></span>
+                  </font></td><td align="left" width="125"><font color="#124D79" size="2">
+                          <span id="ctl00_ContentPlaceHolderCol1_GridView1_ctl03_Label27">6/24/2020 10:00 AM</span>
+                      </font></td><td align="center"><font color="#124D79" size="2">
+                          <span id="ctl00_ContentPlaceHolderCol1_GridView1_ctl03_Label27">229</span>
+                      </font></td><td align="left" width="175"><font color="#124D79" size="3">
+                          <a id="ctl00_ContentPlaceHolderCol1_GridView1_ctl03_HyperLink2" class="visited" href="https://www.capitol.hawaii.gov/session2020/hearingnotices/HEARING_CPH_06-24-20_DEFER_.HTM" target="_blank">HEARING_CPH_06-24-20_DEFER</a>
+                          <a id="ctl00_ContentPlaceHolderCol1_GridView1_ctl03_HyperLink3" href="https://www.capitol.hawaii.gov/session2020/hearingnotices/HEARING_CPH_06-24-20_DEFER_.pdf" target="_blank"><img src="Images/pdf_icon_small.gif" alt="" border="0" /></a>
+                      </font></td>
+      </tr><tr>
+        <td align="center"><font color="#124D79" size="1">
+                          <span id="ctl00_ContentPlaceHolderCol1_GridView1_ctl04_Label17"><b><font size="2">CPH</font></b></span>
+                      </font></td><td><font color="#124D79" size="1">
+                      <a id="ctl00_ContentPlaceHolderCol1_GridView1_ctl04_HyperLink" class="visited" href="https://www.capitol.hawaii.gov/measure_indiv.aspx?billtype=HB&amp;billnumber=2425"><b><font size="2">HB2425 HD1</font></b></a> 
+                      - 
+                  <span id="ctl00_ContentPlaceHolderCol1_GridView1_ctl04_Label17"><font size="1">RELATING TO DOMESTIC ABUSE.</font></span>
+                  </font></td><td align="left" width="125"><font color="#124D79" size="2">
+                          <span id="ctl00_ContentPlaceHolderCol1_GridView1_ctl04_Label27">6/24/2020 10:00 AM</span>
+                      </font></td><td align="center"><font color="#124D79" size="2">
+                          <span id="ctl00_ContentPlaceHolderCol1_GridView1_ctl04_Label27">229</span>
+                      </font></td><td align="left" width="175"><font color="#124D79" size="3">
+                          <a id="ctl00_ContentPlaceHolderCol1_GridView1_ctl04_HyperLink2" class="visited" href="https://www.capitol.hawaii.gov/session2020/hearingnotices/HEARING_CPH_06-24-20_DEFER_.HTM" target="_blank">HEARING_CPH_06-24-20_DEFER</a>
+                          <a id="ctl00_ContentPlaceHolderCol1_GridView1_ctl04_HyperLink3" href="https://www.capitol.hawaii.gov/session2020/hearingnotices/HEARING_CPH_06-24-20_DEFER_.pdf" target="_blank"><img src="Images/pdf_icon_small.gif" alt="" border="0" /></a>
+                      </font></td>
+                      </tr>
+
+    </table>
+		</div>
+        
+	</div>
+        
+</div>
+       
+     
+        
+      
+<br />
+    </div>
+     <div class="footer gradientgray shadow" style="border:none; font-size: 8pt; font-family: 'Tahoma';
+            font-weight: normal; float: right">
+            <div style="padding: 6px; float:left">
+                <img id="ctl00_Image1" src="Images/stateseal.gif" border="0" /></div><br />
+              <p> Please be advised that these pages may contain links to external Internet sites
+                established by other entities. The Hawaii State Legislature does not maintain, review,
+                or endorse these sites and is not responsible for their content.</p>
+                
+               <p> We make every effort to comply to ADA standards, and Section 508 of the Rehabilitation
+                Act. 
+                   <a id="ctl00_HyperLinkADA" accesskey="A" href="/ada.aspx">Visit our ADA page here.</a> If you have any problems with any of these pages, please <a href="mailto:webmaster@capitol.hawaii.gov">
+                    contact the webmaster</a> with the page address and problems encountered.</p>
+                    <p><a href="/privacy.aspx"> You may view our Privacy Policy here.</a></p>
+                <br />
+                <hr />
+        <table width="100%">
+            <tr>
+                <td valign="top" style="width: 75px; padding: 4px">
+                    <a href="/archives/main.aspx"><b>Archives</b></a>
+                    <ul>
+                        <li><a href="/archives/2019.aspx">2019</a></li>
+                        <li><a href="/archives/2018.aspx">2018</a></li>
+                        <li><a href="/archives/2017.aspx">2017</a></li>
+                        <li><a href="/archives/2016.aspx">2016</a></li>
+                        <li><a href="/archives/2015.aspx">2015</a></li>
+                        <li><a href="/archives/2014.aspx">2014</a></li>
+                        <li><a href="/archives/2013.aspx">2013</a></li>
+                        <li><a href="/archives/2012.aspx">2012</a></li>
+                        <li><a href="/archives/2011.aspx">2011</a></li>
+                        <li><a href="/archives/2010.aspx">2010</a></li>
+                        <li><a href="/archives/2009.aspx">2009</a></li>
+                        <li><a href="/archives/2008.aspx">2008</a></li>
+                        <li><a href="/archives/2007.aspx">2007</a></li>
+                        <li><a href="/archives/2006.aspx">2006</a></li>
+                        <li><a href="/archives/2005.aspx">2005</a></li>
+                        <li><a href="/archives/2004.aspx">2004</a></li>
+                        <li><a href="/archives/2003.aspx">2003</a></li>
+                        <li><a href="/archives/2002.aspx">2002</a></li>
+                        <li><a href="/archives/2001.aspx">2001</a></li>
+                        <li><a href="/archives/2000.aspx">2000</a></li>
+                        <li><a href="/archives/1999.aspx">1999</a></li>
+                    </ul>
+                </td>
+                <td valign="top" style="padding: 4px">
+                    <a href="/senate.aspx"><b>Senate</b></a>
+                    <ul>
+                        <li><a href="/committees/committees.aspx?chamber=S">Committees</a></li>
+                                        <li><a href="/members/leadership.aspx?chamber=S">Leadership</a></li>
+                                        <li><a href="/members/legislators.aspx?chamber=S">Members</a></li>
+                                        <li><a href="/docs/SenateRules.pdf" target="_blank">Rules</a></li>
+                                        <li><a href="/docs/AdminManual.pdf" target="_blank">Administrative and Financial Manual</a></li>
+                                        <li><a href="/session2011/docs/2011SenateWebsitePolicy.pdf" target="_blank">Caucus Website Policy</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.hawaiisenatemajority.com" target="_blank">Majority Caucus Website</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.hawaiisenatemajority.com/senateadhoccommittee/" target="_blank">Ad Hoc Committee</a></li>
+                                        
+                                        <li><a href="/flooractions.aspx">Daily Floor Actions</a></li>
+                                        <li><a href="/session2009/misc/paperless/">Paperless Initiative</a></li>
+                                        <li><a href="http://olelo.granicus.com/ViewPublisher.php?view_id=13">Webcasts - Pilot
+                                            Project</a></li>
+                </td>
+                <td valign="top" style="padding: 4px">
+                    <a href="/house.aspx"><b>House</b></a>
+                    <ul>
+                       <li><a href="/committees/committees.aspx?chamber=H">Committees</a></li>
+                                        <li><a href="/members/leadership.aspx?chamber=H">Leadership</a></li>
+                                        <li><a href="/members/legislators.aspx?chamber=H">Members</a></li> 
+                                        <li><a href="/docs/HouseRules.pdf">Rules</a></li>
+                                        <li><a href="/docs/HouseAdminManual.pdf">Administrative and Financial Manual</a></li>
+                                        <li><a href="/session2011/docs/2011HouseWebsitePolicy.htm">Website Policy</a></li>
+                                      
+                                        <li><a href="/redirect.aspx?page=http://www.hawaiihouseblog.blogspot.com/" target="_blank">Majority Caucus Blog</a></li>
+                                        
+                                        <li><a href="/redirect.aspx?page=https://www.hihousegop.com/" target="_blank">Minority Caucus Blog and Webpage</a></li>
+                                        <li><a href="/houseattendance">Attendance Sheets</a></li>
+                                        <li><a href="http://www.capitol.hawaii.gov/house.aspx">Journal</a></li>
+                                        <li><a href="/session2009/misc/statehood.pdf">Members of the House 1959-2009</a></li>
+                                        <li><a href="http://olelo.granicus.com/ViewPublisher.php?view_id=31">Webcasts</a></li>
+               </ul>
+                </td>
+                
+                <td valign="top" style="padding: 4px">
+                    <a href="/specialstudies.aspx"><b>Special Studies</b></a>
+                    <ul>
+                        <li><a href="/specialstudies.aspx">Click</a></li>
+                        
+                    </ul>
+                </td>
+                <td valign="top" style="padding: 4px">
+                    <a href="/leginfo.aspx"><b>Legislative Information</b></a>
+                    <ul>
+                    <li><a href="/leginfo.aspx">Click</a></li>
+                        
+                                        
+                    </ul>
+                </td>
+                <td valign="top" style="padding: 4px">
+                    <a href=""><b>Links</b></a>
+                    <ul>
+                        <li><a href="/redirect.aspx?page=http://portal.ehawaii.gov" target="_blank">Hawaii Government Services</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.courts.state.hi.us/" target="_blank">Hawaii State Judiciary</a></li>
+                                        <li><a href="/redirect.aspx?page=https://lrb.hawaii.gov" target="_blank">Legislative Reference Bureau</a></li>
+                                        <li><a href="/redirect.aspx?page=https://lrb.hawaii.gov/par/" target="_blank">Public Access Room</a></li>
+                                        <li><a href="/redirect.aspx?page=http://hawaii.gov/ethics" target="_blank">Hawaii State Ethics Commission</a></li>
+                                        <li><a href="/redirect.aspx?page=http://auditor.hawaii.gov/" target="_blank">Office of the Auditor</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.ombudsman.hawaii.gov" target="_blank">Office of the Ombudsman</a></li>
+                                        <li><a href="/redirect.aspx?page=http://hawaii.gov/oip/" target="_blank">Office of Information Practices</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.oha.org/" target="_blank">Office of Hawaiian Affairs</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.honolulu.gov/index.php" target="_blank">City and County of Honolulu</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.co.maui.hi.us/" target="_blank">County of Maui</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.kauai.gov/" target="_blank">County of Kauai</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.co.hawaii.hi.us/" target="_blank">County of Hawaii</a></li>
+                                        
+                                        
+                                        <li><a href="/redirect.aspx?page=http://case.house.gov/" target="_blank">U.S. 
+                                            Representative Ed Case</a></li> 
+                                         <li><a href="/redirect.aspx?page=http://gabbard.house.gov/" target="_blank">U.S. Representative Tulsi Gabbard</a></li>
+                                      <li><a href="/redirect.aspx?page=http://case.house.gov/" target="_blank">U.S. Representative Ed Case</a></li> 
+                                        <li><a href="/redirect.aspx?page=http://www.hirono.senate.gov/" target="_blank">U.S. Senator Mazie Hirono</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.schatz.senate.gov/" target="_blank">U.S. Senator Brian Schatz</a></li>
+                        <li><a href="/redirect.aspx?page=https://ltgov.hawaii.gov/" target="_blank">Lt. Governor Josh Green</a></li>
+                                        <li><a href="/redirect.aspx?page=http://hawaii.gov/gov/" target="_blank">Governor David Ige</a></li>
+                                        
+                                        <li><a href="/redirect.aspx?page=http://www.olelo.org/" target="_blank">'Olelo Community Television</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.akaku.org/" target="_blank">Akaku: Maui Community Television</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.hoike.org" target="_blank">Ho'ike: Kaua'i Community Television</a></li>
+                                        <li><a href="/redirect.aspx?page=http://naleo.tv" target="_blank">Na Leo O Hawai&#8216;i:  Big Island Community Television</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.ncsl.org/" target="_blank">National Conference of State Legislatures</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.csg.org/" target="_blank">Council of State Governments</a></li>
+                                        <li><a href="/redirect.aspx?page=http://www.csgwest.org/" target="_blank">Council of State Governments-West</a></li>
+                                        <li><a href="/redirect.aspx?page=http://lrbhawaii.org/capitoli/dirguide/" target="_blank">Hawaii Directory State, County, and Federal Officials</a></li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <hr />
+  
+        </div> <!-- end footer -->
+        
+        </form>
+    </div>
+    
+</body>
+</html>
