@@ -6,7 +6,6 @@ import { pushSpMeasures } from '../src/push-sp-measures.js';
 import PushJob from '../src/local-push-job.js';
 import ScrapeJob from '../src/local-scrape-job.js';
 import SpMeasure from '../src/local-sp-measure.js';
-import PushManager from '../src/push-manager.js';
 import now from '../src/now.js';
 import sqliteHelper from './sqlite-helper.js';
 import sqlsrvHelper from './sqlsrv-helper.js';

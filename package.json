@@ -9,7 +9,7 @@
     "unit2": "NODE_ENV=test mocha --require @babel/register './test/fetcher-test.js' --exit || true",
     "unit3": "NODE_ENV=test mocha --require @babel/register './test/config-test.js' --exit || true",
     "unit4": "NODE_ENV=test mocha --require @babel/register './test/sql-server-client-test.js' --exit || true",
-    "unit5": "NODE_ENV=test mocha --require @babel/register './test/push-manager-test.js' --exit || true",
+    "unit5": "NODE_ENV=test mocha --require @babel/register './test/remote-sp-measure-test.js' --exit || true",
     "unit6": "NODE_ENV=test mocha --require @babel/register './test/sqlite-client-test.js' --exit || true",
     "unit7": "NODE_ENV=test mocha --require @babel/register './test/local-sp-measure-test.js' --exit || true",
     "unit8": "NODE_ENV=test mocha --require @babel/register './test/local-scrape-job-test.js' --exit || true",

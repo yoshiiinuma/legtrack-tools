@@ -1,5 +1,5 @@
 
-import PushManager from '../src/push-manager.js';
+import RemoteSpMeasure from '../src/remote-sp-measure.js';
 import PushJob from '../src/local-push-job.js';
 import ScrapeJob from '../src/local-scrape-job.js';
 import SpMeasure from '../src/local-sp-measure.js';
@@ -49,8 +49,8 @@ export const pushSpMeasures = async (year, session) => {
       const data = await spBill.selectSpMeasuresUpdatedAfter(year, session, unprocessedScrapeJob.startedAt);
       const size = data.length;
       if (size > 0) {
-        const pushManager = PushManager.create(nodeEnv);
-        await pushManager.push(data);
+        const remoteSpMeasure = RemoteSpMeasure.create(nodeEnv);
+        await remoteSpMeasure.push(data);
         await pushJob.update(pushJobId, STATUS.completed, size, size);
         msg = `Processed ${size} Data`;
         Logger.info('PushSpMeasures: ' + msg);

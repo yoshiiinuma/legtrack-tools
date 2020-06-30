@@ -43,8 +43,8 @@ const create = (env) => {
 
   const push = async (data) => {
     if (!data) {
-      Logger.error('PushManager#push: No Data Given')
-      throw new Error('PushManager#push: No Data Given')
+      Logger.error('RemoteSpMeasure#push: No Data Given')
+      throw new Error('RemoteSpMeasure#push: No Data Given')
     }
     try {
       const tvp = createTvp(data);
@@ -55,7 +55,7 @@ const create = (env) => {
       await client.close();
       return res;
     } catch (e) {
-      Logger.error('PushManager#Push: Unexpected Exception');
+      Logger.error('RemoteSpMeasure#Push: Unexpected Exception');
       Logger.error(e.toString());
       Logger.error(e.stack);
       return null;
