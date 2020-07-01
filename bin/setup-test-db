@@ -17,4 +17,8 @@ env=test
 ./bin/sqlsrv/create-measure-type $env
 ./bin/sqlsrv/create-measure-upsert-proc $env
 
+./bin/sqlsrv/create-hearing-tbl $env
+./bin/sqlsrv/create-hearing-type $env
+./bin/sqlsrv/create-hearing-upsert-proc $env
+
 ./bin/sqlsrv/setup $env

@@ -1,0 +1,2 @@
+#!/bin/bash
+sqlcmd -S localhost -U sa -P Pass123! -Q "DROP DATABASE TestLegTrack"

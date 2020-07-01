@@ -9,7 +9,7 @@ export const generateHearing = (id, year = 2020, measureType = 'hb') => {
   const d = new Date(year, 0, 1 + id, 9);
   const sdate = d.toISOString().slice(0, 10);
   const datetime = `${d.getMonth()+1}/${d.getDate()}/${d.getFullYear()} 9:00 AM`;
-  const timestamp = d.getTime();
+  const timestamp = Math.floor(d.getTime() / 1000);
 
   return {
     year, measureType, measureNumber, code, datetime, timestamp,
