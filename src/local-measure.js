@@ -166,11 +166,11 @@ const create = (env) => {
     }
   };
 
-  const selectMeasuresUpdatedAfter = (year, timestamp) => {
+  const selectMeasuresUpdatedAfter = (timestamp) => {
     try {
       const db = client.connect();
       const stmt = db.prepare(SELECT_UPDATED_MEASURES_SQL);
-      const r = stmt.all(year, timestamp);
+      const r = stmt.all(timestamp);
       db.close();
       return r;
     } catch (e) {

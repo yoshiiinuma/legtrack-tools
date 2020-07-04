@@ -26,6 +26,7 @@
     "unitj": "NODE_ENV=test mocha --require @babel/register './test/fetch-hearings-test.js' --exit || true",
     "unitk": "NODE_ENV=test mocha --require @babel/register './test/remote-measure-test.js' --exit || true",
     "unitl": "NODE_ENV=test mocha --require @babel/register './test/remote-hearing-test.js' --exit || true",
+    "unitm": "NODE_ENV=test mocha --require @babel/register './test/push-measures-test.js' --exit || true",
     "xxxxx": "NODE_ENV=test mocha --require @babel/register './test/schema-manager-test.js' --exit || true",
     "test": "NODE_ENV=test mocha --require @babel/register './test/**/*.{js,es6}' --exit || true"
   },
