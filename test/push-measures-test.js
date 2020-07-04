@@ -78,73 +78,73 @@ describe('pushMeasures', () => {
     });
   });
 
-  //describe('with no unprocessed data', () => {
-  //  let r;
-  //  let job1, job2;
+  describe('with no unprocessed data', () => {
+    let r;
+    let job1, job2;
 
-  //  beforeEach(() => {
-  //    bill.deleteAll();
-  //    r = scrapeJob.insertJob(1, 4, 5, 5, 1); 
-  //    job1 = r.lastInsertRowid;
-  //    r = scrapeJob.insertJob(1, 4, 6, 6, 1); 
-  //    job2 = r.lastInsertRowid;
-  //    pushJob.insert(1, job1, 4, 5, 5);
-  //  });
+    beforeEach(() => {
+      bill.deleteAll();
+      r = scrapeJob.insertJob(1, 4, 5, 5, 1); 
+      job1 = r.lastInsertRowid;
+      r = scrapeJob.insertJob(1, 4, 6, 6, 1); 
+      job2 = r.lastInsertRowid;
+      pushJob.insert(1, job1, 4, 5, 5);
+    });
 
-  //  it('returns error message', async () => {
-  //    r = await pushMeasures(2020);
-  //    expect(r.msg).to.equal('No Unprocessed Data');
-  //    r = await pushJob.selectAll()[1];
-  //    expect(r.startedAt).to.be.above(0);
-  //    expect(r.completedAt).to.be.above(0);
-  //    expect(r.scrapeJobId).to.equal(job2);
-  //    expect(r.status).to.equal(2);
-  //    expect(r.totalNumber).to.equal(0);
-  //    expect(r.updatedNumber).to.equal(0);
-  //  });
-  //});
+    it('returns error message', async () => {
+      r = await pushMeasures(2020);
+      expect(r.msg).to.equal('No Unprocessed Data');
+      r = await pushJob.selectAll()[1];
+      expect(r.startedAt).to.be.above(0);
+      expect(r.completedAt).to.be.above(0);
+      expect(r.scrapeJobId).to.equal(job2);
+      expect(r.status).to.equal(2);
+      expect(r.totalNumber).to.equal(0);
+      expect(r.updatedNumber).to.equal(0);
+    });
+  });
 
-  //describe('with no unprocessed jobs', () => {
-  //  let r;
+  describe('with no unprocessed jobs', () => {
+    let r;
 
-  //  it('returns error message', async () => {
-  //    r = await pushMeasures(2020);
-  //    expect(r.msg).to.equal('No Unprocessed Jobs');
-  //    r = await pushJob.selectOne();
-  //    expect(r.startedAt).to.be.above(0);
-  //    expect(r.scrapeJobId).to.equal(0);
-  //    expect(r.dataType).to.equal(1);
-  //    expect(r.status).to.equal(2);
-  //    expect(r.totalNumber).to.equal(0);
-  //    expect(r.updatedNumber).to.equal(0);
-  //  });
-  //});
+    it('returns error message', async () => {
+      r = await pushMeasures(2020);
+      expect(r.msg).to.equal('No Unprocessed Jobs');
+      r = await pushJob.selectOne();
+      expect(r.startedAt).to.be.above(0);
+      expect(r.scrapeJobId).to.equal(0);
+      expect(r.dataType).to.equal(1);
+      expect(r.status).to.equal(2);
+      expect(r.totalNumber).to.equal(0);
+      expect(r.updatedNumber).to.equal(0);
+    });
+  });
 
-  //describe('when an exception throws', () => {
-  //  let r;
-  //  let stub1, stub2;
+  describe('when an exception throws', () => {
+    let r;
+    let stub1, stub2;
 
-  //  beforeEach(() => {
-  //    stub1 = sinon.stub(pushJob, 'selectLastProcessedScrapeJobId').throws('Unexpected Error');
-  //    stub2 = sinon.stub(PushJob, 'create').returns(pushJob);
-  //  });
+    beforeEach(() => {
+      stub1 = sinon.stub(pushJob, 'selectLastProcessedScrapeJobId').throws('Unexpected Error');
+      stub2 = sinon.stub(PushJob, 'create').returns(pushJob);
+    });
 
-  //  afterEach(() => {
-  //    stub1.restore();
-  //    stub2.restore();
-  //  });
+    afterEach(() => {
+      stub1.restore();
+      stub2.restore();
+    });
 
-  //  it('returns error message', async () => {
-  //    r = await pushMeasures(2020);
-  //    expect(r.msg).to.equal('Unexpected Error');
-  //    r = await pushJob.selectOne();
-  //    expect(r.startedAt).to.be.above(0);
-  //    expect(r.scrapeJobId).to.equal(0);
-  //    expect(r.dataType).to.equal(1);
-  //    expect(r.status).to.equal(3);
-  //    expect(r.totalNumber).to.equal(0);
-  //    expect(r.updatedNumber).to.equal(0);
-  //  });
-  //});
+    it('returns error message', async () => {
+      r = await pushMeasures(2020);
+      expect(r.msg).to.equal('Unexpected Error');
+      r = await pushJob.selectOne();
+      expect(r.startedAt).to.be.above(0);
+      expect(r.scrapeJobId).to.equal(0);
+      expect(r.dataType).to.equal(1);
+      expect(r.status).to.equal(3);
+      expect(r.totalNumber).to.equal(0);
+      expect(r.updatedNumber).to.equal(0);
+    });
+  });
 });
 
