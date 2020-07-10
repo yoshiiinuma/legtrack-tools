@@ -55,44 +55,6 @@ const getUrl = (year, type) => {
 const JOBSTATUS = ENUM.JobStatus;
 const DATATYPE = ENUM.DataType;
 
-const fetchMeasures = async (year, type, dir = '') => {
-  const scrapeJob = ScrapeJob.create(nodeEnv);
-  let r = scrapeJob.insertJob(DATATYPE.MEASURE);
-  const jobId = r.lastInsertRowid;
-  const startedAt = r.startedAt;
-  const typeId = ENUM.MeasureType[type];
-  let total = 0;
-  let updated = 0;
-  let msg = '';
-
-  try {
-    const html = await Fetcher.fetchHtml(FetchMeasures.getUrl(year, type));
-    if (LocalFile.isChanged(html, year, type, dir)) {
-      LocalFile.save(html, year, type, dir);
-      const data = parseBills(html);
-      const localDb = Measure.create(nodeEnv);
-      r = localDb.bulkUpsert(data);
-      updated = r.inserted + r.updated;
-      total = r.ignore + updated; 
-      scrapeJob.updateJob(jobId, JOBSTATUS.completed, total, updated);
-      scrapeJob.insertDetail(jobId, typeId, JOBSTATUS.completed, startedAt, total, updated);
-      msg = 'completed';
-      Logger.info(`FetchMeasures: COMPLETED Total ${total}, Updated ${updated}`);
-    } else {
-      scrapeJob.updateJob(jobId, JOBSTATUS.skipped, 0, 0);
-      msg = 'skipped';
-      Logger.info('FetchMeasures: SKIPPED');
-    }
-  } catch (e) {
-      scrapeJob.updateJob(jobId, JOBSTATUS.failed, 0, 0);
-      msg = 'failed';
-      Logger.error('FetchMeasures: FAILED');
-      Logger.error(e.toString());
-      Logger.error(e.stack);
-  }
-  return { msg, total, updated };
-}
-
 export const fetchMeasuresByType = async (year, type, dir = '') => {
   const typeUpcase = type.toUpperCase();
   let total = 0;
@@ -175,7 +137,6 @@ export const fetchAllMeasures = async (year, dir = '') => {
 }
 
 const FetchMeasures = {
-  fetchMeasures,
   fetchAllMeasures,
   fetchMeasuresByType,
   getUrl
