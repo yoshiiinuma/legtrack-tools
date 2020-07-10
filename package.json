@@ -18,7 +18,7 @@
     "unitb": "NODE_ENV=test mocha --require @babel/register './test/local-push-job-test.js' --exit || true",
     "unitc": "NODE_ENV=test mocha --require @babel/register './test/push-sp-measures-test.js' --exit || true",
     "unitd": "NODE_ENV=test mocha --require @babel/register './test/logger-test.js' --exit || true",
-    "unite": "NODE_ENV=test mocha --require @babel/register './test/fetch-measures-test.js' --exit || true",
+    "unite": "NODE_ENV=test mocha --require @babel/register './test/measure-scraper-test.js' --exit || true",
     "unitf": "NODE_ENV=test mocha --require @babel/register './test/parse-measures-test.js' --exit || true",
     "unitg": "NODE_ENV=test mocha --require @babel/register './test/local-measure-test.js' --exit || true",
     "unith": "NODE_ENV=test mocha --require @babel/register './test/parse-hearings-test.js' --exit || true",

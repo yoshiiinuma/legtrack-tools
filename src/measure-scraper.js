@@ -55,14 +55,14 @@ const getUrl = (year, type) => {
 const JOBSTATUS = ENUM.JobStatus;
 const DATATYPE = ENUM.DataType;
 
-export const fetchMeasuresByType = async (year, type, dir = '') => {
+export const scrapeByType = async (year, type, dir = '') => {
   const typeUpcase = type.toUpperCase();
   let total = 0;
   let updated = 0;
   let msg = '';
 
   try {
-    const html = await Fetcher.fetchHtml(FetchMeasures.getUrl(year, type));
+    const html = await Fetcher.fetchHtml(MeasureScraper.getUrl(year, type));
     if (LocalFile.isChanged(html, year, type, dir)) {
       LocalFile.save(html, year, type, dir);
       const data = parseBills(html);
@@ -71,21 +71,21 @@ export const fetchMeasuresByType = async (year, type, dir = '') => {
       updated = r.inserted + r.updated;
       total = r.ignore + updated; 
       msg = 'completed';
-      Logger.info(`FetchMeasuresByType: ${typeUpcase} COMPLETED Total ${total}, Updated ${updated}`);
+      Logger.info(`MeasureScraper#scrapeByType: ${typeUpcase} COMPLETED Total ${total}, Updated ${updated}`);
     } else {
       msg = 'skipped';
-      Logger.info(`FetchMeasuresByType: ${typeUpcase} SKIPPED`);
+      Logger.info(`MeasureScraper#scrapeByType: ${typeUpcase} SKIPPED`);
     }
   } catch (e) {
       msg = 'failed';
-      Logger.error(`FetchMeasuresByType: ${typeUpcase} FAILED`);
+      Logger.error(`MeasureScraper#scrapeByType: ${typeUpcase} FAILED`);
       Logger.error(e.toString());
       Logger.error(e.stack);
   }
   return { msg, total, updated };
 }
 
-export const fetchAllMeasures = async (year, dir = '') => {
+export const scrape = async (year, dir = '') => {
   const scrapeJob = ScrapeJob.create(nodeEnv);
   let r = scrapeJob.insertJob(DATATYPE.MEASURE);
   const jobId = r.lastInsertRowid;
@@ -102,7 +102,7 @@ export const fetchAllMeasures = async (year, dir = '') => {
 
   for (const type of TYPES) {
     const typeId = ENUM.MeasureType[type];
-    r = await FetchMeasures.fetchMeasuresByType(year, type, dir);
+    r = await MeasureScraper.scrapeByType(year, type, dir);
     if (r.msg === 'completed') {
       updatedTypes.push(type.toUpperCase());
       total += r.total;
@@ -132,14 +132,14 @@ export const fetchAllMeasures = async (year, dir = '') => {
 
   scrapeJob.updateJob(jobId, jobStatus, total, updated);
   const msg = msgs.join('; ');
-  Logger.info('FetchMeasures: ' + msg);
+  Logger.info('MeasureScraper#scrape: ' + msg);
   return { msg, total, updated };
 }
 
-const FetchMeasures = {
-  fetchAllMeasures,
-  fetchMeasuresByType,
+const MeasureScraper = {
+  scrape,
+  scrapeByType,
   getUrl
 };
 
-export default FetchMeasures;
+export default MeasureScraper;

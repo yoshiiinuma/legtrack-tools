@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import fs from 'fs';
 
-import FetchMeasures from '../src/fetch-measures.js';
+import Scraper from '../src/measure-scraper.js';
 import Fetcher from '../src/fetcher.js';
 import LocalFile from '../src/local-file.js';
 import Measure from '../src/local-measure.js';
@@ -21,28 +21,28 @@ let fetchHtml;
 let isChanged;
 let save;
 
-describe('getUrl', () => {
+describe('MeasureScraper#getUrl', () => {
   let r;
 
   it('returns the url of capitol deadline tracking page for each measure', () => {
-    r = FetchMeasures.getUrl(2020, 'hb');
+    r = Scraper.getUrl(2020, 'hb');
     expect(r).to.equal('http://capitol.hawaii.gov/advreports/advreport.aspx?year=2020&report=deadline&active=true&rpt_type=&measuretype=hb');
-    r = FetchMeasures.getUrl(2020, 'sb');
+    r = Scraper.getUrl(2020, 'sb');
     expect(r).to.equal('http://capitol.hawaii.gov/advreports/advreport.aspx?year=2020&report=deadline&active=true&rpt_type=&measuretype=sb');
-    r = FetchMeasures.getUrl(2020, 'hr');
+    r = Scraper.getUrl(2020, 'hr');
     expect(r).to.equal('http://capitol.hawaii.gov/advreports/advreport.aspx?year=2020&report=deadline&rpt_type=&measuretype=hr');
-    r = FetchMeasures.getUrl(2020, 'sr');
+    r = Scraper.getUrl(2020, 'sr');
     expect(r).to.equal('http://capitol.hawaii.gov/advreports/advreport.aspx?year=2020&report=deadline&rpt_type=&measuretype=sr');
-    r = FetchMeasures.getUrl(2020, 'hcr');
+    r = Scraper.getUrl(2020, 'hcr');
     expect(r).to.equal('http://capitol.hawaii.gov/advreports/advreport.aspx?year=2020&report=deadline&rpt_type=&measuretype=hcr');
-    r = FetchMeasures.getUrl(2020, 'scr');
+    r = Scraper.getUrl(2020, 'scr');
     expect(r).to.equal('http://capitol.hawaii.gov/advreports/advreport.aspx?year=2020&report=deadline&rpt_type=&measuretype=scr');
-    r = FetchMeasures.getUrl(2020, 'gm');
+    r = Scraper.getUrl(2020, 'gm');
     expect(r).to.equal('http://capitol.hawaii.gov/advreports/advreport.aspx?year=2020&report=deadline&rpt_type=&measuretype=gm');
   });
 });
 
-describe('fetchMeasuresByType', () => {
+describe('MeasureScraper#scrapeByType', () => {
   const url = 'http://capitol.hawaii.gov/advreports/advreport.aspx?year=9999&report=deadline&active=true&rpt_type=&measuretype=hb';
 
   context('when fetch fails', () => {
@@ -55,7 +55,7 @@ describe('fetchMeasuresByType', () => {
     });
 
     it('returns failed as the message', async () => {
-      let r = await FetchMeasures.fetchMeasuresByType(year, 'hb', dir);
+      let r = await Scraper.scrapeByType(year, 'hb', dir);
       expect(r).to.eql({ msg: 'failed', total: 0, updated: 0 });
       expect(fetchHtml.calledWith(url)).to.be.true;
     });
@@ -76,7 +76,7 @@ describe('fetchMeasuresByType', () => {
     });
 
     it('returns completed as the message', async () => {
-      let r = await FetchMeasures.fetchMeasuresByType(year, 'hb', dir);
+      let r = await Scraper.scrapeByType(year, 'hb', dir);
       expect(r).to.eql({ msg: 'completed', total: 3, updated: 3 });
       expect(fetchHtml.calledWith(url)).to.be.true;
       expect(isChanged.calledWith(HTML, year, 'hb', dir)).to.be.true;
@@ -101,7 +101,7 @@ describe('fetchMeasuresByType', () => {
     });
 
     it('returns skipped as the message', async () => {
-      let r = await FetchMeasures.fetchMeasuresByType(year, 'hb', dir);
+      let r = await Scraper.scrapeByType(year, 'hb', dir);
       expect(r).to.eql({ msg: 'skipped', total: 0, updated: 0 });
       expect(fetchHtml.calledWith(url)).to.be.true;
       expect(isChanged.calledWith(HTML, year, 'hb', dir)).to.be.true;
@@ -110,7 +110,7 @@ describe('fetchMeasuresByType', () => {
   });
 });
 
-describe('fetchAllMeasures', () => {
+describe('MeasureScraper#scrape', () => {
   let fakeFetch;
 
   beforeEach(async () => {
@@ -120,7 +120,7 @@ describe('fetchAllMeasures', () => {
 
   context('when all fetch returns failed', () => {
     before(() => {
-      fakeFetch = sinon.stub(FetchMeasures, 'fetchMeasuresByType');
+      fakeFetch = sinon.stub(Scraper, 'scrapeByType');
       fakeFetch.returns({ msg: 'failed', total: 0, updated: 0 });
     });
 
@@ -129,7 +129,7 @@ describe('fetchAllMeasures', () => {
     });
 
     it('returns failed as the message', async () => {
-      let r = await FetchMeasures.fetchAllMeasures(year, dir);
+      let r = await Scraper.scrape(year, dir);
       expect(r).to.eql({ msg: 'ERROR [HB,SB,HR,SR,HCR,SCR,GM]', total: 0, updated: 0 });
 
       r = await scrapeJob.selectOneJob(); 
@@ -157,7 +157,7 @@ describe('fetchAllMeasures', () => {
 
   context('when all fetch returns skipped', () => {
     before(() => {
-      fakeFetch = sinon.stub(FetchMeasures, 'fetchMeasuresByType')
+      fakeFetch = sinon.stub(Scraper, 'scrapeByType')
       fakeFetch.returns({ msg: 'skipped', total: 0, updated: 0 });
     });
 
@@ -166,7 +166,7 @@ describe('fetchAllMeasures', () => {
     });
 
     it('returns failed as the message', async () => {
-      let r = await FetchMeasures.fetchAllMeasures(year, dir);
+      let r = await Scraper.scrape(year, dir);
       expect(r).to.eql({ msg: 'No Measure Updated', total: 0, updated: 0 });
 
       r = await scrapeJob.selectOneJob(); 
@@ -194,7 +194,7 @@ describe('fetchAllMeasures', () => {
 
   context('when each fetch returns a different result', () => {
     before(() => {
-      fakeFetch = sinon.stub(FetchMeasures, 'fetchMeasuresByType')
+      fakeFetch = sinon.stub(Scraper, 'scrapeByType')
       fakeFetch.withArgs(year, 'hb', dir).returns({ msg: 'completed', total: 1, updated: 1 });
       fakeFetch.withArgs(year, 'sb', dir).returns({ msg: 'skipped', total: 0, updated: 0 });
       fakeFetch.withArgs(year, 'hr', dir).returns({ msg: 'completed', total: 2, updated: 2 });
@@ -209,7 +209,7 @@ describe('fetchAllMeasures', () => {
     });
 
     it('returns failed as the message', async () => {
-      let r = await FetchMeasures.fetchAllMeasures(year, dir);
+      let r = await Scraper.scrape(year, dir);
       expect(r).to.eql({ msg: 'UPDATED [HB,HR,HCR]; ERROR [SCR]', total: 6, updated: 6 });
 
       r = await scrapeJob.selectOneJob(); 
