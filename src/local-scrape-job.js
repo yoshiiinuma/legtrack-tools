@@ -5,13 +5,22 @@ import SqliteClient from '../src/sqlite-client.js';
 import now from '../src/now.js';
 import Logger from '../src/logger.js';
 
-const SELECT_SCRAPE_JOB_UPDATED_AFTER_SQL =
+const SELECT_SCRAPE_JOB_UPDATED_AFTER_SQL_OLD =
   `SELECT id, startedAt
      FROM scrapeJobs
     WHERE status = 4
       AND dataType = ?
       AND id > ?
       AND updatedNumber > 0
+    ORDER BY startedAt ASC
+    LIMIT 1`;
+
+const SELECT_SCRAPE_JOB_UPDATED_AFTER_SQL =
+  `SELECT id, startedAt
+     FROM scrapeJobs
+    WHERE dataType = ?
+      AND id > ?
+      AND updateNeeded = 1
     ORDER BY startedAt ASC
     LIMIT 1`;
 
