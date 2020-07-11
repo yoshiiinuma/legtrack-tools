@@ -21,45 +21,6 @@ const TYPE = 'sp';
 const JobStatus = ENUM.JobStatus;
 const DataType = ENUM.DataType;
 
-const scrapeOld = (year, session, dir = '') => {
-  const scrapeJob = ScrapeJob.create(nodeEnv);
-  const type = TYPE + session.toLowerCase();
-  let r = scrapeJob.insertJob(DataType.SPECIAL_SESSION);
-  const jobId = r.lastInsertRowid;
-  const typeId = ENUM.MeasureType[type];
-  const startedAt = r.startedAt;
-  let total = 0;
-  let updated = 0;
-  let msg = '';
-
-  try {
-    const html = Fetcher.fetchHtml(SpMeasureScraper.getUrl(year, session));
-    if (LocalFile.isChanged(html, year, type, dir)) {
-      LocalFile.save(html, year, type, dir);
-      const data = parseSpBills(html);
-      const localDB = SpMeasure.create(nodeEnv);
-      r = localDB.bulkUpsert(data);
-      updated = r.inserted + r.updated;
-      total = r.ignore + updated; 
-      scrapeJob.updateJob(jobId, JobStatus.completed, total, updated);
-      scrapeJob.insertDetail(jobId, typeId, JobStatus.completed, startedAt, total, updated);
-      msg = 'completed';
-      Logger.info(`SpMeasureScraper: COMPLETED Total ${total}, Updated ${updated}`);
-    } else {
-      scrapeJob.updateJob(jobId, JobStatus.skipped, 0, 0);
-      msg = 'skipped';
-      Logger.info('SpMeasureScraper: SKIPPED');
-    }
-  } catch (e) {
-      scrapeJob.updateJob(jobId, JobStatus.failed, 0, 0);
-      msg = 'failed';
-      Logger.error('SpMeasureScraper: FAILED');
-      Logger.error(e.toString());
-      Logger.error(e.stack);
-  }
-  return { msg, total, updated };
-}
-
 const scrape = (year, session, dir = '') => {
   const type = TYPE + session.toLowerCase();
   const html = Fetcher.fetchHtml(SpMeasureScraper.getUrl(year, session));
@@ -105,7 +66,6 @@ const run = (year, session, dir = '') => {
 const SpMeasureScraper = {
   getUrl,
   scrape,
-  scrapeOld,
   run
 };
 
