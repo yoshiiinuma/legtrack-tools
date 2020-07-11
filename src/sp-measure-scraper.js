@@ -35,7 +35,7 @@ const scrape = (year, session, dir = '') => {
   const localDB = SpMeasure.create(nodeEnv);
   const r = localDB.bulkUpsert(data);
   const updated = r.inserted + r.updated;
-  const total = r.ignore + updated; 
+  const total = r.ignore + updated;
   Logger.info(`SpMeasureScraper#scrape: COMPLETED Total ${total}, Updated ${updated}`);
   return { msg: 'completed', total, updated };
 }
@@ -55,7 +55,7 @@ const run = (year, session, dir = '') => {
       scrapeJob.updateJob(jobId, JobStatus.completed, r.total, r.updated);
     } else {
       scrapeJob.updateJob(jobId, JobStatus.skipped, 0, 0);
-    } 
+    }
     return r;
   } catch (e) {
     scrapeJob.updateJob(jobId, JobStatus.failed, 0, 0);

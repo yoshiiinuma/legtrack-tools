@@ -57,32 +57,28 @@ const DATATYPE = ENUM.DataType;
 
 export const scrape = async (year, type, dir = '') => {
   const typeUpcase = type.toUpperCase();
-  let total = 0;
-  let updated = 0;
-  let msg = '';
 
   try {
     const html = await Fetcher.fetchHtml(MeasureScraper.getUrl(year, type));
-    if (LocalFile.isChanged(html, year, type, dir)) {
-      LocalFile.save(html, year, type, dir);
-      const data = parseBills(html);
-      const localDb = Measure.create(nodeEnv);
-      const r = localDb.bulkUpsert(data);
-      updated = r.inserted + r.updated;
-      total = r.ignore + updated; 
-      msg = 'completed';
-      Logger.info(`MeasureScraper#scrape: ${typeUpcase} COMPLETED Total ${total}, Updated ${updated}`);
-    } else {
-      msg = 'skipped';
+    if (!LocalFile.isChanged(html, year, type, dir)) {
       Logger.info(`MeasureScraper#scrape: ${typeUpcase} SKIPPED`);
+      return { msg: 'skipped', total: 0, updated: 0 };
     }
+
+    LocalFile.save(html, year, type, dir);
+    const data = parseBills(html);
+    const localDb = Measure.create(nodeEnv);
+    const r = localDb.bulkUpsert(data);
+    const updated = r.inserted + r.updated;
+    const total = r.ignore + updated;
+    Logger.info(`MeasureScraper#scrape: ${typeUpcase} COMPLETED Total ${total}, Updated ${updated}`);
+    return { msg: 'completed', total, updated };
   } catch (e) {
-      msg = 'failed';
-      Logger.error(`MeasureScraper#scrape: ${typeUpcase} FAILED`);
-      Logger.error(e.toString());
-      Logger.error(e.stack);
+    Logger.error(`MeasureScraper#scrape: ${typeUpcase} FAILED`);
+    Logger.error(e.toString());
+    Logger.error(e.stack);
+    return { msg: 'failed', total: 0, updated: 0 };
   }
-  return { msg, total, updated };
 }
 
 export const run = async (year, dir = '') => {
@@ -114,7 +110,7 @@ export const run = async (year, dir = '') => {
     } else {
       errorTypes.push(type.toUpperCase());
       scrapeJob.insertDetail(jobId, typeId, JOBSTATUS.failed, now(), 0, 0);
-    } 
+    }
   }
 
   if (skippedTypes.length === TYPES.length) {
