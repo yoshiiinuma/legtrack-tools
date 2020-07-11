@@ -14,7 +14,7 @@ const dataType = ENUM.DataType.SPECIAL_SESSION;
 const STATUS = ENUM.JobStatus;
 
 export const getUnprocessedScrapeJobStart = () => {
-  const pushJob = PushJob.create(nodeEnv); 
+  const pushJob = PushJob.create(nodeEnv);
   const scrapeJob = ScrapeJob.create(nodeEnv);
   const lastProcessedScrapeJobId = pushJob.selectLastProcessedScrapeJobId(dataType);
   const unprocessedScrapeJob = scrapeJob.selectJobUpdatedAfter(dataType, lastProcessedScrapeJobId);
@@ -34,7 +34,7 @@ export const pushSpMeasures = async (year, session) => {
   }
   let startedAt;
   let pushJobId;
-  const pushJob = PushJob.create(nodeEnv); 
+  const pushJob = PushJob.create(nodeEnv);
   const scrapeJob = ScrapeJob.create(nodeEnv);
 
   try {
@@ -70,8 +70,8 @@ export const pushSpMeasures = async (year, session) => {
     Logger.error('PushSpMeasures: ' + e.toString());
     Logger.error(e.stack);
   }
- 
-  return { msg }; 
+
+  return { msg };
 };
 
 export default { pushSpMeasures };

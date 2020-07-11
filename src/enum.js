@@ -33,4 +33,4 @@ export default {
   RegularMeasureTypes,
   MeasureType,
   JobStatus,
-}; 
+};

@@ -2,7 +2,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import { pushMeasures } from '../src/push-measures.js';
+import Pusher from '../src/measure-pusher.js';
 import PushJob from '../src/local-push-job.js';
 import ScrapeJob from '../src/local-scrape-job.js';
 import Measure from '../src/local-measure.js';
@@ -17,7 +17,7 @@ const pushJob = PushJob.create('test');
 const scrapeJob = ScrapeJob.create('test');
 const bill = Measure.create('test');
 
-describe('pushMeasures', () => {
+describe('MeasurePusher#push', () => {
   beforeEach(() => {
     pushJob.deleteAll(); 
     scrapeJob.deleteAllJobs(); 
@@ -28,7 +28,7 @@ describe('pushMeasures', () => {
 
     it('throws an exception', async () => {
       try {
-        await pushMeasures(null);
+        await Pusher.push(null);
       }
       catch (e) {
         expect(e).to.equal('Specify Year');
@@ -57,7 +57,7 @@ describe('pushMeasures', () => {
     });
 
     it('push data to database', async () => {
-      r = await pushMeasures(2020);
+      r = await Pusher.push(2020);
       expect(r.msg).to.equal('Processed 3 Data');
 
       r = await sqlsrvHelper.countBills();
@@ -92,7 +92,7 @@ describe('pushMeasures', () => {
     });
 
     it('returns error message', async () => {
-      r = await pushMeasures(2020);
+      r = await Pusher.push(2020);
       expect(r.msg).to.equal('No Unprocessed Data');
       r = await pushJob.selectAll()[1];
       expect(r.startedAt).to.be.above(0);
@@ -108,7 +108,7 @@ describe('pushMeasures', () => {
     let r;
 
     it('returns error message', async () => {
-      r = await pushMeasures(2020);
+      r = await Pusher.push(2020);
       expect(r.msg).to.equal('No Unprocessed Jobs');
       r = await pushJob.selectOne();
       expect(r.startedAt).to.be.above(0);
@@ -135,7 +135,7 @@ describe('pushMeasures', () => {
     });
 
     it('returns error message', async () => {
-      r = await pushMeasures(2020);
+      r = await Pusher.push(2020);
       expect(r.msg).to.equal('Unexpected Error');
       r = await pushJob.selectOne();
       expect(r.startedAt).to.be.above(0);

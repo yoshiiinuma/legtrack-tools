@@ -14,22 +14,22 @@ const dataType = ENUM.DataType.MEASURE;
 const STATUS = ENUM.JobStatus;
 
 export const getUnprocessedScrapeJobStart = () => {
-  const pushJob = PushJob.create(nodeEnv); 
+  const pushJob = PushJob.create(nodeEnv);
   const scrapeJob = ScrapeJob.create(nodeEnv);
   const lastProcessedScrapeJobId = pushJob.selectLastProcessedScrapeJobId(dataType);
   const unprocessedScrapeJob = scrapeJob.selectJobUpdatedAfter(dataType, lastProcessedScrapeJobId);
 };
 
-export const pushMeasures = async (year) => {
+export const push = async (year) => {
   let msg = '';
   if (!year) {
     msg = 'Specify Year';
-    Logger.error('PushMeasures: ' + msg);
+    Logger.error('MeasurePusher#push: ' + msg);
     return Promise.reject(msg);
   }
   let startedAt;
   let pushJobId;
-  const pushJob = PushJob.create(nodeEnv); 
+  const pushJob = PushJob.create(nodeEnv);
   const scrapeJob = ScrapeJob.create(nodeEnv);
 
   try {
@@ -48,25 +48,30 @@ export const pushMeasures = async (year) => {
         await remote.push(data);
         await pushJob.update(pushJobId, STATUS.completed, size, size);
         msg = `Processed ${size} Data`;
-        Logger.info('PushMeasures: ' + msg);
+        Logger.info('MeasurePusher#push: ' + msg);
       } else {
         await pushJob.update(pushJobId, STATUS.skipped, 0, 0);
         msg = 'No Unprocessed Data';
-        Logger.info('PushMeasures: ' + msg);
+        Logger.info('MeasurePusher#push: ' + msg);
       }
     } else {
       await pushJob.insert(dataType, 0, STATUS.skipped);
       msg = 'No Unprocessed Jobs';
-      Logger.info('PushMeasures: ' + msg);
+      Logger.info('MeasurePusher#push: ' + msg);
     }
   } catch (e) {
     await pushJob.insertError(dataType);
     msg = e.toString();
-    Logger.error('PushMeasures: ' + e.toString());
+    Logger.error('MeasurePusher#push: ' + e.toString());
     Logger.error(e.stack);
   }
- 
-  return { msg }; 
+
+  return { msg };
 };
 
-export default { pushMeasures };
+const MeasurePusher = {
+  push
+};
+
+export default MeasurePusher;
+

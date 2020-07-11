@@ -14,7 +14,7 @@ const dataType = ENUM.DataType.HEARING;
 const STATUS = ENUM.JobStatus;
 
 export const getUnprocessedScrapeJobStart = () => {
-  const pushJob = PushJob.create(nodeEnv); 
+  const pushJob = PushJob.create(nodeEnv);
   const scrapeJob = ScrapeJob.create(nodeEnv);
   const lastProcessedScrapeJobId = pushJob.selectLastProcessedScrapeJobId(dataType);
   const unprocessedScrapeJob = scrapeJob.selectJobUpdatedAfter(dataType, lastProcessedScrapeJobId);
@@ -29,7 +29,7 @@ export const pushHearings = async (year) => {
   }
   let startedAt;
   let pushJobId;
-  const pushJob = PushJob.create(nodeEnv); 
+  const pushJob = PushJob.create(nodeEnv);
   const scrapeJob = ScrapeJob.create(nodeEnv);
 
   try {
@@ -65,8 +65,8 @@ export const pushHearings = async (year) => {
     Logger.error('PushHearings: ' + e.toString());
     Logger.error(e.stack);
   }
- 
-  return { msg }; 
+
+  return { msg };
 };
 
 export default { pushHearings };
