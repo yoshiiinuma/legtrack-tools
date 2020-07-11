@@ -14,7 +14,7 @@
     "unit7": "NODE_ENV=test mocha --require @babel/register './test/local-sp-measure-test.js' --exit || true",
     "unit8": "NODE_ENV=test mocha --require @babel/register './test/local-scrape-job-test.js' --exit || true",
     "unit9": "NODE_ENV=test mocha --require @babel/register './test/local-file-test.js' --exit || true",
-    "unita": "NODE_ENV=test mocha --require @babel/register './test/fetch-sp-measures-test.js' --exit || true",
+    "unita": "NODE_ENV=test mocha --require @babel/register './test/sp-measure-scraper-test.js' --exit || true",
     "unitb": "NODE_ENV=test mocha --require @babel/register './test/local-push-job-test.js' --exit || true",
     "unitc": "NODE_ENV=test mocha --require @babel/register './test/push-sp-measures-test.js' --exit || true",
     "unitd": "NODE_ENV=test mocha --require @babel/register './test/logger-test.js' --exit || true",

@@ -11,7 +11,7 @@ import Logger from '../src/logger.js';
 const DEFAULT_ENV = 'development';
 const nodeEnv = process.env.NODE_ENV || DEFAULT_ENV;
 
-export const getUrl = (year, session) => {
+const getUrl = (year, session) => {
   const prefix = "https://www.capitol.hawaii.gov/splsession.aspx?year=";
   return prefix + year + session;
 };
@@ -21,7 +21,7 @@ const TYPE = 'sp';
 const JobStatus = ENUM.JobStatus;
 const DataType = ENUM.DataType;
 
-export const fetchSpMeasures = (year, session, dir = '') => {
+const scrape = (year, session, dir = '') => {
   const scrapeJob = ScrapeJob.create(nodeEnv);
   const type = TYPE + session.toLowerCase();
   let r = scrapeJob.insertJob(DataType.SPECIAL_SESSION);
@@ -33,7 +33,7 @@ export const fetchSpMeasures = (year, session, dir = '') => {
   let msg = '';
 
   try {
-    const html = Fetcher.fetchHtml(getUrl(year, session));
+    const html = Fetcher.fetchHtml(SpMeasureScraper.getUrl(year, session));
     if (LocalFile.isChanged(html, year, type, dir)) {
       LocalFile.save(html, year, type, dir);
       const data = parseSpBills(html);
@@ -59,4 +59,11 @@ export const fetchSpMeasures = (year, session, dir = '') => {
   }
   return { msg, total, updated };
 }
+
+const SpMeasureScraper = {
+  getUrl,
+  scrape
+};
+
+export default SpMeasureScraper;
 

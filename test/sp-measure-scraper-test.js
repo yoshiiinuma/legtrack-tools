@@ -3,7 +3,8 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import fs from 'fs';
 
-import { fetchSpMeasures, getUrl } from '../src/fetch-sp-measures.js';
+//import { fetchSpMeasures, getUrl } from '../src/fetch-sp-measures.js';
+import Scraper from '../src/sp-measure-scraper.js';
 import Fetcher from '../src/fetcher.js';
 import LocalFile from '../src/local-file.js';
 import SpMeasure from '../src/local-sp-measure.js';
@@ -22,14 +23,14 @@ let fetchHtml;
 let isChanged;
 let save;
 
-describe('getUrl', () => {
+describe('Scraper#getUrl', () => {
   it('returns speciall session bill url', () => {
-    const r = getUrl(2020, 'a');
+    const r = Scraper.getUrl(2020, 'a');
     expect(r).to.equal('https://www.capitol.hawaii.gov/splsession.aspx?year=2020a');
   });
 });
 
-describe('fetchSpMeasure', () => {
+describe('Scraper#scrape', () => {
   const url = 'https://www.capitol.hawaii.gov/splsession.aspx?year=9999a';
 
   beforeEach(async () => {
@@ -47,7 +48,7 @@ describe('fetchSpMeasure', () => {
     });
 
     it('returns failed as the message', async () => {
-      let r = await fetchSpMeasures(year, session, dir);
+      let r = await Scraper.scrape(year, session, dir);
       expect(r).to.eql({ msg: 'failed', total: 0, updated: 0 });
       expect(fetchHtml.calledWith(url)).to.be.true;
 
@@ -79,7 +80,7 @@ describe('fetchSpMeasure', () => {
     });
 
     it('returns completed as the message', async () => {
-      let r = await fetchSpMeasures(year, session, dir);
+      let r = await Scraper.scrape(year, session, dir);
       expect(r).to.eql({ msg: 'completed', total: 3, updated: 3 });
       expect(fetchHtml.calledWith(url)).to.be.true;
       expect(isChanged.calledWith(HTML, year, 'spa', dir)).to.be.true;
@@ -127,7 +128,7 @@ describe('fetchSpMeasure', () => {
     });
 
     it('returns skipped as the message', async () => {
-      let r = await fetchSpMeasures(year, session, dir);
+      let r = await Scraper.scrape(year, session, dir);
       expect(r).to.eql({ msg: 'skipped', total: 0, updated: 0 });
       expect(fetchHtml.calledWith(url)).to.be.true;
       expect(isChanged.calledWith(HTML, year, 'spa', dir)).to.be.true;
