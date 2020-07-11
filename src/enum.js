@@ -5,6 +5,8 @@ const DataType = {
   SPECIAL_SESSION: 3
 };
 
+const RegularMeasureTypes = ['hb', 'sb', 'hr', 'sr', 'hcr', 'scr', 'gm'];
+
 const MeasureType = {
   hb: 1,
   sb: 2,
@@ -28,6 +30,7 @@ const JobStatus = {
 
 export default {
   DataType,
+  RegularMeasureTypes,
   MeasureType,
   JobStatus,
 }; 

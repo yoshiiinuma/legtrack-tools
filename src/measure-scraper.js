@@ -54,6 +54,7 @@ const getUrl = (year, type) => {
 
 const JOBSTATUS = ENUM.JobStatus;
 const DATATYPE = ENUM.DataType;
+const TYPES = ENUM.RegularMeasureTypes;
 
 export const scrape = async (year, type, dir = '') => {
   const typeUpcase = type.toUpperCase();
@@ -93,8 +94,6 @@ export const run = async (year, dir = '') => {
   let total = 0;
   let updated = 0;
   let jobStatus = JOBSTATUS.completed;
-
-  const TYPES = ['hb', 'sb', 'hr', 'sr', 'hcr', 'scr', 'gm'];
 
   for (const type of TYPES) {
     const typeId = ENUM.MeasureType[type];
