@@ -23,7 +23,7 @@
     "unitg": "NODE_ENV=test mocha --require @babel/register './test/local-measure-test.js' --exit || true",
     "unith": "NODE_ENV=test mocha --require @babel/register './test/parse-hearings-test.js' --exit || true",
     "uniti": "NODE_ENV=test mocha --require @babel/register './test/local-hearing-test.js' --exit || true",
-    "unitj": "NODE_ENV=test mocha --require @babel/register './test/fetch-hearings-test.js' --exit || true",
+    "unitj": "NODE_ENV=test mocha --require @babel/register './test/hearing-scraper-test.js' --exit || true",
     "unitk": "NODE_ENV=test mocha --require @babel/register './test/remote-measure-test.js' --exit || true",
     "unitl": "NODE_ENV=test mocha --require @babel/register './test/remote-hearing-test.js' --exit || true",
     "unitm": "NODE_ENV=test mocha --require @babel/register './test/push-measures-test.js' --exit || true",

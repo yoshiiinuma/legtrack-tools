@@ -42,7 +42,7 @@ describe('MeasureScraper#getUrl', () => {
   });
 });
 
-describe('MeasureScraper#scrapeByType', () => {
+describe('MeasureScraper#scrape', () => {
   const url = 'http://capitol.hawaii.gov/advreports/advreport.aspx?year=9999&report=deadline&active=true&rpt_type=&measuretype=hb';
 
   context('when fetch fails', () => {
@@ -55,7 +55,7 @@ describe('MeasureScraper#scrapeByType', () => {
     });
 
     it('returns failed as the message', async () => {
-      let r = await Scraper.scrapeByType(year, 'hb', dir);
+      let r = await Scraper.scrape(year, 'hb', dir);
       expect(r).to.eql({ msg: 'failed', total: 0, updated: 0 });
       expect(fetchHtml.calledWith(url)).to.be.true;
     });
@@ -76,7 +76,7 @@ describe('MeasureScraper#scrapeByType', () => {
     });
 
     it('returns completed as the message', async () => {
-      let r = await Scraper.scrapeByType(year, 'hb', dir);
+      let r = await Scraper.scrape(year, 'hb', dir);
       expect(r).to.eql({ msg: 'completed', total: 3, updated: 3 });
       expect(fetchHtml.calledWith(url)).to.be.true;
       expect(isChanged.calledWith(HTML, year, 'hb', dir)).to.be.true;
@@ -101,7 +101,7 @@ describe('MeasureScraper#scrapeByType', () => {
     });
 
     it('returns skipped as the message', async () => {
-      let r = await Scraper.scrapeByType(year, 'hb', dir);
+      let r = await Scraper.scrape(year, 'hb', dir);
       expect(r).to.eql({ msg: 'skipped', total: 0, updated: 0 });
       expect(fetchHtml.calledWith(url)).to.be.true;
       expect(isChanged.calledWith(HTML, year, 'hb', dir)).to.be.true;
@@ -110,7 +110,7 @@ describe('MeasureScraper#scrapeByType', () => {
   });
 });
 
-describe('MeasureScraper#scrape', () => {
+describe('MeasureScraper#run', () => {
   let fakeFetch;
 
   beforeEach(async () => {
@@ -120,7 +120,7 @@ describe('MeasureScraper#scrape', () => {
 
   context('when all fetch returns failed', () => {
     before(() => {
-      fakeFetch = sinon.stub(Scraper, 'scrapeByType');
+      fakeFetch = sinon.stub(Scraper, 'scrape');
       fakeFetch.returns({ msg: 'failed', total: 0, updated: 0 });
     });
 
@@ -129,7 +129,7 @@ describe('MeasureScraper#scrape', () => {
     });
 
     it('returns failed as the message', async () => {
-      let r = await Scraper.scrape(year, dir);
+      let r = await Scraper.run(year, dir);
       expect(r).to.eql({ msg: 'ERROR [HB,SB,HR,SR,HCR,SCR,GM]', total: 0, updated: 0 });
 
       r = await scrapeJob.selectOneJob(); 
@@ -157,7 +157,7 @@ describe('MeasureScraper#scrape', () => {
 
   context('when all fetch returns skipped', () => {
     before(() => {
-      fakeFetch = sinon.stub(Scraper, 'scrapeByType')
+      fakeFetch = sinon.stub(Scraper, 'scrape')
       fakeFetch.returns({ msg: 'skipped', total: 0, updated: 0 });
     });
 
@@ -166,7 +166,7 @@ describe('MeasureScraper#scrape', () => {
     });
 
     it('returns failed as the message', async () => {
-      let r = await Scraper.scrape(year, dir);
+      let r = await Scraper.run(year, dir);
       expect(r).to.eql({ msg: 'No Measure Updated', total: 0, updated: 0 });
 
       r = await scrapeJob.selectOneJob(); 
@@ -194,7 +194,7 @@ describe('MeasureScraper#scrape', () => {
 
   context('when each fetch returns a different result', () => {
     before(() => {
-      fakeFetch = sinon.stub(Scraper, 'scrapeByType')
+      fakeFetch = sinon.stub(Scraper, 'scrape')
       fakeFetch.withArgs(year, 'hb', dir).returns({ msg: 'completed', total: 1, updated: 1 });
       fakeFetch.withArgs(year, 'sb', dir).returns({ msg: 'skipped', total: 0, updated: 0 });
       fakeFetch.withArgs(year, 'hr', dir).returns({ msg: 'completed', total: 2, updated: 2 });
@@ -209,7 +209,7 @@ describe('MeasureScraper#scrape', () => {
     });
 
     it('returns failed as the message', async () => {
-      let r = await Scraper.scrape(year, dir);
+      let r = await Scraper.run(year, dir);
       expect(r).to.eql({ msg: 'UPDATED [HB,HR,HCR]; ERROR [SCR]', total: 6, updated: 6 });
 
       r = await scrapeJob.selectOneJob(); 

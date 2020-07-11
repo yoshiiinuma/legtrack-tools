@@ -55,7 +55,7 @@ const getUrl = (year, type) => {
 const JOBSTATUS = ENUM.JobStatus;
 const DATATYPE = ENUM.DataType;
 
-export const scrapeByType = async (year, type, dir = '') => {
+export const scrape = async (year, type, dir = '') => {
   const typeUpcase = type.toUpperCase();
   let total = 0;
   let updated = 0;
@@ -71,21 +71,21 @@ export const scrapeByType = async (year, type, dir = '') => {
       updated = r.inserted + r.updated;
       total = r.ignore + updated; 
       msg = 'completed';
-      Logger.info(`MeasureScraper#scrapeByType: ${typeUpcase} COMPLETED Total ${total}, Updated ${updated}`);
+      Logger.info(`MeasureScraper#scrape: ${typeUpcase} COMPLETED Total ${total}, Updated ${updated}`);
     } else {
       msg = 'skipped';
-      Logger.info(`MeasureScraper#scrapeByType: ${typeUpcase} SKIPPED`);
+      Logger.info(`MeasureScraper#scrape: ${typeUpcase} SKIPPED`);
     }
   } catch (e) {
       msg = 'failed';
-      Logger.error(`MeasureScraper#scrapeByType: ${typeUpcase} FAILED`);
+      Logger.error(`MeasureScraper#scrape: ${typeUpcase} FAILED`);
       Logger.error(e.toString());
       Logger.error(e.stack);
   }
   return { msg, total, updated };
 }
 
-export const scrape = async (year, dir = '') => {
+export const run = async (year, dir = '') => {
   const scrapeJob = ScrapeJob.create(nodeEnv);
   let r = scrapeJob.insertJob(DATATYPE.MEASURE);
   const jobId = r.lastInsertRowid;
@@ -102,7 +102,7 @@ export const scrape = async (year, dir = '') => {
 
   for (const type of TYPES) {
     const typeId = ENUM.MeasureType[type];
-    r = await MeasureScraper.scrapeByType(year, type, dir);
+    r = await MeasureScraper.scrape(year, type, dir);
     if (r.msg === 'completed') {
       updatedTypes.push(type.toUpperCase());
       total += r.total;
@@ -137,8 +137,8 @@ export const scrape = async (year, dir = '') => {
 }
 
 const MeasureScraper = {
+  run,
   scrape,
-  scrapeByType,
   getUrl
 };
 
