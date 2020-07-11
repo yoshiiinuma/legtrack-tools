@@ -17,42 +17,6 @@ const JobStatus = ENUM.JobStatus;
 const DataType = ENUM.DataType;
 const type = 'hearings';
 
-export const scrapeOld = (year, dir = '') => {
-  const scrapeJob = ScrapeJob.create(nodeEnv);
-  let r = scrapeJob.insertJob(DataType.HEARING);
-  const jobId = r.lastInsertRowid;
-  const startedAt = r.startedAt;
-  let total = 0;
-  let updated = 0;
-  let msg = '';
-
-  try {
-    const html = Fetcher.fetchHtml(URL);
-    if (LocalFile.isChanged(html, year, type, dir)) {
-      LocalFile.save(html, year, type, dir);
-      const data = parseHearings(html);
-      const localDB = Hearing.create(nodeEnv);
-      r = localDB.bulkUpsert(data);
-      updated = r.inserted + r.updated;
-      total = r.ignore + updated;
-      scrapeJob.updateJob(jobId, JobStatus.completed, total, updated);
-      msg = 'completed';
-      Logger.info(`HearingScraper: COMPLETED Total ${total}, Updated ${updated}`);
-    } else {
-      scrapeJob.updateJob(jobId, JobStatus.skipped, 0, 0);
-      msg = 'skipped';
-      Logger.info('HearingScraper: SKIPPED');
-    }
-  } catch (e) {
-      scrapeJob.updateJob(jobId, JobStatus.failed, 0, 0);
-      msg = 'failed';
-      Logger.error('HearingScraper: FAILED');
-      Logger.error(e.toString());
-      Logger.error(e.stack);
-  }
-  return { msg, total, updated };
-}
-
 export const scrape = (year, dir = '') => {
   const html = Fetcher.fetchHtml(URL);
   if (!LocalFile.isChanged(html, year, type, dir)) {
@@ -94,7 +58,6 @@ export const run = (year, dir = '') => {
 }
 
 const HearingScraper = {
-  scrapeOld,
   scrape,
   run
 };
