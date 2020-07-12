@@ -3,6 +3,7 @@ import RemoteMeasure from '../src/remote-measure.js';
 import PushJob from '../src/local-push-job.js';
 import ScrapeJob from '../src/local-scrape-job.js';
 import LocalMeasure from '../src/local-measure.js';
+import PushHelper from '../src/push-helper.js';
 import now from '../src/now.js';
 import ENUM from '../src/enum.js';
 import Logger from '../src/logger.js';
@@ -12,15 +13,6 @@ const nodeEnv = process.env.NODE_ENV || DEFAULT_ENV;
 
 const dataType = ENUM.DataType.MEASURE;
 const STATUS = ENUM.JobStatus;
-
-const getUnprocessedScrapeJob = async (pushJob, dataType) => {
-  const lastProcessedScrapeJobId = await pushJob.selectLastProcessedScrapeJobId(dataType);
-  if (lastProcessedScrapeJobId === 0) {
-    return null;
-  }
-  const scrapeJob = ScrapeJob.create(nodeEnv);
-  return await scrapeJob.selectJobUpdatedAfter(dataType, lastProcessedScrapeJobId);
-};
 
 /**
  * Pushes data updated after originTime to the DB
@@ -57,7 +49,7 @@ const run = async (year) => {
   let pushJobId = null;
 
   try {
-    const unprocessedScrapeJob = MeasurePusher.getUnprocessedScrapeJob(pushJob, dataType);
+    const unprocessedScrapeJob = PushHelper.getUnprocessedScrapeJob(pushJob, dataType);
     if (!unprocessedScrapeJob) {
       Logger.info('MeasurePusher#run: No Unprocessed Scrape Jobs');
       await pushJob.insert(dataType, 0, STATUS.skipped);
@@ -88,7 +80,6 @@ const run = async (year) => {
 };
 
 const MeasurePusher = {
-  getUnprocessedScrapeJob,
   push,
   run
 };

@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 
 import Pusher from '../src/measure-pusher.js';
+import PushHelper from '../src/push-helper.js';
 import PushJob from '../src/local-push-job.js';
 import Measure from '../src/local-measure.js';
 import now from '../src/now.js';
@@ -92,7 +93,7 @@ describe('MeasurePusher#run', () => {
 
   describe('with no unprocessed jobs', () => {
     beforeEach(() => {
-      stub1 = sinon.stub(Pusher, 'getUnprocessedScrapeJob').returns(null);
+      stub1 = sinon.stub(PushHelper, 'getUnprocessedScrapeJob').returns(null);
     });
 
     afterEach(() => {
@@ -117,7 +118,7 @@ describe('MeasurePusher#run', () => {
   describe('when an exception throws', () => {
     context('at getUnprocessedScrapeJob function', () => {
       beforeEach(() => {
-        stub1 = sinon.stub(Pusher, 'getUnprocessedScrapeJob').throws('Unexpected Error');
+        stub1 = sinon.stub(PushHelper, 'getUnprocessedScrapeJob').throws('Unexpected Error');
       });
 
       afterEach(() => {
@@ -144,7 +145,7 @@ describe('MeasurePusher#run', () => {
       const unprocessedJob = { id: 123, startedAt: ts2 };
 
       beforeEach(() => {
-        stub1 = sinon.stub(Pusher, 'getUnprocessedScrapeJob').returns(unprocessedJob);
+        stub1 = sinon.stub(PushHelper, 'getUnprocessedScrapeJob').returns(unprocessedJob);
         stub2 = sinon.stub(Pusher, 'push').throws('Unexpected Error');
       });
 
@@ -176,7 +177,7 @@ describe('MeasurePusher#run', () => {
     const pushRslt = { msg: 'No Unprocessed Data', skipped: true };
 
     beforeEach(() => {
-      stub1 = sinon.stub(Pusher, 'getUnprocessedScrapeJob').returns(unprocessedJob);
+      stub1 = sinon.stub(PushHelper, 'getUnprocessedScrapeJob').returns(unprocessedJob);
       stub2 = sinon.stub(Pusher, 'push').returns(pushRslt);
     });
 
@@ -207,7 +208,7 @@ describe('MeasurePusher#run', () => {
     const pushRslt = { msg: 'Push Completed 3 Data', size: 3, rowAffected: 3 };
 
     beforeEach(() => {
-      stub1 = sinon.stub(Pusher, 'getUnprocessedScrapeJob').returns(unprocessedJob);
+      stub1 = sinon.stub(PushHelper, 'getUnprocessedScrapeJob').returns(unprocessedJob);
       stub2 = sinon.stub(Pusher, 'push').returns(pushRslt);
     });
 
