@@ -24,7 +24,7 @@ const push = async (originTime) => {
   }
 
   const local = LocalMeasure.create(nodeEnv);
-  const data = await local.selectMeasuresUpdatedAfter(originTime);
+  const data = await local.selectUpdatedAfter(originTime);
   const size = data.length;
   if (size === 0) {
     Logger.info('MeasurePusher#push: No Unprocessed Data');

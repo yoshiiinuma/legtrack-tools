@@ -94,7 +94,7 @@ const create = (env) => {
     for (const e of data) {
       type = e.measureType;
       if (!map[type]) {
-        map[type] = convertToMap(selectMeasuresByType(e.year, type))
+        map[type] = convertToMap(selectByType(e.year, type))
       }
       cur = map[type][e.measureNumber];
       if (cur) {
@@ -151,7 +151,7 @@ const create = (env) => {
     }
   };
 
-  const selectMeasuresByType = (year, measureType) => {
+  const selectByType = (year, measureType) => {
     try {
       const db = client.connect();
       const stmt = db.prepare(SELECT_MEASURES_BY_TYPE_SQL);
@@ -166,7 +166,7 @@ const create = (env) => {
     }
   };
 
-  const selectMeasuresUpdatedAfter = (timestamp) => {
+  const selectUpdatedAfter = (timestamp) => {
     try {
       const db = client.connect();
       const stmt = db.prepare(SELECT_UPDATED_MEASURES_SQL);
@@ -323,8 +323,8 @@ const create = (env) => {
     compare,
     sortout,
     convertToMap,
-    selectMeasuresUpdatedAfter,
-    selectMeasuresByType,
+    selectUpdatedAfter,
+    selectByType,
     selectAll,
     count,
     deleteAll,

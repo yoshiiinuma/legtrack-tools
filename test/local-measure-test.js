@@ -56,7 +56,7 @@ describe('Measure#convertToMap', () => {
   });
 });
 
-describe('Measure#selectMeasuresByType', () => {
+describe('Measure#selectByType', () => {
   const model = Measure.create('test');
   const data = [...helper.generateBills([1,2,3,4,5], 2020, 'hb'),
                 ...helper.generateBills([2,3,4,5,6], 2020, 'sb'),
@@ -66,11 +66,11 @@ describe('Measure#selectMeasuresByType', () => {
   it('returns array of measureNumbers', async () => {
     await model.deleteAll();
     await model.bulkInsert(data)
-    r = await model.selectMeasuresByType(2020, 'hb');
+    r = await model.selectByType(2020, 'hb');
     expect(r.map(e => e.measureNumber)).to.eql([1, 2, 3, 4, 5]);
-    r = await model.selectMeasuresByType(2020, 'sb');
+    r = await model.selectByType(2020, 'sb');
     expect(r.map(e => e.measureNumber)).to.eql([2, 3, 4, 5, 6]);
-    r = await model.selectMeasuresByType(2020, 'gm');
+    r = await model.selectByType(2020, 'gm');
     expect(r.map(e => e.measureNumber)).to.eql([3, 4, 5, 6, 7]);
   });
 });
