@@ -22,55 +22,6 @@ const getUnprocessedScrapeJob = async (pushJob, dataType) => {
   return await scrapeJob.selectJobUpdatedAfter(dataType, lastProcessedScrapeJobId);
 };
 
-const pushOld = async (year) => {
-  let msg = '';
-  if (!year) {
-    msg = 'Specify Year';
-    Logger.error('MeasurePusher#push: ' + msg);
-    return Promise.reject(msg);
-  }
-  let startedAt;
-  let pushJobId;
-  const pushJob = PushJob.create(nodeEnv);
-  const scrapeJob = ScrapeJob.create(nodeEnv);
-
-  try {
-    const lastProcessedScrapeJobId = await pushJob.selectLastProcessedScrapeJobId(dataType);
-    const unprocessedScrapeJob = await scrapeJob.selectJobUpdatedAfter(dataType, lastProcessedScrapeJobId);
-
-    if (unprocessedScrapeJob) {
-      const r = await pushJob.insert(dataType, unprocessedScrapeJob.id);
-      startedAt = r.startedAt;
-      pushJobId = r.lastInsertRowid;
-      const local = LocalMeasure.create(nodeEnv);
-      const data = await local.selectMeasuresUpdatedAfter(unprocessedScrapeJob.startedAt);
-      const size = data.length;
-      if (size > 0) {
-        const remote = RemoteMeasure.create(nodeEnv);
-        await remote.push(data);
-        await pushJob.update(pushJobId, STATUS.completed, size, size);
-        msg = `Processed ${size} Data`;
-        Logger.info('MeasurePusher#push: ' + msg);
-      } else {
-        await pushJob.update(pushJobId, STATUS.skipped, 0, 0);
-        msg = 'No Unprocessed Data';
-        Logger.info('MeasurePusher#push: ' + msg);
-      }
-    } else {
-      await pushJob.insert(dataType, 0, STATUS.skipped);
-      msg = 'No Unprocessed Jobs';
-      Logger.info('MeasurePusher#push: ' + msg);
-    }
-  } catch (e) {
-    await pushJob.insertError(dataType);
-    msg = e.toString();
-    Logger.error('MeasurePusher#push: ' + e.toString());
-    Logger.error(e.stack);
-  }
-
-  return { msg };
-};
-
 /**
  * Pushes data updated after originTime to the DB
  */
@@ -138,7 +89,6 @@ const run = async (year) => {
 
 const MeasurePusher = {
   getUnprocessedScrapeJob,
-  pushOld,
   push,
   run
 };
