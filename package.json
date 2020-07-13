@@ -30,6 +30,7 @@
     "unitm": "NODE_ENV=test mocha --require @babel/register './test/pusher-test.js' --exit || true",
     "unitn": "NODE_ENV=test mocha --require @babel/register './test/sp-measure-pusher-test.js' --exit || true",
     "unito": "NODE_ENV=test mocha --require @babel/register './test/measure-pusher-test.js' --exit || true",
+    "unitp": "NODE_ENV=test mocha --require @babel/register './test/hearing-pusher-test.js' --exit || true",
     "xxxxx": "NODE_ENV=test mocha --require @babel/register './test/schema-manager-test.js' --exit || true",
     "test": "NODE_ENV=test mocha --require @babel/register './test/**/*.{js,es6}' --exit || true"
   },

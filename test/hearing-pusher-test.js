@@ -2,7 +2,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import { pushHearings } from '../src/push-hearings.js';
+import { pushHearings } from '../src/hearing-pusher.js';
 import PushJob from '../src/local-push-job.js';
 import ScrapeJob from '../src/local-scrape-job.js';
 import Hearing from '../src/local-hearing.js';
