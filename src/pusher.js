@@ -14,7 +14,7 @@ const STATUS = ENUM.JobStatus;
 const snakeToCamel = (str) => {
   return str.split('_')
     .map((e) => e.charAt(0).toUpperCase() + e.slice(1).toLowerCase())
-    .join();
+    .join('');
 };
 
 const create = (type, localModel, remoteModel, env = nodeEnv) => {
