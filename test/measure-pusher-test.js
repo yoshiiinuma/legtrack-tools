@@ -4,7 +4,6 @@ import sinon from 'sinon';
 
 import MeasurePusher from '../src/measure-pusher.js';
 import Pusher from '../src/pusher.js';
-import Measure from '../src/local-measure.js';
 import RemoteMeasure from '../src/remote-measure.js';
 import LocalMeasure from '../src/local-measure.js';
 
