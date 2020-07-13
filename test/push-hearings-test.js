@@ -15,7 +15,7 @@ const data2 = sqliteHelper.generateHearings([5, 6, 7]);
 
 const pushJob = PushJob.create('test');
 const scrapeJob = ScrapeJob.create('test');
-const bill = Hearing.create('test');
+const hearing = Hearing.create('test');
 
 describe('pushHearings', () => {
   beforeEach(() => {
@@ -46,14 +46,14 @@ describe('pushHearings', () => {
 
     beforeEach(async () => {
       await sqlsrvHelper.deleteAllHearings();
-      await bill.deleteAll();
+      await hearing.deleteAll();
       r = await scrapeJob.insertJob(2, 4, 5, 5, 1, ts1); 
       job1 = r.lastInsertRowid;
       r = await scrapeJob.insertJob(2, 4, 6, 6, 1, ts3); 
       job2 = r.lastInsertRowid;
       r = await pushJob.insert(2, job1, 4, 5, 5, ts2);
-      r = await bill.bulkInsert(data1, ts2)
-      r = await bill.bulkInsert(data2, ts3)
+      r = await hearing.bulkInsert(data1, ts2)
+      r = await hearing.bulkInsert(data2, ts3)
     });
 
     it('push data to database', async () => {
@@ -63,7 +63,7 @@ describe('pushHearings', () => {
       r = await sqlsrvHelper.countHearings();
       expect(r).to.equal(3);
 
-        r = await sqlsrvHelper.selectHearings();
+      r = await sqlsrvHelper.selectHearings();
       expect(r.map((e) => e.measureNumber)).to.eql([5, 6, 7]);
       expect(r.map((e) => e.notice)).to.eql(['NOTICE5', 'NOTICE6', 'NOTICE7']);
       expect(r.map((e) => e.description)).to.eql(['DESCRIPTION5', 'DESCRIPTION6', 'DESCRIPTION7']);
@@ -83,7 +83,7 @@ describe('pushHearings', () => {
     let job1, job2;
 
     beforeEach(() => {
-      bill.deleteAll();
+      hearing.deleteAll();
       r = scrapeJob.insertJob(2, 4, 5, 5, 1); 
       job1 = r.lastInsertRowid;
       r = scrapeJob.insertJob(2, 4, 6, 6, 1); 
