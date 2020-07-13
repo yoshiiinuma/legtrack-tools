@@ -100,8 +100,9 @@ const create = (env) => {
   };
 
   const insert = (dataType, jobId, status = 1, total = 0, updated = 0, timestamp = null) => {
+    const ts = timestamp || now();
+
     try {
-      const ts = timestamp || now();
       const db = client.connect();
       const stmt = db.prepare(INSERT_PUSH_JOB_SQL);
       let r;
