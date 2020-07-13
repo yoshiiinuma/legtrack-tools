@@ -13,13 +13,6 @@ const nodeEnv = process.env.NODE_ENV || DEFAULT_ENV;
 const dataType = ENUM.DataType.SPECIAL_SESSION;
 const STATUS = ENUM.JobStatus;
 
-export const getUnprocessedScrapeJobStart = () => {
-  const pushJob = PushJob.create(nodeEnv);
-  const scrapeJob = ScrapeJob.create(nodeEnv);
-  const lastProcessedScrapeJobId = pushJob.selectLastProcessedScrapeJobId(dataType);
-  const unprocessedScrapeJob = scrapeJob.selectJobUpdatedAfter(dataType, lastProcessedScrapeJobId);
-};
-
 export const pushSpMeasures = async (year, session) => {
   let msg = '';
   if (!year || !session) {
@@ -46,7 +39,8 @@ export const pushSpMeasures = async (year, session) => {
       startedAt = r.startedAt;
       pushJobId = r.lastInsertRowid;
       const spBill = SpMeasure.create(nodeEnv);
-      const data = await spBill.selectSpMeasuresUpdatedAfter(year, session, unprocessedScrapeJob.startedAt);
+      //const data = await spBill.selectUpdatedAfter(year, session, unprocessedScrapeJob.startedAt);
+      const data = await spBill.selectUpdatedAfter(unprocessedScrapeJob.startedAt);
       const size = data.length;
       if (size > 0) {
         const remoteSpMeasure = RemoteSpMeasure.create(nodeEnv);

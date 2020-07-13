@@ -3,9 +3,13 @@ import SqliteClient from '../src/sqlite-client.js';
 import now from '../src/now.js';
 import Logger from '../src/logger.js';
 
-const SELECT_UPDATED_SP_MEASURES_SQL =
+const SELECT_UPDATED_SP_MEASURES_SQL_OLD =
   `SELECT * FROM spMeasures
     WHERE year = ? AND spSessionId = ? AND lastUpdated >= ?`;
+
+const SELECT_UPDATED_SP_MEASURES_SQL =
+  `SELECT * FROM spMeasures
+    WHERE lastUpdated >= ?`;
 
 const SELECT_SP_MEASURES_BY_TYPE_SQL =
   `SELECT year, spSessionId, measureType, measureNumber,
@@ -78,7 +82,7 @@ const create = (env) => {
     for (const e of data) {
       type = e.measureType;
       if (!map[type]) {
-        map[type] = convertToMap(selectSpMeasuresByType(e.year, e.spSessionId, type))
+        map[type] = convertToMap(selectByType(e.year, e.spSessionId, type))
       }
       cur = map[type][e.measureNumber];
       if (cur) {
@@ -135,7 +139,7 @@ const create = (env) => {
     }
   };
 
-  const selectSpMeasuresByType = (year, spSessionId, measureType) => {
+  const selectByType = (year, spSessionId, measureType) => {
     try {
       const db = client.connect();
       const stmt = db.prepare(SELECT_SP_MEASURES_BY_TYPE_SQL);
@@ -143,22 +147,24 @@ const create = (env) => {
       db.close();
       return r;
     } catch (e) {
-      Logger.error('LocalSpMeasure#SelectSpMeasureByType Error');
+      Logger.error('LocalSpMeasure#SelectByType Error');
       Logger.error(e.toString());
       Logger.error(e.stack);
       return null;
     }
   };
 
-  const selectSpMeasuresUpdatedAfter = (year, spSessionId, timestamp) => {
+  //const selectUpdatedAfter = (year, spSessionId, timestamp) => {
+  const selectUpdatedAfter = (timestamp) => {
     try {
       const db = client.connect();
       const stmt = db.prepare(SELECT_UPDATED_SP_MEASURES_SQL);
-      const r = stmt.all(year, spSessionId, timestamp);
+      //const r = stmt.all(year, spSessionId, timestamp);
+      const r = stmt.all(timestamp);
       db.close();
       return r;
     } catch (e) {
-      Logger.error('LocalSpMeasure#SelectSpMeasuresUpdatedAfter Error');
+      Logger.error('LocalSpMeasure#SelectUpdatedAfter Error');
       Logger.error(e.toString());
       Logger.error(e.stack);
       return [];
@@ -307,8 +313,8 @@ const create = (env) => {
     compare,
     sortout,
     convertToMap,
-    selectSpMeasuresUpdatedAfter,
-    selectSpMeasuresByType,
+    selectUpdatedAfter,
+    selectByType,
     selectAll,
     count,
     deleteAll,

@@ -56,7 +56,7 @@ describe('SpMeasure#convertToMap', () => {
   });
 });
 
-describe('SpMeasure#selectSpMeasuresByType', () => {
+describe('SpMeasure#selectByType', () => {
   const model = SpMeasure.create('test');
   const data = [...helper.generateSpBills([1,2,3,4,5], 2020, 'a', 'hb'),
                 ...helper.generateSpBills([2,3,4,5,6], 2020, 'a', 'sb'),
@@ -66,11 +66,11 @@ describe('SpMeasure#selectSpMeasuresByType', () => {
   it('returns array of measureNumbers', async () => {
     await model.deleteAll();
     await model.bulkInsert(data)
-    r = await model.selectSpMeasuresByType(2020, 'a', 'hb');
+    r = await model.selectByType(2020, 'a', 'hb');
     expect(r.map(e => e.measureNumber)).to.eql([1, 2, 3, 4, 5]);
-    r = await model.selectSpMeasuresByType(2020, 'a', 'sb');
+    r = await model.selectByType(2020, 'a', 'sb');
     expect(r.map(e => e.measureNumber)).to.eql([2, 3, 4, 5, 6]);
-    r = await model.selectSpMeasuresByType(2020, 'a', 'gm');
+    r = await model.selectByType(2020, 'a', 'gm');
     expect(r.map(e => e.measureNumber)).to.eql([3, 4, 5, 6, 7]);
   });
 });
