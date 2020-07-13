@@ -11,12 +11,18 @@ const nodeEnv = process.env.NODE_ENV || DEFAULT_ENV;
 
 const STATUS = ENUM.JobStatus;
 
+const snakeToCamel = (str) => {
+  return str.split('_')
+    .map((e) => e.charAt(0).toUpperCase() + e.slice(1).toLowerCase())
+    .join();
+};
+
 const create = (type, localModel, remoteModel, env = nodeEnv) => {
   const dataType = ENUM.DataType[type.toUpperCase()];
   if (!dataType) {
     throw new Error('Unsupported Data Type: ' + type);
   }
-  const title = type.charAt(0).toUpperCase() + type.slice(1).toLowerCase() + 'Pusher';
+  const title = snakeToCamel(type) + 'Pusher';
 
   /**
    * Pushes data updated after originTime to the DB

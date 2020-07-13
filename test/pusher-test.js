@@ -7,25 +7,27 @@ import PushHelper from '../src/push-helper.js';
 import PushJob from '../src/local-push-job.js';
 import LocalMeasure from '../src/local-measure.js';
 import RemoteMeasure from '../src/remote-measure.js';
+import LocalSpMeasure from '../src/local-sp-measure.js';
+import RemoteSpMeasure from '../src/remote-sp-measure.js';
+import LocalHearing from '../src/local-hearing.js';
+import RemoteHearing from '../src/remote-hearing.js';
 import now from '../src/now.js';
 import sqliteHelper from './sqlite-helper.js';
 import sqlsrvHelper from './sqlsrv-helper.js';
 
-const data1 = sqliteHelper.generateBills([1, 2, 3, 4]);
-const data2 = sqliteHelper.generateBills([5, 6, 7]);
-
 const pushJob = PushJob.create('test');
-const localMeasure = LocalMeasure.create('test');
-const remoteMeasure = RemoteMeasure.create('test');
 
 const ts1 = now();
 const ts2 = ts1 + 1001;
 
 describe('Pusher#create', () => {
   context('with invalid type given', () => {
+    const local = LocalMeasure.create('test');
+    const remote = RemoteMeasure.create('test');
+
     it('throws error', () => {
       try {
-        const pusher = Pusher.create('XXX', localMeasure, remoteMeasure, 'test');
+        const pusher = Pusher.create('XXX', local, remote, 'test');
       } catch (e) {
         expect(e.toString()).to.equal('Error: Unsupported Data Type: XXX');
       }
@@ -34,62 +36,188 @@ describe('Pusher#create', () => {
 });
 
 describe('Pusher#push', () => {
-  const pusher = Pusher.create('MEASURE', localMeasure, remoteMeasure, 'test');
+  context('with Hearing models given', () => {
+    const local = LocalHearing.create('test');
+    const remote = RemoteHearing.create('test');
+    const pusher = Pusher.create('HEARING', local, remote, 'test');
+    const data1 = sqliteHelper.generateHearings([1, 2, 3, 4]);
+    const data2 = sqliteHelper.generateHearings([5, 6, 7]);
 
-  describe('with no time given', () => {
-    it('throws an exception', async () => {
-      try {
-        await pusher.push(null);
-      }
-      catch (e) {
-        expect(e.toString()).to.equal('Error: Speficy Time to Select Data');
-      }
+    describe('with no time given', () => {
+      it('throws an exception', async () => {
+        try {
+          await pusher.push(null);
+        }
+        catch (e) {
+          expect(e.toString()).to.equal('Error: Speficy Time to Select Data');
+        }
+      });
+    });
+
+    describe('with unprocessed data', () => {
+      let r;
+
+      beforeEach(async () => {
+        await sqlsrvHelper.deleteAllHearings();
+        await local.deleteAll();
+        r = await local.bulkInsert(data1, ts1)
+        r = await local.bulkInsert(data2, ts2)
+      });
+
+      it('push data updated after specified time', async () => {
+        r = await pusher.push(ts2);
+        expect(r.msg).to.equal('Push Completed 3 Data');
+        expect(r.size).to.equal(3);
+        expect(r.rowsAffected).to.equal(3);
+
+        r = await sqlsrvHelper.countHearings();
+        expect(r).to.equal(3);
+
+        r = await sqlsrvHelper.selectHearings();
+        expect(r.map((e) => e.measureNumber)).to.eql([5, 6, 7]);
+        expect(r.map((e) => e.notice)).to.eql(['NOTICE5', 'NOTICE6', 'NOTICE7']);
+        expect(r.map((e) => e.description)).to.eql(['DESCRIPTION5', 'DESCRIPTION6', 'DESCRIPTION7']);
+      });
+    });
+
+    describe('with no unprocessed data', () => {
+      let r;
+
+      beforeEach(async () => {
+        await sqlsrvHelper.deleteAllHearings();
+        await local.deleteAll();
+      });
+
+      it('push data updated after specified time', async () => {
+        r = await pusher.push(ts1);
+        expect(r).to.eql({ msg: 'No Unprocessed Data', skipped: true });
+      });
     });
   });
 
-  describe('with unprocessed data', () => {
-    let r;
+  context('with Measure models given', () => {
+    const local = LocalMeasure.create('test');
+    const remote = RemoteMeasure.create('test');
+    const pusher = Pusher.create('MEASURE', local, remote, 'test');
+    const data1 = sqliteHelper.generateBills([1, 2, 3, 4]);
+    const data2 = sqliteHelper.generateBills([5, 6, 7]);
 
-    beforeEach(async () => {
-      await sqlsrvHelper.deleteAllBills();
-      await localMeasure.deleteAll();
-      r = await localMeasure.bulkInsert(data1, ts1)
-      r = await localMeasure.bulkInsert(data2, ts2)
+    describe('with no time given', () => {
+      it('throws an exception', async () => {
+        try {
+          await pusher.push(null);
+        }
+        catch (e) {
+          expect(e.toString()).to.equal('Error: Speficy Time to Select Data');
+        }
+      });
     });
 
-    it('push data updated after specified time', async () => {
-      r = await pusher.push(ts2);
-      expect(r.msg).to.equal('Push Completed 3 Data');
-      expect(r.size).to.equal(3);
-      expect(r.rowsAffected).to.equal(3);
+    describe('with unprocessed data', () => {
+      let r;
 
-      r = await sqlsrvHelper.countBills();
-      expect(r).to.equal(3);
+      beforeEach(async () => {
+        await sqlsrvHelper.deleteAllBills();
+        await local.deleteAll();
+        r = await local.bulkInsert(data1, ts1)
+        r = await local.bulkInsert(data2, ts2)
+      });
 
-      r = await sqlsrvHelper.selectBills();
-      expect(r.map((e) => e.measureNumber)).to.eql([5, 6, 7]);
-      expect(r.map((e) => e.reportTitle)).to.eql(['REPORT5', 'REPORT6', 'REPORT7']);
-      expect(r.map((e) => e.measureTitle)).to.eql(['MEASURE5', 'MEASURE6', 'MEASURE7']);
+      it('push data updated after specified time', async () => {
+        r = await pusher.push(ts2);
+        expect(r.msg).to.equal('Push Completed 3 Data');
+        expect(r.size).to.equal(3);
+        expect(r.rowsAffected).to.equal(3);
+
+        r = await sqlsrvHelper.countBills();
+        expect(r).to.equal(3);
+
+        r = await sqlsrvHelper.selectBills();
+        expect(r.map((e) => e.measureNumber)).to.eql([5, 6, 7]);
+        expect(r.map((e) => e.reportTitle)).to.eql(['REPORT5', 'REPORT6', 'REPORT7']);
+        expect(r.map((e) => e.measureTitle)).to.eql(['MEASURE5', 'MEASURE6', 'MEASURE7']);
+      });
+    });
+
+    describe('with no unprocessed data', () => {
+      let r;
+
+      beforeEach(async () => {
+        await sqlsrvHelper.deleteAllBills();
+        await local.deleteAll();
+      });
+
+      it('push data updated after specified time', async () => {
+        r = await pusher.push(ts1);
+        expect(r).to.eql({ msg: 'No Unprocessed Data', skipped: true });
+      });
     });
   });
 
-  describe('with no unprocessed data', () => {
-    let r;
+  context('with SpMeasure models given', () => {
+    const local = LocalSpMeasure.create('test');
+    const remote = RemoteSpMeasure.create('test');
+    const pusher = Pusher.create('SP_MEASURE', local, remote, 'test');
+    const data1 = sqliteHelper.generateSpBills([1, 2, 3, 4]);
+    const data2 = sqliteHelper.generateSpBills([5, 6, 7]);
 
-    beforeEach(async () => {
-      await sqlsrvHelper.deleteAllBills();
-      await localMeasure.deleteAll();
+    describe('with no time given', () => {
+      it('throws an exception', async () => {
+        try {
+          await pusher.push(null);
+        }
+        catch (e) {
+          expect(e.toString()).to.equal('Error: Speficy Time to Select Data');
+        }
+      });
     });
 
-    it('push data updated after specified time', async () => {
-      r = await pusher.push(ts1);
-      expect(r).to.eql({ msg: 'No Unprocessed Data', skipped: true });
+    describe('with unprocessed data', () => {
+      let r;
+
+      beforeEach(async () => {
+        await sqlsrvHelper.deleteAllSpBills();
+        await local.deleteAll();
+        r = await local.bulkInsert(data1, ts1)
+        r = await local.bulkInsert(data2, ts2)
+      });
+
+      it('push data updated after specified time', async () => {
+        r = await pusher.push(ts2);
+        expect(r.msg).to.equal('Push Completed 3 Data');
+        expect(r.size).to.equal(3);
+        expect(r.rowsAffected).to.equal(3);
+
+        r = await sqlsrvHelper.countSpBills();
+        expect(r).to.equal(3);
+
+        r = await sqlsrvHelper.selectSpBills();
+        expect(r.map((e) => e.measureNumber)).to.eql([5, 6, 7]);
+        expect(r.map((e) => e.reportTitle)).to.eql(['REPORT5', 'REPORT6', 'REPORT7']);
+        expect(r.map((e) => e.measureTitle)).to.eql(['MEASURE5', 'MEASURE6', 'MEASURE7']);
+      });
+    });
+
+    describe('with no unprocessed data', () => {
+      let r;
+
+      beforeEach(async () => {
+        await sqlsrvHelper.deleteAllSpBills();
+        await local.deleteAll();
+      });
+
+      it('push data updated after specified time', async () => {
+        r = await pusher.push(ts1);
+        expect(r).to.eql({ msg: 'No Unprocessed Data', skipped: true });
+      });
     });
   });
 });
 
 describe('Pusher#run', () => {
-  const pusher = Pusher.create('MEASURE', localMeasure, remoteMeasure, 'test');
+  const local = LocalMeasure.create('test');
+  const remote = RemoteMeasure.create('test');
+  const pusher = Pusher.create('MEASURE', local, remote, 'test');
   let r;
   let stub1, stub2;
 
