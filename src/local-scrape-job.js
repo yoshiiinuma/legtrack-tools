@@ -53,6 +53,7 @@ const create = (env) => {
       Logger.error('LocalScrapeJob#DeleteAllJobs Error');
       Logger.error(e.toString());
       Logger.error(e.stack);
+      return { error: e.toString() };
     }
   };
 
@@ -63,6 +64,7 @@ const create = (env) => {
       Logger.error('LocalScrapeJob#DeleteAllDetails Error');
       Logger.error(e.toString());
       Logger.error(e.stack);
+      return { error: e.toString() };
     }
   };
 
@@ -73,6 +75,7 @@ const create = (env) => {
       Logger.error('LocalScrapeJob#SelectAllJobs Error');
       Logger.error(e.toString());
       Logger.error(e.stack);
+      return { error: e.toString() };
     }
   };
 
@@ -83,6 +86,7 @@ const create = (env) => {
       Logger.error('LocalScrapeJob#SelectAllDetails Error');
       Logger.error(e.toString());
       Logger.error(e.stack);
+      return { error: e.toString() };
     }
   };
 
@@ -93,6 +97,7 @@ const create = (env) => {
       Logger.error('LocalScrapeJob#SelectOneJob Error');
       Logger.error(e.toString());
       Logger.error(e.stack);
+      return { error: e.toString() };
     }
   };
 
@@ -103,26 +108,29 @@ const create = (env) => {
       Logger.error('LocalScrapeJob#SelectOneDetail Error');
       Logger.error(e.toString());
       Logger.error(e.stack);
+      return { error: e.toString() };
     }
   };
 
   const countJobs = () => {
-      return client.get('SELECT COUNT(*) FROM scrapeJobs');
     try {
+      return client.get('SELECT COUNT(*) FROM scrapeJobs');
     } catch (e) {
       Logger.error('LocalScrapeJob#CountJobs Error');
       Logger.error(e.toString());
       Logger.error(e.stack);
+      return { error: e.toString() };
     }
   };
 
   const countDetails = () => {
-      return client.get('SELECT COUNT(*) FROM scrapeDetails');
     try {
+      return client.get('SELECT COUNT(*) FROM scrapeDetails');
     } catch (e) {
       Logger.error('LocalScrapeJob#CoundDetails Error');
       Logger.error(e.toString());
       Logger.error(e.stack);
+      return { error: e.toString() };
     }
   };
 
@@ -141,11 +149,13 @@ const create = (env) => {
       Logger.error('LocalScrapeJob#SelectJobUpdatedAfter Error');
       Logger.error(e.toString());
       Logger.error(e.stack);
+      return { error: e.toString() };
     }
   };
 
   const insertJob = (dataType, status = 1, total = 0, updated = 0, updateNeeded = 0, timestamp = null) => {
-      const ts = timestamp || now();
+    const ts = timestamp || now();
+    try {
       const db = client.connect();
       const stmt = db.prepare(INSERT_SCRAPE_JOB_SQL);
       let r;
@@ -155,16 +165,18 @@ const create = (env) => {
       transact(dataType, status, total, updated, updateNeeded);
       db.close();
       return { ...r, ...{ startedAt: ts } };
-    try {
     } catch (e) {
       Logger.error('LocalScrapeJob#InsertJob Error');
       Logger.error(e.toString());
       Logger.error(e.stack);
+      return { error: e.toString(), startedAt: ts };
     }
   };
 
   const updateJob = (id, status, total, updated, timestamp = null) => {
-      const ts = timestamp || now();
+    const ts = timestamp || now();
+
+    try {
       const db = client.connect();
       const stmt = db.prepare(UPDATE_SCRAPE_JOB_SQL);
       let r;
@@ -175,15 +187,16 @@ const create = (env) => {
       transact(id, status, total, updated);
       db.close();
       return r;
-    try {
     } catch (e) {
       Logger.error('LocalScrapeJob#UpdateJob Error');
       Logger.error(e.toString());
       Logger.error(e.stack);
+      return { error: e.toString() };
     }
   };
 
   const insertDetail = (jobId, measureType, status, startedAt, total, updated) => {
+    try {
       const db = client.connect();
       const stmt = db.prepare(INSERT_SCRAPE_DETAILS_SQL);
       let r;
@@ -193,11 +206,11 @@ const create = (env) => {
       transact(jobId, measureType, status, startedAt, total, updated);
       db.close();
       return r;
-    try {
     } catch (e) {
       Logger.error('LocalScrapeJob#InsertDetail Error');
       Logger.error(e.toString());
       Logger.error(e.stack);
+      return { error: e.toString() };
     }
   };
 

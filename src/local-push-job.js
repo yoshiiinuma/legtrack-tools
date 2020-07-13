@@ -124,8 +124,9 @@ const create = (env) => {
   };
 
   const update = (id, status, total, updated, timestamp = null) => {
+    const ts = timestamp || now();
+
     try {
-      const ts = timestamp || now();
       const db = client.connect();
       const stmt = db.prepare(UPDATE_PUSH_JOB_SQL);
       let r;
