@@ -2,7 +2,7 @@
 const DataType = {
   MEASURE: 1,
   HEARING: 2,
-  SPECIAL_SESSION: 3
+  SP_MEASURE: 3
 };
 
 const RegularMeasureTypes = ['hb', 'sb', 'hr', 'sr', 'hcr', 'scr', 'gm'];

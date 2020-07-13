@@ -44,7 +44,7 @@ const run = (year, session, dir = '') => {
   const scrapeJob = ScrapeJob.create(nodeEnv);
   const type = TYPE + session.toLowerCase();
   const typeId = ENUM.MeasureType[type];
-  const job = scrapeJob.insertJob(DataType.SPECIAL_SESSION);
+  const job = scrapeJob.insertJob(DataType.SP_MEASURE);
   const jobId = job.lastInsertRowid;
   const startedAt = job.startedAt;
 

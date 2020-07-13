@@ -10,7 +10,7 @@ import Logger from '../src/logger.js';
 const DEFAULT_ENV = 'development';
 const nodeEnv = process.env.NODE_ENV || DEFAULT_ENV;
 
-const dataType = ENUM.DataType.SPECIAL_SESSION;
+const dataType = ENUM.DataType.SP_MEASURE;
 const STATUS = ENUM.JobStatus;
 
 export const pushSpMeasures = async (year, session) => {
