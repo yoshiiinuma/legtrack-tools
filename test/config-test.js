@@ -32,10 +32,15 @@ describe('Config#load', () => {
         "database": "SQL-SERVER-DATABASE-NAME",
         "user": "SQL-SERVER-USER",
         "password": "SQL-SERVER-PASSWORD",
+        "options": {
+          "encrypt": true,
+          "enableArithAbort": true
+        },
         "resultDir": "./PATH/TO/RESULT-DIR",
         "localDB": "SQLITE-DATABASE-FILENAME",
         "logFile": "./PATH/TO/LOGFILE",
-        "logLevel": "{error|warn|info|debug}"
+        "logLevel": "{error|warn|info|debug}",
+        "maxRecordsPerPush": 1000 
       })
     });
   });

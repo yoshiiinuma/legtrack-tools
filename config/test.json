@@ -10,5 +10,6 @@
   "resultDir": "./results",
   "localDB": "test.db",
   "logFile": "./logs/test.log",
-  "logLevel": "debug"
+  "logLevel": "debug",
+  "maxRecordsPerPush": 3
 }
