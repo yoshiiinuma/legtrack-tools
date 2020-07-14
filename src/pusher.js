@@ -5,6 +5,7 @@ import PushHelper from '../src/push-helper.js';
 import now from '../src/now.js';
 import ENUM from '../src/enum.js';
 import Logger from '../src/logger.js';
+import config from '../src/config.js';
 
 const DEFAULT_ENV = 'development';
 const nodeEnv = process.env.NODE_ENV || DEFAULT_ENV;
@@ -18,6 +19,8 @@ const snakeToCamel = (str) => {
 };
 
 const create = (type, localModel, remoteModel, env = nodeEnv) => {
+  const conf = config.load(env);
+  const maxRecordsPerPush = conf.maxRecordsPerPush || 1000; 
   const dataType = ENUM.DataType[type.toUpperCase()];
   if (!dataType) {
     throw new Error('Unsupported Data Type: ' + type);
@@ -33,16 +36,26 @@ const create = (type, localModel, remoteModel, env = nodeEnv) => {
       throw new Error('Speficy Time to Select Data');
     }
 
-    const data = await localModel.selectUpdatedAfter(originTime);
+    let data = await localModel.selectUpdatedAfter(originTime);
     const size = data.length;
     if (size === 0) {
       Logger.info(`${title}#push: No Unprocessed Data`);
       return { msg: 'No Unprocessed Data', skipped: true };
     }
+    let remains;
+    let rowsAffected = 0;
+    let times = 0;
 
-    const res = await remoteModel.push(data);
-    const msg = `Push Completed ${size} Data`;
-    const rowsAffected = (res && res.rowsAffected)? res.rowsAffected[0] : null;
+    while (data.length > 0) {
+      times += 1;
+      remains = data.splice(maxRecordsPerPush);
+      const res = await remoteModel.push(data);
+      rowsAffected += (res && res.rowsAffected)? res.rowsAffected[0] : 0;
+      Logger.debug(`PUSHED ${times}: ${data.length} / ${res.rowsAffected} / ${size}`);
+      data = remains;
+    }
+
+    const msg = `Push Completed ${rowsAffected} / ${size} Data`;
     Logger.info(`${title}#push: ${msg}`);
     return { msg, size, rowsAffected };
   };

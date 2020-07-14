@@ -36,6 +36,36 @@ describe('Pusher#create', () => {
 });
 
 describe('Pusher#push', () => {
+  context('when maxRecordsPerPush is 3', () => {
+    const local = LocalMeasure.create('test');
+    const remote = RemoteMeasure.create('test');
+    const data1 = sqliteHelper.generateBills([1, 2, 3, 4, 5, 6, 7, 8]);
+    let pusher, stub1;
+
+    beforeEach(async () => {
+      await local.deleteAll();
+      await local.bulkInsert(data1, ts1);
+      stub1 = sinon.stub(remote, 'push');
+      stub1.onCall(0).returns({ rowsAffected: [3] });
+      stub1.onCall(1).returns({ rowsAffected: [3] });
+      stub1.onCall(2).returns({ rowsAffected: [2] });
+      pusher = Pusher.create('MEASURE', local, remote, 'test');
+    });
+    
+    afterEach(() => {
+      stub1.restore();
+    });
+
+    it('pushes data chunk 3 times', async () => {
+      const r = await pusher.push(ts1);
+
+      expect(r).to.eql({ msg: 'Push Completed 8 / 8 Data', size: 8, rowsAffected: 8 });
+      expect(stub1.getCall(0).firstArg.map(e => e.measureNumber)).to.eql([1, 2, 3]);
+      expect(stub1.getCall(1).firstArg.map(e => e.measureNumber)).to.eql([4, 5, 6]);
+      expect(stub1.getCall(2).firstArg.map(e => e.measureNumber)).to.eql([7, 8]);
+    })
+  });
+
   context('with Hearing models given', () => {
     const local = LocalHearing.create('test');
     const remote = RemoteHearing.create('test');
@@ -66,7 +96,7 @@ describe('Pusher#push', () => {
 
       it('push data updated after specified time', async () => {
         r = await pusher.push(ts2);
-        expect(r.msg).to.equal('Push Completed 3 Data');
+        expect(r.msg).to.equal('Push Completed 3 / 3 Data');
         expect(r.size).to.equal(3);
         expect(r.rowsAffected).to.equal(3);
 
@@ -125,7 +155,7 @@ describe('Pusher#push', () => {
 
       it('push data updated after specified time', async () => {
         r = await pusher.push(ts2);
-        expect(r.msg).to.equal('Push Completed 3 Data');
+        expect(r.msg).to.equal('Push Completed 3 / 3 Data');
         expect(r.size).to.equal(3);
         expect(r.rowsAffected).to.equal(3);
 
@@ -184,7 +214,7 @@ describe('Pusher#push', () => {
 
       it('push data updated after specified time', async () => {
         r = await pusher.push(ts2);
-        expect(r.msg).to.equal('Push Completed 3 Data');
+        expect(r.msg).to.equal('Push Completed 3 / 3 Data');
         expect(r.size).to.equal(3);
         expect(r.rowsAffected).to.equal(3);
 
@@ -339,7 +369,7 @@ describe('Pusher#run', () => {
 
   describe('with unprocessed data', () => {
     const unprocessedJob = { id: 123, startedAt: ts2 };
-    const pushRslt = { msg: 'Push Completed 3 Data', size: 3, rowAffected: 3 };
+    const pushRslt = { msg: 'Push Completed 3 / 3 Data', size: 3, rowAffected: 3 };
 
     beforeEach(() => {
       stub1 = sinon.stub(PushHelper, 'getUnprocessedScrapeJob').returns(unprocessedJob);
