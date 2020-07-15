@@ -1,7 +1,7 @@
 
 import Fetcher from '../src/fetcher.js';
 import LocalFile from '../src/local-file.js';
-import { parseHearings } from '../src/parse-hearings.js';
+import HearingParser from '../src/hearing-parser.js';
 import Hearing from '../src/local-hearing.js';
 import ScrapeJob from '../src/local-scrape-job.js';
 import ENUM from '../src/enum.js';
@@ -25,7 +25,7 @@ export const scrape = (year, dir = '') => {
   }
 
   LocalFile.save(html, year, type, dir);
-  const data = parseHearings(html);
+  const data = HearingParser.parseAll(html);
   const localDB = Hearing.create(nodeEnv);
   const r = localDB.bulkUpsert(data);
   const updated = r.inserted + r.updated;

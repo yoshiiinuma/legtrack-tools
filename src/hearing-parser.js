@@ -4,7 +4,7 @@ import $ from 'cheerio';
 import ENUM from '../src/enum.js';
 import Logger from '../src/logger.js';
 
-export const trim = (text) => {
+const trim = (text) => {
   return text.replace(/\n/g, ' ').trim().replace(/ +/g, ' ');
 };
 
@@ -17,7 +17,7 @@ const MeasureType = ENUM.MeasureType;
  * https://www.capitol.hawaii.gov/measure_indiv.aspx?billtype=SB&amp;billnumber=2629
  *
  **/
-export const parseBillUrl = (url) => {
+const parseUrl = (url) => {
   if (!url) return {};
   const match = url.match(RGX_BILL_URL);
   if (!match) return {};
@@ -25,7 +25,7 @@ export const parseBillUrl = (url) => {
   const measureTypeOrig = match[1].toLowerCase();
   let measureType = MeasureType[measureTypeOrig];
   if (!measureType) {
-    Logger.error('ParseHearing#ParseBillUrl: Unknown Measure Type: ' + measureType)
+    Logger.error('HearingParser#ParsUrl: Unknown Measure Type: ' + measureType)
     Logger.error(url);
     measureType = MeasureType.unknown;
   }
@@ -51,7 +51,7 @@ export const parseBillUrl = (url) => {
  * </tr>
  *
  */
-export const parseHearing = (elm) => {
+const parse = (elm) => {
   const tr = $(elm);
   const td1 = tr.find('td:nth-child(1)');
   const sp1 = td1.find('font > span:nth-of-type(1)');
@@ -79,7 +79,7 @@ export const parseHearing = (elm) => {
   const noticeUrl = trim(a2.attr('href'));
   const noticePdfUrl = trim(a3.attr('href'));
 
-  const r = parseBillUrl(measureRelativeUrl);
+  const r = HearingParser.parseUrl(measureRelativeUrl);
 
   return  {
     ...r, year, committee, measureRelativeUrl, code, description,
@@ -87,14 +87,22 @@ export const parseHearing = (elm) => {
   };
 };
 
-export const parseHearings = (html) => {
+const parseAll = (html) => {
   const selector = 'table#ctl00_ContentPlaceHolderCol1_GridView1';
   const rows = $('tr', selector, html);
 
   return rows.map((i, elm) => {
     const tr = $(elm);
     if (tr.find('th').length > 0) return null;
-    return parseHearing(tr);
+    return HearingParser.parse(tr);
   }).get();
 };
+
+const HearingParser = {
+  parseUrl,
+  parse,
+  parseAll,
+};
+
+export default HearingParser;
 

@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import fs from 'fs';
 import $ from 'cheerio';
 
-import { parseHearings, parseHearing } from '../src/parse-hearings.js';
+import HearingParser from '../src/hearing-parser.js';
 
 const testFile = './test/data/2020-hearings.html';
 const HTML = fs.readFileSync(testFile, "utf8");
@@ -101,19 +101,19 @@ const checkHearing = (r) => {
   return true;
 };
 
-describe('parseHearings', () => {
+describe('HearingParser#parseAll', () => {
   it('extracts contents', () => {
-    const bills = parseHearings(HTML);
+    const bills = HearingParser.parseAll(HTML);
     for (let r of bills) {
       expect(checkHearing(r)).to.be.true;
     };
   }).timeout(5000);
 });
 
-describe('parseHearing', () => {
+describe('HearingParser#parse', () => {
   it('extracts contents', () => {
     const ts = new Date('6/22/2020 9:30 AM').getTime();
-    const r = parseHearing($(TR));
+    const r = HearingParser.parse($(TR));
 
     expect(r).to.eql({
       year: 2020,

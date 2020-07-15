@@ -11,7 +11,7 @@
     "unit3": "NODE_ENV=test mocha --require @babel/register './test/local-file-test.js' --exit || true",
     "unit4": "NODE_ENV=test mocha --require @babel/register './test/sp-measure-parser-test.js' --exit || true",
     "unit5": "NODE_ENV=test mocha --require @babel/register './test/measure-parser-test.js' --exit || true",
-    "unit6": "NODE_ENV=test mocha --require @babel/register './test/parse-hearings-test.js' --exit || true",
+    "unit6": "NODE_ENV=test mocha --require @babel/register './test/hearing-parser-test.js' --exit || true",
     "unit7": "NODE_ENV=test mocha --require @babel/register './test/sqlite-client-test.js' --exit || true",
     "unit8": "NODE_ENV=test mocha --require @babel/register './test/local-sp-measure-test.js' --exit || true",
     "unit9": "NODE_ENV=test mocha --require @babel/register './test/local-measure-test.js' --exit || true",
