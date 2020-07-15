@@ -17,7 +17,7 @@ const MeasureType = ENUM.MeasureType;
  * https://www.capitol.hawaii.gov/measure_indiv.aspx?billtype=HB&billnumber=35&year=2020
  *
  **/
-export const parseBillUrl = (url) => {
+export const parseUrl = (url) => {
   if (!url) return {};
   const match = url.match(RGX_BILL_URL);
   if (!match) return {};
@@ -25,7 +25,7 @@ export const parseBillUrl = (url) => {
   const measureTypeOrig = match[1].toLowerCase();
   let measureType = MeasureType[measureTypeOrig];
   if (!measureType) {
-    Logger.error('ParseSpMeasures#ParseSpBillUrl: Unknown Measure Type: ' + measureType)
+    Logger.error('MeasureParser#ParseUrl: Unknown Measure Type: ' + measureType)
     Logger.error(url);
     measureType = MeasureType.unknown;
   }
@@ -53,7 +53,7 @@ export const parseBillUrl = (url) => {
  * </tr>
  *
  */
-export const parseBill = (elm) => {
+export const parse = (elm) => {
   const tr = $(elm);
   const a1 = tr.find('td:nth-child(1) a');
   const td2 = tr.find('td:nth-child(2)');
@@ -81,7 +81,7 @@ export const parseBill = (elm) => {
   const companion = trim(td6.text());
   const companionUrl = (a3 && a3.attr('href')) ? a3.attr('href') : '';
 
-  const r = parseBillUrl(measureArchiveUrl);
+  const r = MeasureParser.parseUrl(measureArchiveUrl);
 
   return  {
     ...r,
@@ -91,15 +91,22 @@ export const parseBill = (elm) => {
   };
 };
 
-export const parseBills = (html) => {
+export const parseAll = (html) => {
   const selector = 'table#GridViewReports';
   const rows = $('tr', selector, html);
 
-  //console.log($(rows[1]).html());
   return rows.map((i, elm) => {
     const tr = $(elm);
     if (tr.find('th').length > 0) return null;
-    return parseBill(tr);
+    return MeasureParser.parse(tr);
   }).get();
 }; 
+
+const MeasureParser = {
+  parseUrl,
+  parse,
+  parseAll,
+};
+
+export default MeasureParser;
 

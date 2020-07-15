@@ -2,7 +2,7 @@
 
 import Fetcher from '../src/fetcher.js';
 import LocalFile from '../src/local-file.js';
-import { parseBills } from '../src/parse-measures.js';
+import MeasureParser from '../src/measure-parser.js';
 import Measure from '../src/local-measure.js';
 import ScrapeJob from '../src/local-scrape-job.js';
 import ENUM from '../src/enum.js';
@@ -67,7 +67,7 @@ export const scrape = async (year, type, dir = '') => {
     }
 
     LocalFile.save(html, year, type, dir);
-    const data = parseBills(html);
+    const data = MeasureParser.parseAll(html);
     const localDb = Measure.create(nodeEnv);
     const r = localDb.bulkUpsert(data);
     const updated = r.inserted + r.updated;

@@ -3,9 +3,8 @@ import { expect } from 'chai';
 import fs from 'fs';
 import $ from 'cheerio';
 
-import { parseBills, parseBill } from '../src/parse-measures.js';
+import MeasureParser from '../src/measure-parser.js';
 
-//const testFile = './test/data/2018-hb.html';
 const testFile = './test/data/2020-hb.html';
 const HTML = fs.readFileSync(testFile, "utf8");
 
@@ -120,11 +119,11 @@ const checkMeasure = (r) => {
   return true;
 };
 
-describe('parseBills', () => {
+describe('MeasureParser#parseAll', () => {
   it('extracts contents', () => {
     for(let type of types) {
       const testfile = './test/data/2020-' + type + '.html';
-      const bills = parseBills(fs.readFileSync(testfile, 'utf8'));
+      const bills = MeasureParser.parseAll(fs.readFileSync(testfile, 'utf8'));
       for (let r of bills) {
         expect(checkMeasure(r)).to.be.true;
       };
@@ -132,9 +131,9 @@ describe('parseBills', () => {
   }).timeout(10000);
 });
 
-describe('parseSpBill', () => {
+describe('MeasureParser#parse', () => {
   it('extracts contents', () => {
-    const r = parseBill($(TR));
+    const r = MeasureParser.parse($(TR));
     expect(r).to.eql({
       year: 2020,
       measureNumber: 35,
