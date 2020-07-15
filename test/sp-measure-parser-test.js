@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import fs from 'fs';
 import $ from 'cheerio';
 
-import { parseSpBills, parseSpBill, parseSpBillUrl } from '../src/parse-sp-measures.js';
+import SpMeasureParser from '../src/sp-measure-parser.js';
 
 //const testFile1 = './test/data/spsession-2017.html';
 //const testFile2 = './test/data/spsession-2018a.html';
@@ -47,9 +47,9 @@ const TR = `<tr>
       </td>
     </tr>`;
 
-describe('parseSpBills', () => {
+describe('SpMeasureParser.parseAll', () => {
   it('extracts contents', () => {
-    const r = parseSpBills(HTML);
+    const r = SpMeasureParser.parseAll(HTML);
     expect(r.length).to.equal(3);
     expect(r.map(e => e.measureTypeOrig)).to.eql(['sr', 'sr', 'sr']);
     expect(r.map(e => e.measureType)).to.eql([4, 4, 4]);
@@ -58,9 +58,9 @@ describe('parseSpBills', () => {
   });
 });
 
-describe('parseSpBill', () => {
+describe('SpMeasureParser.parse', () => {
   it('extracts contents', () => {
-    const r = parseSpBill($(TR));
+    const r = SpMeasureParser.parse($(TR));
     expect(r).to.eql({
       year: 2017,
       spSessionId: 'a',
@@ -77,11 +77,11 @@ describe('parseSpBill', () => {
   });
 });
 
-describe('parseSpBillUrl', () => {
+describe('SpMeasureParser.parseUrl', () => {
   it('extracts contents', () => {
     const url2 = '/measure_indivSS.aspx?billtype=SB&amp;billnumber=1&amp;year=2017a';
     const url = '/measure_indivSS.aspx?billtype=SR&billnumber=3&year=2017a';
-    const r = parseSpBillUrl(url);
+    const r = SpMeasureParser.parseUrl(url);
     expect(r).to.eql({
       year: 2017,
       spSessionId: 'a',

@@ -4,7 +4,7 @@ import $ from 'cheerio';
 import ENUM from '../src/enum.js';
 import Logger from '../src/logger.js';
 
-export const trim = (text) => {
+const trim = (text) => {
   return text.replace(/\n/g, ' ').trim().replace(/ +/g, ' ');
 };
 
@@ -16,7 +16,7 @@ const MeasureType = ENUM.MeasureType;
  *
  * http://www.capitol.hawaii.gov/bbbb.aspx?billtype=SR&billnumber=3&year=2017a
  */
-export const parseSpBillUrl = (url) => {
+const parseUrl = (url) => {
   if (!url) return {};
   const match = url.match(RGX_SPBILL_URL);
   if (!match) return {};
@@ -66,7 +66,7 @@ export const parseSpBillUrl = (url) => {
  *  currentReferral
  *  companion
  */
-export const parseSpBill = (elm) => {
+const parse = (elm) => {
   const tr = $(elm);
   const a1 = tr.find('td:nth-child(1) a');
   const a2 = tr.find('td:nth-child(2) a');
@@ -75,7 +75,7 @@ export const parseSpBill = (elm) => {
   const sp3 = tr.find('td:nth-child(4) span');
   const billUrl = a2.attr('href');
   return  {
-    ...parseSpBillUrl(billUrl),
+    ...SpMeasureParser.parseUrl(billUrl),
     code: trim(a2.text()),
     measurePdfUrl: a1.attr('href'),
     measureArchiveUrl: 'http://www.capitol.hawaii.gov' + billUrl,
@@ -85,14 +85,22 @@ export const parseSpBill = (elm) => {
   };
 };
 
-export const parseSpBills = (html) => {
+const parseAll = (html) => {
   const selector = 'table#ctl00_ContentPlaceHolderCol1_GridViewReports';
   const rows = $('tr', selector, html);
 
   return rows.map((i, elm) => {
     const tr = $(elm);
     if (tr.find('th').length > 0) return null;
-    return parseSpBill(tr);
+    return SpMeasureParser.parse(tr);
   }).get();
 }; 
+
+const SpMeasureParser = {
+  parseUrl,
+  parse,
+  parseAll
+}
+
+export default SpMeasureParser;
 

@@ -1,7 +1,7 @@
 
 import Fetcher from '../src/fetcher.js';
 import LocalFile from '../src/local-file.js';
-import { parseSpBills } from '../src/parse-sp-measures.js';
+import SpMeasureParser from '../src/sp-measure-parser.js';
 import SpMeasure from '../src/local-sp-measure.js';
 import ScrapeJob from '../src/local-scrape-job.js';
 import ENUM from '../src/enum.js';
@@ -31,7 +31,7 @@ const scrape = (year, session, dir = '') => {
   }
 
   LocalFile.save(html, year, type, dir);
-  const data = parseSpBills(html);
+  const data = SpMeasureParser.parseAll(html);
   const localDB = SpMeasure.create(nodeEnv);
   const r = localDB.bulkUpsert(data);
   const updated = r.inserted + r.updated;
