@@ -17,8 +17,8 @@ const JobStatus = ENUM.JobStatus;
 const DataType = ENUM.DataType;
 const type = 'hearings';
 
-export const scrape = (year, dir = '') => {
-  const html = Fetcher.fetchHtml(URL);
+export const scrape = async (year, dir = '') => {
+  const html = await Fetcher.fetchHtml(URL);
   if (!LocalFile.isChanged(html, year, type, dir)) {
     Logger.info('HearingScraper#scrape: SKIPPED');
     return { msg: 'skipped', total: 0, updated: 0 };
