@@ -8,19 +8,26 @@ export const trim = (text) => {
   return text.replace(/\n/g, ' ').trim().replace(/ +/g, ' ');
 };
 
-const RGX_BILL_URL = /measure_indiv.aspx\?billtype=(\w+)&billnumber=(\d+)&year=(\d+)$/;
+const RGX_BILL_URL = /\.aspx\?billtype=(\w+)&billnumber=(\d+)&year=(\d+)$/;
 const MeasureType = ENUM.MeasureType;
 
 /**
  * Expected URL Format
  *
  * https://www.capitol.hawaii.gov/measure_indiv.aspx?billtype=HB&billnumber=35&year=2020
+ * https://www.capitol.hawaii.gov/Archives/measure_indiv_Archives.aspx?billtype=HB&billnumber=35&year=2020
  *
  **/
 export const parseUrl = (url) => {
-  if (!url) return {};
+  if (!url) { 
+    Logger.error('MeasureParser#ParseUrl: No URL given');
+    return {};
+  }
   const match = url.match(RGX_BILL_URL);
-  if (!match) return {};
+  if (!match) {
+    Logger.error('MeasureParser#ParseUrl: Parse Error: ' + url);
+    return {};
+  }
  
   const measureTypeOrig = match[1].toLowerCase();
   let measureType = MeasureType[measureTypeOrig];
