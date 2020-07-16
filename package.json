@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "babel src --out-dir dist -s",
+    "build": "babel src --out-dir dist",
+    "sca": "babel-node ./src/scrape-measures.js",
+    "scb": "babel-node ./src/scrape-sp-measures.js",
+    "scc": "babel-node ./src/scrape-hearings.js",
     "unit0": "NODE_ENV=test mocha --require @babel/register './test/config-test.js' --exit || true",
     "unit1": "NODE_ENV=test mocha --require @babel/register './test/logger-test.js' --exit || true",
     "unit2": "NODE_ENV=test mocha --require @babel/register './test/fetcher-test.js' --exit || true",
@@ -51,6 +54,7 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.6",
+    "@babel/node": "^7.10.5",
     "@babel/preset-env": "^7.9.6",
     "@babel/register": "^7.9.0",
     "chai": "^4.2.0",
