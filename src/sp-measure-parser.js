@@ -21,12 +21,12 @@ const parseUrl = (url) => {
   const match = url.match(RGX_SPBILL_URL);
   if (!match) return {};
  
-  const measureTypeOrig = match[1].toLowerCase();
-  let measureType = MeasureType[measureTypeOrig];
-  if (!measureType) {
+  const measureTypeOrig = match[1];
+  let measureType = measureTypeOrig.toLowerCase();
+  if (!measureType || measureType.length > 3) {
     Logger.error('ParseSpMeasures#ParseSpBillUrl: Unknown Measure Type: ' + measureType)
     Logger.error(url);
-    measureType = MeasureType.unknown;
+    measureType = 'NON';
   }
   const measureNumber = parseInt(match[2]);
   const year = parseInt(match[3]);

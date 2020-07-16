@@ -51,8 +51,8 @@ describe('SpMeasureParser.parseAll', () => {
   it('extracts contents', () => {
     const r = SpMeasureParser.parseAll(HTML);
     expect(r.length).to.equal(3);
-    expect(r.map(e => e.measureTypeOrig)).to.eql(['sr', 'sr', 'sr']);
-    expect(r.map(e => e.measureType)).to.eql([4, 4, 4]);
+    expect(r.map(e => e.measureTypeOrig)).to.eql(['SR', 'SR', 'SR']);
+    expect(r.map(e => e.measureType)).to.eql(['sr', 'sr', 'sr']);
     expect(r.map(e => e.measureNumber)).to.eql([1, 2, 3]);
     expect(r.map(e => e.code)).to.eql(['SR1', 'SR2', 'SR3']);
   });
@@ -64,8 +64,8 @@ describe('SpMeasureParser.parse', () => {
     expect(r).to.eql({
       year: 2017,
       spSessionId: 'a',
-      measureTypeOrig: 'sr',
-      measureType: 4,
+      measureTypeOrig: 'SR',
+      measureType: 'sr',
       measureNumber: 3,
       code: 'CODE',
       measurePdfUrl: 'http://www.capitol.hawaii.gov/aaaa/AAA.pdf',
@@ -85,8 +85,8 @@ describe('SpMeasureParser.parseUrl', () => {
     expect(r).to.eql({
       year: 2017,
       spSessionId: 'a',
-      measureTypeOrig: 'sr',
-      measureType: 4,
+      measureTypeOrig: 'SR',
+      measureType: 'sr',
       measureNumber: 3
     });
   });
