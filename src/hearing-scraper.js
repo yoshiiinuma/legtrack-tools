@@ -1,12 +1,12 @@
 
-import Fetcher from '../src/fetcher.js';
-import LocalFile from '../src/local-file.js';
-import HearingParser from '../src/hearing-parser.js';
-import Hearing from '../src/local-hearing.js';
-import ScrapeJob from '../src/local-scrape-job.js';
-import ENUM from '../src/enum.js';
-import now from '../src/now.js';
-import Logger from '../src/logger.js';
+import Fetcher from './fetcher.js';
+import LocalFile from './local-file.js';
+import HearingParser from './hearing-parser.js';
+import Hearing from './local-hearing.js';
+import ScrapeJob from './local-scrape-job.js';
+import ENUM from './enum.js';
+import now from './now.js';
+import Logger from './logger.js';
 
 const DEFAULT_ENV = 'development';
 const nodeEnv = process.env.NODE_ENV || DEFAULT_ENV;

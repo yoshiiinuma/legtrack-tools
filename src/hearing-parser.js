@@ -1,8 +1,8 @@
 
 import $ from 'cheerio';
 
-import ENUM from '../src/enum.js';
-import Logger from '../src/logger.js';
+import ENUM from './enum.js';
+import Logger from './logger.js';
 
 const trim = (text) => {
   return text.replace(/\n/g, ' ').trim().replace(/ +/g, ' ');

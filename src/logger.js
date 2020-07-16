@@ -13,7 +13,7 @@
  *
  * Usage:
  *
- *   import Logger from '../src/logger.js';
+ *   import Logger from './logger.js';
  *
  *   Logger.error('message');
  *   Logger.info('message');
@@ -23,7 +23,7 @@
 
 import SimpleNodeLogger from 'simple-node-logger';
 
-import config from '../src/config.js';
+import config from './config.js';
 
 const DEFAULT_ENV = 'development';
 const nodeEnv = process.env.NODE_ENV || DEFAULT_ENV;

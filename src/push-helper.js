@@ -1,6 +1,6 @@
 
-import PushJob from '../src/local-push-job.js';
-import ScrapeJob from '../src/local-scrape-job.js';
+import PushJob from './local-push-job.js';
+import ScrapeJob from './local-scrape-job.js';
 
 const DEFAULT_ENV = 'development';
 const nodeEnv = process.env.NODE_ENV || DEFAULT_ENV;

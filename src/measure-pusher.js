@@ -1,7 +1,7 @@
 
-import LocalMeasure from '../src/local-measure.js';
-import RemoteMeasure from '../src/remote-measure.js';
-import Pusher from '../src/pusher.js';
+import LocalMeasure from './local-measure.js';
+import RemoteMeasure from './remote-measure.js';
+import Pusher from './pusher.js';
 
 const DEFAULT_ENV = 'development';
 const nodeEnv = process.env.NODE_ENV || DEFAULT_ENV;

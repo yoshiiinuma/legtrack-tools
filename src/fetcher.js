@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 import fs from 'fs';
 import { basename } from 'path';
 
-import Logger from '../src/logger.js';
+import Logger from './logger.js';
 
 const handleError = (err, funcName = '') => {
   Logger.error(funcName + ': ' + err.toString());

@@ -1,7 +1,7 @@
 
-import LocalSpMeasure from '../src/local-sp-measure.js';
-import RemoteSpMeasure from '../src/remote-sp-measure.js';
-import Pusher from '../src/pusher.js';
+import LocalSpMeasure from './local-sp-measure.js';
+import RemoteSpMeasure from './remote-sp-measure.js';
+import Pusher from './pusher.js';
 
 const DEFAULT_ENV = 'development';
 const nodeEnv = process.env.NODE_ENV || DEFAULT_ENV;

@@ -1,7 +1,7 @@
 
-import SqlsrvClient from '../src/sql-server-client.js';
-import config from '../src/config.js';
-import * as SQL from '../src/schema-definitions.js';
+import SqlsrvClient from './sql-server-client.js';
+import config from './config.js';
+import * as SQL from './schema-definitions.js';
 
 const createSchemaManager = (env) => {
   const conf = config.load(env);

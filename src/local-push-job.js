@@ -1,9 +1,9 @@
 
 import sqlite3 from 'better-sqlite3';
 
-import SqliteClient from '../src/sqlite-client.js';
-import now from '../src/now.js';
-import Logger from '../src/logger.js';
+import SqliteClient from './sqlite-client.js';
+import now from './now.js';
+import Logger from './logger.js';
 
 const SELECT_LATEST_PUSH_SQL =
   `SELECT *

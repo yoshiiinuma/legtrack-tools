@@ -1,7 +1,7 @@
 
-import LocalHearing from '../src/local-hearing.js';
-import RemoteHearing from '../src/remote-hearing.js';
-import Pusher from '../src/pusher.js';
+import LocalHearing from './local-hearing.js';
+import RemoteHearing from './remote-hearing.js';
+import Pusher from './pusher.js';
 
 const DEFAULT_ENV = 'development';
 const nodeEnv = process.env.NODE_ENV || DEFAULT_ENV;

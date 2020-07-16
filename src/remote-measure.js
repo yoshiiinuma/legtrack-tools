@@ -1,9 +1,9 @@
 
 import mssql from 'mssql';
-import SqlsrvClient from '../src/sql-server-client.js';
-import now from '../src/now.js';
-import config from '../src/config.js';
-import Logger from '../src/logger.js';
+import SqlsrvClient from './sql-server-client.js';
+import now from './now.js';
+import config from './config.js';
+import Logger from './logger.js';
 
 const create = (env) => {
   const conf = config.load(env);

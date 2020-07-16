@@ -1,7 +1,7 @@
 
 import mssql from 'mssql';
 
-import Logger from '../src/logger.js';
+import Logger from './logger.js';
 
 mssql.on('error', (e) => {
   Logger.error('SqlServerClient Unhandled Exception');

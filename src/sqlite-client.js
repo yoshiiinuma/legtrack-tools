@@ -2,8 +2,8 @@
 import path from 'path';
 import sqlite3 from 'better-sqlite3';
 
-import config from '../src/config.js';
-import Logger from '../src/logger.js';
+import config from './config.js';
+import Logger from './logger.js';
 
 const create = (env) => {
   const conf = config.load(env);

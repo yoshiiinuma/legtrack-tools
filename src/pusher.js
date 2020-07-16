@@ -1,11 +1,11 @@
 
-import PushJob from '../src/local-push-job.js';
-import ScrapeJob from '../src/local-scrape-job.js';
-import PushHelper from '../src/push-helper.js';
-import now from '../src/now.js';
-import ENUM from '../src/enum.js';
-import Logger from '../src/logger.js';
-import config from '../src/config.js';
+import PushJob from './local-push-job.js';
+import ScrapeJob from './local-scrape-job.js';
+import PushHelper from './push-helper.js';
+import now from './now.js';
+import ENUM from './enum.js';
+import Logger from './logger.js';
+import config from './config.js';
 
 const DEFAULT_ENV = 'development';
 const nodeEnv = process.env.NODE_ENV || DEFAULT_ENV;

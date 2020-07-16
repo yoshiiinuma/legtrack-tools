@@ -3,8 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 
-import config from '../src/config.js';
-import Logger from '../src/logger.js';
+import config from './config.js';
+import Logger from './logger.js';
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 

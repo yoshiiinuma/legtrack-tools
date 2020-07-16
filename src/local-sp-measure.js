@@ -1,7 +1,7 @@
 
-import SqliteClient from '../src/sqlite-client.js';
-import now from '../src/now.js';
-import Logger from '../src/logger.js';
+import SqliteClient from './sqlite-client.js';
+import now from './now.js';
+import Logger from './logger.js';
 
 const SELECT_UPDATED_SP_MEASURES_SQL_OLD =
   `SELECT * FROM spMeasures
