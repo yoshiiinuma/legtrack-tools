@@ -29,12 +29,12 @@ export const parseUrl = (url) => {
     return {};
   }
  
-  const measureTypeOrig = match[1].toLowerCase();
-  let measureType = MeasureType[measureTypeOrig];
-  if (!measureType) {
+  const measureTypeOrig = match[1];
+  let measureType = match[1].toLowerCase();
+  if (!measureType || measureType.length > 3) {
     Logger.error('MeasureParser#ParseUrl: Unknown Measure Type: ' + measureType)
     Logger.error(url);
-    measureType = MeasureType.unknown;
+    measureType = 'NON';
   }
   const measureNumber = parseInt(match[2]);
   const year = parseInt(match[3]);

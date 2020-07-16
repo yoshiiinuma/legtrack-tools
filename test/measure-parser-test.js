@@ -64,6 +64,7 @@ const TR = `<tr>
 </tr>`;
 
 const types = ['hb', 'sb', 'hr', 'sr', 'hcr', 'scr', 'gm'];
+const typesUp = ['HB', 'SB', 'HR', 'SR', 'HCR', 'SCR', 'GM'];
 
 const checkMeasure = (r) => {
   let err = [];
@@ -72,11 +73,11 @@ const checkMeasure = (r) => {
   if (r.year !== 2020) {
     err.push('Invalid Year: ' + r.year);
   }
-  if (!types.includes(r.measureTypeOrig)) {
-    err.push('Invalid MeasureType: ' + r.measureTypeOrig);
+  if (!typesUp.includes(r.measureTypeOrig)) {
+    err.push('Invalid MeasureTypeOrig: ' + r.measureTypeOrig);
   }
-  if (typeof r.measureType != 'number' || !(r.measureType >= 1 && r.measureType <= 7)) {
-    err.push('Unexpected MeasureType: ' + r.measureType);
+  if (!types.includes(r.measureType)) {
+    err.push('Invalid MeasureType: ' + r.measureType);
   }
   if (!r.code) {
     err.push('Invalid Code: ' + r.code);
@@ -137,8 +138,8 @@ describe('MeasureParser#parse', () => {
     expect(r).to.eql({
       year: 2020,
       measureNumber: 35,
-      measureTypeOrig: 'hb',
-      measureType: 1,
+      measureTypeOrig: 'HB',
+      measureType: 'hb',
       code: 'HB35 HD1',
       measurePdfUrl:
        'https://www.capitol.hawaii.gov/session2020/bills/HB35_HD1_.pdf',
