@@ -22,12 +22,14 @@ const parseUrl = (url) => {
   const match = url.match(RGX_BILL_URL);
   if (!match) return {};
 
-  const measureTypeOrig = match[1].toLowerCase();
-  let measureType = MeasureType[measureTypeOrig];
-  if (!measureType) {
+  const measureTypeOrig = match[1];
+  //let measureType = MeasureType[measureTypeOrig.toLowerCase()];
+  let measureType = measureTypeOrig.toLowerCase();
+  if (!measureType || measureType.length > 4) {
     Logger.error('HearingParser#ParsUrl: Unknown Measure Type: ' + measureType)
     Logger.error(url);
-    measureType = MeasureType.unknown;
+    //measureType = MeasureType.unknown;
+    measureType = 'None';
   }
   const measureNumber = parseInt(match[2]);
   return { measureTypeOrig, measureType, measureNumber };

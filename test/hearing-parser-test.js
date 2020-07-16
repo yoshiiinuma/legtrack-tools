@@ -46,6 +46,7 @@ const TR = `<tr>
 </tr>`;
 
 const types = ['hb', 'sb', 'hr', 'sr', 'hcr', 'scr', 'gm'];
+const typesUp = ['HB', 'SB', 'HR', 'SR', 'HCR', 'SCR', 'GM'];
 
 const checkHearing = (r) => {
   let err = [];
@@ -54,11 +55,11 @@ const checkHearing = (r) => {
   if (r.year !== 2020) {
     err.push('Invalid Year: ' + r.year);
   }
-  if (!types.includes(r.measureTypeOrig)) {
+  if (!typesUp.includes(r.measureTypeOrig)) {
     err.push('Invalid MeasureType: ' + r.measureTypeOrig);
   }
-  if (typeof r.measureType != 'number' || !(r.measureType >= 1 && r.measureType <= 7)) {
-    err.push('Unexpected MeasureType: ' + r.measureType);
+  if (!types.includes(r.measureType)) {
+    err.push('Invalid MeasureType: ' + r.measureType);
   }
   if (!r.measureRelativeUrl) {
     err.push('No MeasureRelativeUrl');
@@ -118,8 +119,8 @@ describe('HearingParser#parse', () => {
     expect(r).to.eql({
       year: 2020,
       measureNumber: 2629,
-      measureTypeOrig: 'sb',
-      measureType: 2,
+      measureTypeOrig: 'SB',
+      measureType: 'sb',
       measureRelativeUrl: 'https://www.capitol.hawaii.gov/measure_indiv.aspx?billtype=SB&billnumber=2629',
       committee: 'EEP',
       description: 'RELATING TO THE ENVIRONMENT.',
