@@ -1,5 +1,4 @@
 
-
 import Fetcher from './fetcher.js';
 import LocalFile from './local-file.js';
 import MeasureParser from './measure-parser.js';
@@ -127,7 +126,7 @@ export const run = async (year, dir = '') => {
 
   scrapeJob.updateJob(jobId, jobStatus, total, updated);
   const msg = msgs.join('; ');
-  Logger.info('MeasureScraper#scrape: ' + msg);
+  Logger.info('MeasureScraper#run: ' + msg);
   return { msg, total, updated };
 }
 
