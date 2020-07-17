@@ -5,6 +5,7 @@ import ENUM from './enum.js';
 import Logger from './logger.js';
 
 const trim = (text) => {
+  if (!text) return '';
   return text.replace(/\n/g, ' ').trim().replace(/ +/g, ' ');
 };
 
@@ -56,6 +57,7 @@ const parseUrl = (url) => {
 const parse = (elm) => {
   const tr = $(elm);
   const td1 = tr.find('td:nth-child(1)');
+  if (trim(td1.text()) === 'No Hearings') return null;
   const sp1 = td1.find('font > span:nth-of-type(1)');
   const td2 = tr.find('td:nth-child(2)');
   const a1 = td2.find('font > a');

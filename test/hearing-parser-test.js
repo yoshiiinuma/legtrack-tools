@@ -7,6 +7,8 @@ import HearingParser from '../src/hearing-parser.js';
 
 const testFile = './test/data/2020-hearings.html';
 const HTML = fs.readFileSync(testFile, "utf8");
+const testFile2 = './test/data/no-hearings.html';
+const HTML2 = fs.readFileSync(testFile2, "utf8");
 
 const TR = `<tr>
   <td align="center">
@@ -44,6 +46,10 @@ const TR = `<tr>
       </font>
   </td>
 </tr>`;
+
+const trWithNoHearings = `<tr>
+    <td colspan="5"><font color="#124D79" size="1">No Hearings </font></td>
+  </tr>`;
 
 const types = ['hb', 'sb', 'hr', 'sr', 'hcr', 'scr', 'gm'];
 const typesUp = ['HB', 'SB', 'HR', 'SR', 'HCR', 'SCR', 'GM'];
@@ -103,34 +109,55 @@ const checkHearing = (r) => {
 };
 
 describe('HearingParser#parseAll', () => {
-  it('extracts contents', () => {
-    const bills = HearingParser.parseAll(HTML);
-    for (let r of bills) {
-      expect(checkHearing(r)).to.be.true;
-    };
-  }).timeout(5000);
+  context('with hearing data', () => {
+    it('extracts contents', () => {
+      const r = HearingParser.parseAll(HTML);
+      for (let e of r) {
+        expect(checkHearing(e)).to.be.true;
+      };
+    }).timeout(5000);
+  });
+
+  context('with no hearing data', () => {
+    it('returns empty array', () => {
+      const r = HearingParser.parseAll(HTML2);
+      expect(r).to.eql([]);
+    })
+  });
 });
 
 describe('HearingParser#parse', () => {
-  it('extracts contents', () => {
-    const ts = new Date('6/22/2020 9:30 AM').getTime();
-    const r = HearingParser.parse($(TR));
+  context('with hearing data', () => {
+    it('extracts contents', () => {
+      const ts = new Date('6/22/2020 9:30 AM').getTime();
+      const r = HearingParser.parse($(TR));
 
-    expect(r).to.eql({
-      year: 2020,
-      measureNumber: 2629,
-      measureTypeOrig: 'SB',
-      measureType: 'sb',
-      measureRelativeUrl: 'https://www.capitol.hawaii.gov/measure_indiv.aspx?billtype=SB&billnumber=2629',
-      committee: 'EEP',
-      description: 'RELATING TO THE ENVIRONMENT.',
-      datetime: '6/22/2020 9:30 AM',
-      timestamp: ts,
-      code: 'SB2629 SD2',
-      room: '325',
-      notice: 'HEARING_EEP_06-22-20',
-      noticeUrl: 'https://www.capitol.hawaii.gov/session2020/hearingnotices/HEARING_EEP_06-22-20_.HTM',
-      noticePdfUrl: 'https://www.capitol.hawaii.gov/session2020/hearingnotices/HEARING_EEP_06-22-20_.pdf',
+      expect(r).to.eql({
+        year: 2020,
+        measureNumber: 2629,
+        measureTypeOrig: 'SB',
+        measureType: 'sb',
+        measureRelativeUrl: 'https://www.capitol.hawaii.gov/measure_indiv.aspx?billtype=SB&billnumber=2629',
+        committee: 'EEP',
+        description: 'RELATING TO THE ENVIRONMENT.',
+        datetime: '6/22/2020 9:30 AM',
+        timestamp: ts,
+        code: 'SB2629 SD2',
+        room: '325',
+        notice: 'HEARING_EEP_06-22-20',
+        noticeUrl: 'https://www.capitol.hawaii.gov/session2020/hearingnotices/HEARING_EEP_06-22-20_.HTM',
+        noticePdfUrl: 'https://www.capitol.hawaii.gov/session2020/hearingnotices/HEARING_EEP_06-22-20_.pdf',
+      });
+    });
+  });
+
+  context('with no hearing data', () => {
+    const tr = $(trWithNoHearings);
+
+    it('returns null', () => {
+      const r = HearingParser.parse(tr);
+      expect(r).to.be.null;
     });
   });
 });
+
