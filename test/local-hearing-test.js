@@ -7,6 +7,23 @@ import helper from './sqlite-helper.js';
 const model = Hearing.create('test');
 const year = 2020;
 
+const dataWithNoType = {
+  "measureTypeOrig":"None",
+  "measureType":"none",
+  "measureNumber":0,
+  "year":2020,
+  "committee":"INFO-SCOVID-COV",
+  "measureRelativeUrl":"https://www.capitol.hawaii.gov/measure_indiv.aspx?billtype=None&billnumber=0",
+  "code":"Informational Briefing",
+  "description":"Informational Briefing",
+  "datetime":"7/16/2020 2:00 PM",
+  "timestamp":1594944000000,
+  "room":"211",
+  "notice":"HEARING_SCOVID_07-16-20_INFO",
+  "noticeUrl":"https://www.capitol.hawaii.gov/session2020/hearingnotices/HEARING_SCOVID_07-16-20_INFO_.HTM",
+  "noticePdfUrl":"https://www.capitol.hawaii.gov/session2020/hearingnotices/HEARING_SCOVID_07-16-20_INFO_.pdf"
+};
+
 describe('Hearing#compare', () => {
   const rec = helper.generateHearings([1], year, 'hb');
   let r;
@@ -26,22 +43,42 @@ describe('Hearing#compare', () => {
 });
 
 describe('Hearing#sortout', () => {
-  const data1 = [...helper.generateHearings([1,2,4], year, 'hb'),
-                 ...helper.generateHearings([1,2,4], year, 'sb'),
-                 ...helper.generateHearings([1,2,4], year, 'gm')];
-  const data2 = [...helper.generateHearings([2,3,4], year, 'hb'),
-                 ...helper.generateHearings([2,3,4], year, 'sb'),
-                 ...helper.generateHearings([2,3,4], year, 'gm')];
-  const data3 = helper.modifyHearings(data2, [2], 'XXX')
-  let r;
+  context('with normal hearing data', () => {
+    const data1 = [...helper.generateHearings([1,2,4], year, 'hb'),
+                   ...helper.generateHearings([1,2,4], year, 'sb'),
+                   ...helper.generateHearings([1,2,4], year, 'gm')];
+    const data2 = [...helper.generateHearings([2,3,4], year, 'hb'),
+                   ...helper.generateHearings([2,3,4], year, 'sb'),
+                   ...helper.generateHearings([2,3,4], year, 'gm')];
+    const data3 = helper.modifyHearings(data2, [2], 'XXX')
 
-  it('returns array of measureNumbers', async () => {
-    await model.deleteAll();
-    await model.bulkInsert(data1)
-    r = await model.sortout(year, data3);
-    expect(r['needInsert'].map((e => e.code))).to.eql(['HB3','SB3','GM3']);
-    expect(r['needUpdate'].map((e => e.code))).to.eql(['HB2','SB2','GM2']);
-    expect(r['ignore'].map((e => e.code))).to.eql(['HB4','SB4','GM4']);
+    beforeEach(async () => {
+      await model.deleteAll();
+      await model.bulkInsert(data1)
+    });
+
+    it('returns array of measureNumbers', async () => {
+      const r = await model.sortout(year, data3);
+      expect(r['needInsert'].map((e => e.code))).to.eql(['HB3','SB3','GM3']);
+      expect(r['needUpdate'].map((e => e.code))).to.eql(['HB2','SB2','GM2']);
+      expect(r['ignore'].map((e => e.code))).to.eql(['HB4','SB4','GM4']);
+    });
+  });
+
+  context('with record that do not have measureType', () => {
+
+    beforeEach(async () => {
+      await model.deleteAll();
+      await model.bulkInsert([dataWithNoType])
+    });
+
+    it('can sort out data without measureType', async () => {
+      let r = await model.sortout(year, [dataWithNoType]);
+      expect(r['ignore'].length).to.equal(1);
+
+      r = await model.sortout(year, [{ ...dataWithNoType, committee: 'XXXX' }]);
+      expect(r['needUpdate'].length).to.equal(1);
+    })
   });
 });
 
