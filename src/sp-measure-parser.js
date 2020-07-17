@@ -5,6 +5,7 @@ import ENUM from './enum.js';
 import Logger from './logger.js';
 
 const trim = (text) => {
+  if (!text) return '';
   return text.replace(/\n/g, ' ').trim().replace(/ +/g, ' ');
 };
 
