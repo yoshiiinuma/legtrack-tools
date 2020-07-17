@@ -22,7 +22,7 @@ const filePath = (year, type, dir = '') => {
 const load = (year, type, dir = '') => {
   const fpath = filePath(year, type, dir);
   if (!fs.existsSync(fpath)) {
-    Logger.info('LocalFile#load: File Not Exists ' + fpath);
+    Logger.debug('LocalFile#load: File Not Exists ' + fpath);
     return null;
   }
   return fs.readFileSync(fpath, 'utf8');
